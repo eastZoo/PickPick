@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import main from "../images/LoginMain.png";
 import Button from "./UI/Button";
 
-const Login = () => {
+
+const Register = () => {
     const [enteredId, setEnteredId] = useState("");
     const [enteredPassword, setEnteredPassword] = useState("");
+    const [enteredNickname, setEnteredNickname] = useState("");
     const [error, setError] = useState("");
 
     //로그인폼 input text 감지set
@@ -16,29 +18,20 @@ const Login = () => {
             setEnteredId(value);
         } else if (name === "password") {
             setEnteredPassword(value);
+        } else if (name === "nickname") {
+            setEnteredNickname(value);
         }
     };
 
-    //로그인 폼
-    const userLoginHandler = (event) => {
+    //회원가입 폼
+    const userSignInHandler = (event) => {
         event.preventDefault();
-        // 로그인 조건 추가 위치
-        if (enteredId.trim().length === 0 || enteredPassword.trim().length === 0) {
-            setError({
-                title: '잘못된 입력입니다⛔',
-                message: '올바른 아이디 및 비밀번호(빈칸인지) 확인해주세요.'
-            })
-            return;
-        }
-        console.log(enteredId, enteredPassword);
-        setEnteredId('');
-        setEnteredPassword('');
     };
 
     return (
         <div>
             <img src={main} />
-            <form onSubmit={userLoginHandler} >
+            <form onSubmit={userSignInHandler} >
                 <label htmlFor="id">ID</label>
                 <input
                     name="id"
@@ -57,13 +50,22 @@ const Login = () => {
                     value={enteredPassword}
                     onChange={onChange}
                 />
-                <Button type="submit">로그인</Button>
+                <label htmlFor="nickname">NICK NAME</label>
+                <input
+                    name="nickname"
+                    type="text"
+                    placeholder="Nickname"
+                    required
+                    value={enteredNickname}
+                    onChange={onChange}
+                />
+                <Button type="submit">회원가입</Button>
             </form>
-            <Link to="/signup">
-                <Button type="button">회원가입</Button>
+            <Link to="/">
+                <Button type="button">돌아가기</Button>
             </Link>
         </div>
     );
-};
+}
 
-export default Login;
+export default Register

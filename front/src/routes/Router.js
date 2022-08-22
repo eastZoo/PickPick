@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
+import Register from "./Register";
 
 const AppRouter = ({ isLoggedIn }) => {
     return (
@@ -21,6 +22,9 @@ const AppRouter = ({ isLoggedIn }) => {
                     <>
                         <Route exact path="/">
                             <Login />
+                        </Route>
+                        <Route exact path="/signup">
+                            <Register />
                         </Route>
                     </>
                 )}
