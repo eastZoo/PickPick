@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import main from "../images/LoginMain.png";
-import Button from "./UI/Button";
+import Button from "../components/UI/Button";
 
 
-const Register = () => {
+const Signup = () => {
     const [enteredId, setEnteredId] = useState("");
     const [enteredPassword, setEnteredPassword] = useState("");
     const [enteredNickname, setEnteredNickname] = useState("");
@@ -26,6 +26,7 @@ const Register = () => {
     //회원가입 폼
     const userSignInHandler = (event) => {
         event.preventDefault();
+        console.log(enteredId, enteredPassword);
     };
 
     return (
@@ -68,4 +69,4 @@ const Register = () => {
     );
 }
 
-export default Register
+export default Signup

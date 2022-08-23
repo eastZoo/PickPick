@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import main from "../images/LoginMain.png";
-import Button from "./UI/Button";
+import Button from "../components/UI/Button";
 
 const Login = () => {
     const [enteredId, setEnteredId] = useState("");

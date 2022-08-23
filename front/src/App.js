@@ -2,7 +2,7 @@ import { useState } from "react";
 import AppRouter from "./routes/Router";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>

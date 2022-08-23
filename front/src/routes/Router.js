@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
-import Register from "./Register";
+import Signup from "./Signup";
+import Navigation from "../components/Navigation";
 
 const AppRouter = ({ isLoggedIn }) => {
     return (
         <Router>
+            {isLoggedIn && <Navigation />}
             <Switch>
                 {isLoggedIn ? (
                     <div>
@@ -24,7 +26,7 @@ const AppRouter = ({ isLoggedIn }) => {
                             <Login />
                         </Route>
                         <Route exact path="/signup">
-                            <Register />
+                            <Signup />
                         </Route>
                     </>
                 )}
