@@ -12,7 +12,9 @@ const AppRouter = ({ isLoggedIn }) => {
             {isLoggedIn && <Navigation />}
             <Switch>
                 {isLoggedIn ? (
-                    <div>
+                    <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                    >
                         <Route exact path="/">
                             <Home />
                         </Route>
