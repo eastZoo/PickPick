@@ -1,12 +1,12 @@
 package com.example.PickPick.result;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-@Builder
 @Getter
+@Setter
 public class ResultDto<T> {
     private String msg;
-    private boolean success;
+    private boolean success = false;
     private T detail;
 }
