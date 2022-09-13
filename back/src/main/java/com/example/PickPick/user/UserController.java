@@ -17,6 +17,6 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResultDto<UserDto> signup(@RequestBody UserDto user) {
-        return userService.save(user);
+        return userService.signup(user);
     }
 }

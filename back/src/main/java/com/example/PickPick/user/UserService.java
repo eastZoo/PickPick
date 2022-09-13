@@ -12,7 +12,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     //회원가입
-    public ResultDto save(UserDto user){
+    public ResultDto signup(UserDto user){
         ResultDto result = new ResultDto();
         try{
             UserEntity userEntity = UserMapper.mapper.userDtoToEntity(user);
