@@ -1,0 +1,112 @@
+header {
+  position: fixed;
+  top: 0;
+  width:100%;
+  border-bottom: solid 1px #ccc;
+  height: 90px;
+  background: #faf6f1;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  
+}
+
+/* COMMON */
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+}
+
+header nav {
+  margin: 0 auto;
+  max-width: 1320px;
+}
+
+header nav .container {
+  position: relative;
+  width: 1320px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+header nav .container .left {
+  display: flex;
+  height: 90px;
+}
+
+header nav .container .left .main__logo {
+  height: 75px;
+  position: relative;
+  margin-right: 35px;
+}
+header nav .container .left .main__logo img{
+  margin-top: -17px;
+}
+header nav .container .left .search {
+  position: relative;
+  margin: auto 0;
+  width: 300px;
+  
+}
+header nav .container .left .search input{
+  border: solid 1px #888;
+  background: #fff;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  padding: 4px 11px;
+  width: 250px;
+  height: 25px;
+}
+
+header nav .container .right {
+  position: absolute;
+  display: flex;
+  right: 0;
+}
+
+header nav .container .right .right__menu{
+  display: flex;
+}
+header nav .container .right .right__menu .item .item__name {
+  padding-right: 25px;
+  font-size: 13px;
+  color: #2F3438;
+  height: 10px;
+}
+
+header nav .container .right .right__menu .item .item__contents {
+  width: 170px;
+  background-color: #fff;
+  font-size: 16px;
+  border: 1px solid rgb(100, 100, 100);
+  transition: 1s;
+  position: absolute;
+  top: 20px;
+  display: none;
+}
+/* 메인메뉴에 마우스 올렸을때 display:none이 display: block이되면서 나타나는 hover*/
+header nav .container .right .right__menu .item:hover .item__contents {
+  top: 81px;
+  display: block;
+  transition: 1s;
+}
+
+
+
+
+
+/* 버튼 */
+header nav .container .right .write_btn{
+
+}
+header nav .container .right .write_btn .btn{
+  background-color: #0d0c22;
+  color: #e4e4e6;
+  font-family: 'Roboto Slab', serif;
+  width: 142px;
+  height: 28px;
+}
+
+header nav .container .right .write_btn{
+  
+}
