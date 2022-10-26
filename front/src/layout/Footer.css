@@ -47,7 +47,6 @@ footer .container .footer__wrapper .footer__main .search input{
   box-sizing: border-box;
 }
 footer .container .footer__wrapper .footer__main .search button{
-  padding: 0 50px;
   background-color: #0d0c22;
   color: #e4e4e6;
   font-family: 'Roboto Slab', serif;

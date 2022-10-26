@@ -1,3 +1,116 @@
-.subheader{
-  padding: 120px 0 80px 0;
+.mainpage{
+ width: 100%;
+ 
+}
+
+.mainpage .mainpage__wrapper{
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.mainpage .mainpage__wrapper .subhead__wrapper {
+  padding: 160px 0 80px 0;
+  font-family: 'Bungee', cursive;
+  font-size: 60px;
+  text-align: center;
+  color: #0d0c22;
+  border-bottom: 1px solid #ccc;
+}
+
+.mainpage .mainpage__wrapper .main__content{
+  margin: 90px auto 0;
+  max-width: 1320px;
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper{
+
+}
+
+/* SEARCH */
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .search{
+  align-items: center;
+  display:flex;
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .search input{
+  height: 40px;
+  font-size: 16px;
+  color: #888;
+  background-color: #fff;
+  border: 1px solid #888;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .search button{
+  background-color: #0d0c22;
+  color: #e4e4e6;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+  transition: .5s;
+}
+/* 검색버튼 호버기능 */
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .search:hover button{
+  background-color: #fdfbf8;
+  color: #0d0c22;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+  transition: .5s;
+  border: 1px solid ;
+}
+
+
+
+/* MAIN SECTION */
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper{
+  display: flex;
+}
+
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown{
+  max-width: 200px;
+  margin-left: 15px;
+  
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown>.material-icons{
+  font-family : 'Material Icons';
+}
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown .dropbtn{
+  font-family: 'Roboto Slab', serif;
+  border: 1px solid #ccc;
+  background-color: inherit;
+  font-weight: 600;
+  height: 40px;
+  color: rgb(37, 37, 37);
+  width: 150px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown .dropdown-content{
+  display : none;
+  position : absolute;
+  z-index : 1; /*다른 요소들보다 앞에 배치*/
+  font-weight: 400;
+  background-color: #f9f9f9;
+  min-width : 200px;
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown .dropdown-content a{
+  display : block;
+  text-decoration : none;
+  color : rgb(37, 37, 37);
+  font-size: 12px;
+  padding : 12px 20px;
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown .dropdown-content a:hover{
+  background-color : #ececec
+}
+
+.mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown:hover .dropdown-content {
+  display: block;
 }
