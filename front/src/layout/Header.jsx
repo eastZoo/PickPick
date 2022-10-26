@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../images/main.png'
+import InputForm from '../components/UI/InputForm'
 import './Header.css'
 
 export default function Header() {
@@ -14,14 +15,7 @@ export default function Header() {
             <a href="/" class="main__logo">
               <img src={logo} alt="PICKPICK" width="220px" />
             </a>
-            <div className="search">
-              <form>
-                <input
-                  placeholder="Search for YouTube keywords"
-                  onChange={handleKeyword}
-                />
-              </form>
-            </div>
+            <InputForm />
           </div>
           <div className="right">
             <ul className="right__menu">

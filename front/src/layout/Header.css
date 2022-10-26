@@ -1,3 +1,16 @@
+body{
+}
+
+/* COMMON */
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+}
+
+
+/* HEADER */
 header {
   position: fixed;
   top: 0;
@@ -8,18 +21,6 @@ header {
   font-family: 'Roboto Slab', serif;
   font-weight: 600;
   
-}
-
-body{
-  height: 3000px;
-}
-
-/* COMMON */
-a {
-  text-decoration: none;
-}
-img {
-  display: block;
 }
 
 header nav {
@@ -110,10 +111,7 @@ header nav .container .right .right__menu .item:hover .item__contents {
 }
 
 
-
-
-
-/* 버튼 */
+/* HEADER BUTTON */
 header nav .container .right .write_btn{
   margin-left: 20px;
 }
