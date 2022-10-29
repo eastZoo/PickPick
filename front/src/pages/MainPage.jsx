@@ -1,4 +1,6 @@
 import React from 'react'
+import Grid from '../components/Grid';
+import DropDown from '../components/UI/DropDown';
 import './MainPage.css'
 
 export default function MainPage() {
@@ -20,42 +22,12 @@ export default function MainPage() {
               </button>
             </div>
             {/* 드롭다운 1 */}
-            <div className="dropdown">
-              <button className="dropbtn">
-                All categories
-                <span class="material-icons">keyboard_arrow_down</span>
-              </button>
-              <div className="dropdown-content">
-                <a href="/">profile</a>
-                <a href="/">write a post</a>
-                <a href="/">settings</a>
-              </div>
-            </div>
-            {/* 드롭다운 1 */}
-            <div className="dropdown">
-              <button className="dropbtn">
-                User
-                <span class="material-icons">keyboard_arrow_down</span>
-              </button>
-              <div className="dropdown-content">
-                <a href="/">profile</a>
-                <a href="/">write a post</a>
-                <a href="/">settings</a>
-              </div>
-            </div>
-            {/* 드롭다운 1 */}
-            <div className="dropdown">
-              <button className="dropbtn">
-                All Times
-                <span class="material-icons">keyboard_arrow_down</span>
-              </button>
-              <div className="dropdown-content">
-                <a href="/">profile</a>
-                <a href="/">write a post</a>
-                <a href="/">settings</a>
-              </div>
-            </div>
+            <DropDown />
           </div>
+          <Grid />
+
+
+
         </div>
       </div>
     </section>
