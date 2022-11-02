@@ -2,6 +2,7 @@ import React from 'react'
 import logo from '../images/main.png'
 import InputForm from '../components/UI/InputForm'
 import './Header.css'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   const handleKeyword = () => {
@@ -20,10 +21,10 @@ export default function Header() {
           <div className="right">
             <ul className="right__menu">
               <li className="item">
-                <div className="item__name">
+                <Link to="/test" className="item__name">
                   Home
                   <div class="material-icons">keyboard_arrow_down</div>
-                </div>
+                </Link>
                 <div className="item__contents">
                   <div className="content__menu">
                     <ul className="inner">

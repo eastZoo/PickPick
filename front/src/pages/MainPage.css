@@ -71,6 +71,7 @@
 .mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown{
   max-width: 200px;
   margin-left: 15px;
+  z-index: 2;
 }
 
 .mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown>.material-icons{
@@ -112,4 +113,19 @@
 
 .mainpage .mainpage__wrapper .main__content .main__content__wrapper .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Card */
+.main{
+  max-width: 1320px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
 }

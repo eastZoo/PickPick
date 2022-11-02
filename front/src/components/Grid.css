@@ -1,12 +1,6 @@
 /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
-/* Design */
-.main{
-  max-width: 1320px;
-  margin: 0 auto;
-  z-index: 1;
-}
 
 
 .card_image img {
@@ -33,13 +27,7 @@
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin-top: 20px;
-  padding: 0;
-}
+
 
 .cards_item {
   display: flex;
@@ -80,10 +68,9 @@
 .card .card_bedge{
   background-color: #000;
   border-radius: 50%;
-  width: 50px;
+  width: 51px;
   height: 50px;
   position: absolute;
-  left: 20px;
   border: 2px solid ;
   cursor: pointer;
   box-sizing: border-box;
