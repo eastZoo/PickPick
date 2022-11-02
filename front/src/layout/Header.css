@@ -22,7 +22,7 @@ header {
   background: #faf6f1;
   font-family: 'Roboto Slab', serif;
   font-weight: 600;
-  
+  z-index: 10;
 }
 
 header nav {
