@@ -1,0 +1,37 @@
+.video__container {
+  width: 1320px;
+  margin: 150px auto;
+}
+
+.video__container .video__card {
+  justify-content: center;
+  background-color: #FDFBF8;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  border: 1px solid #888;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.video__container .video__card .video__inner{
+  width: 1300px;
+  margin: auto;
+}
+
+.video__container .video__card .video__title {
+  font-size: 25px;
+  margin: 5px 0;
+  font-family: 'Jua', sans-serif;
+
+}
+.video__container .video__card .player {
+  margin: 0 0 30px;
+}
+
+.video__container .video__card .comment__container {
+  margin: auto;
+}
+
+.video__container .video__card .comment__container .comment__icon {
+  margin-bottom: 10px;
+  font-size: 30px;
+}

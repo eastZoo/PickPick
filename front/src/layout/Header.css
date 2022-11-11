@@ -35,11 +35,11 @@ header nav .container {
   width: 1320px;
   display: flex;
   justify-content: space-between;
+  height: 90px;
 }
 
 header nav .container .left {
   display: flex;
-  height: 90px;
 }
 
 header nav .container .left .main__logo {
@@ -70,15 +70,17 @@ header nav .container .right {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: auto;
 }
 
 header nav .container .right .right__menu{
   display: flex;
-  height: 28px;
 }
 
 header nav .container .right .right__menu .item{
-  padding-left: 15px;
+  padding-left: 25px;
+  display: flex;
+  height: 120px;
 }
 
 /* 오른쪽 메뉴 글자 아이콘 일자정렬 */
@@ -86,10 +88,9 @@ header nav .container .right .right__menu .item .item__name {
   font-size: 14px;
   color: #2F3438;
   display: flex;
-  justify-content: center;
   align-items: center;
   cursor: pointer;
-
+  padding-top: 10px;
 }
 nav .container .right .right__menu .item .item__name>.material-icons{
   color: #7d7b78;
@@ -98,20 +99,39 @@ nav .container .right .right__menu .item .item__name>.material-icons{
 header nav .container .right .right__menu .item .item__contents {
   width: 170px;
   background-color: #fff;
-  font-size: 16px;
-  border: 1px solid rgb(100, 100, 100);
+  font-size: 14px;
+  border: solid 1px #888;
+  box-shadow: 2px 2px 30px 0px rgb(20 20 20 / 10%);
   transition: 1s;
   position: absolute;
-  top: 20px;
   display: none;
+  cursor: pointer;
+  background: #FAF6F1;
 }
 /* 메인메뉴에 마우스 올렸을때 display:none이 display: block이되면서 나타나는 hover*/
 header nav .container .right .right__menu .item:hover .item__contents {
-  top: 81px;
+  top: 90px;
   display: block;
-  transition: 1s;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li {
+  list-style: none;
+  position: relative;
+  padding: 10px 10px;
+  text-align: left;
 }
 
+/* 헤더 드롭다운 메뉴 클릭시 호버 효과 ( 수정필요) */
+header nav .container .right .right__menu .item:hover .item__contents>li:hover{
+  background-color: #0d0c22;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li:hover a{
+  color: #e4e4e6;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li>a {
+  color: #606060;
+  width: 100%;
+  font-weight: normal;
+}
 
 /* HEADER BUTTON */
 header nav .container .right .write_btn{

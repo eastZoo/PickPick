@@ -1,7 +1,10 @@
 /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
-
+/* COMMON */
+a {
+  text-decoration: none;
+}
 
 .card_image img {
   width: 264px;

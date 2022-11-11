@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import  './Grid.css'
 
 const Grid = ({key, userProfile, thumbnail, title, subtitle, broadcaster}) => {
@@ -6,14 +7,14 @@ const Grid = ({key, userProfile, thumbnail, title, subtitle, broadcaster}) => {
     <>
       <li className="cards_item" key={key}>
         <div className="card">
-          <div className="card_images">
-            <div className="card_bedge">
+          <Link to="/videodetail" className="card_images">
+            <Link to="/profile" className="card_bedge">
               <img src={userProfile} alt="" />
-            </div>
+            </Link>
             <div class="card_image">
               <img src={thumbnail} alt="" />
             </div>
-          </div>
+          </Link>
           <div className="card_content">
             <h2 className="card_title">{title}</h2>
             <p className="card_text">{subtitle}</p>
