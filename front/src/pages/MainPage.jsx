@@ -5,6 +5,7 @@ import './MainPage.css'
 import video_list from '../lib/data/list_dummy.json';
 import { useState } from 'react';
 import Button from '../components/UI/Button';
+import SearchBar from '../components/UI/SearchBar';
 
 export default function MainPage() {
   const [itemIndex, setItemIndex] = useState(0);
@@ -33,8 +34,12 @@ export default function MainPage() {
           <div className="subheader">
             <h1>SHARED</h1>
           </div>
-          <div>
-            
+          <div className="search">
+            <SearchBar
+              className="share__input"
+              placeholder="share youtube URL!!"
+            />
+            <Button className="share__btn">share</Button>
           </div>
         </div>
         {/* 검색 카테고리 */}
@@ -49,7 +54,7 @@ export default function MainPage() {
             {/* 드롭다운 1 */}
             <DropDown />
           </div>
-          <div className='main'>
+          <div className="main">
             <ul className="cards">
               {items.map((item) => (
                 <Grid
