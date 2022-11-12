@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function InputForm() {
   const handleKeyword = () => {
-    
   }
   return (
     <div className="search">

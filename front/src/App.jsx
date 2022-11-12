@@ -6,6 +6,7 @@ import Header from "./layout/Header";
 import MainPage from "./pages/MainPage";
 import VideoDetail from "./pages/VideoDetail";
 import './App.css'
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
       </Routes>
       <Routes>
         <Route exact path="/videodetail" element={<VideoDetail />}/>
+      </Routes>
+      <Routes>
+        <Route exact path="/profile" element={<Profile />}/>
       </Routes>
       <Footer/>
     </Router>

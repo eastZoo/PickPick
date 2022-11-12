@@ -28,10 +28,10 @@ header {
 header nav {
   margin: 0 auto;
   max-width: 1320px;
+  position: relative;
 }
 
 header nav .container {
-  position: relative;
   width: 1320px;
   display: flex;
   justify-content: space-between;
@@ -137,24 +137,7 @@ header nav .container .right .right__menu .item:hover .item__contents>li>a {
 header nav .container .right .write_btn{
   margin-left: 20px;
 }
-header nav .container .right .write_btn .btn{
-  background-color: #0d0c22;
-  color: #e4e4e6;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 600;
+header nav .container .right .write_btn .header__btn{
   width: 142px;
   height: 28px;
-  cursor: pointer;
-}
-header nav .container .right .write_btn:hover .btn{
-  background-color: #fdfbf8;
-  color: #0d0c22;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 600;
-  width: 142px;
-  height: 28px;
-  cursor: pointer;
-  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
-  border: 1px solid #0d0c22;
-  transition: .5s;
 }

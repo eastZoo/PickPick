@@ -1,8 +1,9 @@
 import React from 'react'
 import logo from '../images/main.png'
-import InputForm from '../components/UI/InputForm'
+import InputForm from '../components/InputForm'
 import './Header.css'
 import { Link } from 'react-router-dom'
+import Button from '../components/UI/Button'
 
 export default function Header() {
   const handleKeyword = () => {
@@ -42,24 +43,30 @@ export default function Header() {
                 </div>
                 <ul className="item__contents">
                   <li>
-                    <a href='https://www.youtube.com/user/woowakgood'>Woowakgood</a>
+                    <a href="https://www.youtube.com/user/woowakgood">
+                      Woowakgood
+                    </a>
                   </li>
                   <li>
-                    <a href='https://www.youtube.com/c/%EB%A6%B4%EC%B9%B4Lilka'>Lilka</a>
+                    <a href="https://www.youtube.com/c/%EB%A6%B4%EC%B9%B4Lilka">
+                      Lilka
+                    </a>
                   </li>
                   <li>
-                    <a href='https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A'>BLACKPINK</a>
+                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A">
+                      BLACKPINK
+                    </a>
                   </li>
                   <li>
-                    <a href='https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A'>BANGTANTV</a>
+                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A">
+                      BANGTANTV
+                    </a>
                   </li>
                 </ul>
               </li>
             </ul>
             <div className="write_btn">
-              <button className="btn">
-                <span className="write_text">Login</span>
-              </button>
+              <Button className="header__btn">Login</Button>
             </div>
           </div>
         </div>

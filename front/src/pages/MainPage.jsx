@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect } from 'react'
 import Grid from '../components/Grid';
-import DropDown from '../components/UI/DropDown';
+import DropDown from '../components/DropDown';
 import './MainPage.css'
 import video_list from '../lib/data/list_dummy.json';
 import { useState } from 'react';
+import Button from '../components/UI/Button';
 
 export default function MainPage() {
   const [itemIndex, setItemIndex] = useState(0);
@@ -32,15 +33,18 @@ export default function MainPage() {
           <div className="subheader">
             <h1>SHARED</h1>
           </div>
+          <div>
+            
+          </div>
         </div>
         {/* 검색 카테고리 */}
         <div className="main__content">
           <div className="main__content__wrapper">
             <div className="search">
               <input placeholder="search YouTube here..." />
-              <button>
+              <Button>
                 <span class="material-icons">search</span>
-              </button>
+              </Button>
             </div>
             {/* 드롭다운 1 */}
             <DropDown />

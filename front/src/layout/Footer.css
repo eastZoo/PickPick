@@ -1,7 +1,7 @@
 footer {
   top: 0;
   width:100%;
-  height: 90px;
+  height: 130px;
   font-family: 'Roboto Slab', serif;
   font-weight: 600;
 }
@@ -32,42 +32,26 @@ footer .container .footer__wrapper .footer__main h1{
 }
 
 footer .container .footer__wrapper .footer__main .search{
-  color:#2F3438;
-  text-align: center;
+  color: #2F3438;
+  display: flex;
+  justify-content: center;
 }
-footer .container .footer__wrapper .footer__main .search input{
+footer .container .footer__wrapper .footer__main .search .footer__search{
   height: 45px;
   font-size: 16px;
-  color: #797979;
-  background-color: #fff;
-  border: 2px solid #ededed;
   width: 35%;
   padding: 0 10px;
-  box-sizing: border-box;
 }
-footer .container .footer__wrapper .footer__main .search button{
-  background-color: #0d0c22;
-  color: #e4e4e6;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 600;
+footer .container .footer__wrapper .footer__main .search .footer__btn{
   width: 142px;
   height: 45px;
-  cursor: pointer;
-  transition: .5s;
-}
-footer .container .footer__wrapper .footer__main .search button:hover{
-  background-color: #fdfbf8;
-  color: #0d0c22;
-  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
-  border: 1px solid #0d0c22;
-  transition: .5s;
 }
 
 /* 카피라이터 FOOTER */
 footer .subfooter  {
   position: relative;
   width: 100%;
-  height: 100px;
+  height: auto;
   display: flex;
   background: #faf6f1;
 }

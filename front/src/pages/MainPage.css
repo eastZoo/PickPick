@@ -1,11 +1,11 @@
 .mainpage{
  width: 100%;
- 
 }
 
 .mainpage .mainpage__wrapper{
   margin: 0 auto;
   max-width: 100%;
+  background-color: #faf6f1;
 }
 
 .mainpage .mainpage__wrapper .subhead__wrapper {
@@ -42,12 +42,8 @@
   box-sizing: border-box;
 }
 .mainpage .mainpage__wrapper .main__content .main__content__wrapper .search button{
-  background-color: #0d0c22;
-  color: #e4e4e6;
   width: 60px;
   height: 40px;
-  cursor: pointer;
-  transition: .5s;
 }
 /* 검색버튼 호버기능 */
 .mainpage .mainpage__wrapper .main__content .main__content__wrapper .search:hover button{
@@ -127,5 +123,6 @@
   flex-wrap: wrap;
   list-style: none;
   margin-top: 20px;
+  margin-bottom: 0;
   padding: 0;
 }

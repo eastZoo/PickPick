@@ -2,6 +2,8 @@ import React from 'react'
 import logo from '../images/main.png'
 import { FaYoutube, FaTwitch, FaGithub, FaReact } from 'react-icons/fa';
 import './Footer.css'
+import Button from '../components/UI/Button';
+import SearchBar from '../components/UI/SearchBar';
 
 export default function Footer() {
   return (
@@ -11,8 +13,8 @@ export default function Footer() {
           <div className="footer__main">
             <h1>Enjoy, more youtube</h1>
             <div className="search">
-              <input placeholder="Search for YouTube keywords" />
-              <button>Search</button>
+              <SearchBar className="footer__search" placeholder="Search for YouTube keywords" />
+              <Button className="footer__btn">Search</Button>
             </div>
           </div>
         </div>

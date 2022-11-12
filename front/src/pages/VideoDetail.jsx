@@ -22,15 +22,15 @@ const post = {
       content: "댓글입니다.!!",
     },
     {
-      User: { id: 1, nickname: "동주" },
+      User: { id: 2, nickname: "동주" },
       content: "댓글입니다.!!",
     },
     {
-      User: { id: 1, nickname: "진녕" },
+      User: { id: 3, nickname: "진녕" },
       content: "댓글입니다.!!",
     },
     {
-      User: { id: 1, nickname: "동하" },
+      User: { id: 4, nickname: "동하" },
       content: "댓글입니다.!!",
     },
   ],
