@@ -70,7 +70,7 @@ const VideoDetail = (props) => {
             url={"https://youtu.be/aMKr-Prt-EY"}
             width="1300px" // 플레이어 크기 (가로)
             height="720px"
-            playing={true}
+            playing={false}
             muted={true}
             controls={true}
           />

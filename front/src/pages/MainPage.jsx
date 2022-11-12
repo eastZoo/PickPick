@@ -2,14 +2,17 @@ import React, { useCallback, useEffect } from 'react'
 import Grid from '../components/Grid';
 import DropDown from '../components/DropDown';
 import './MainPage.css'
-import video_list from '../lib/data/list_dummy.json';
 import { useState } from 'react';
 import Button from '../components/UI/Button';
 import SearchBar from '../components/UI/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MainPage() {
+  const postList = useSelector((state) => state.posts.value);
   const [itemIndex, setItemIndex] = useState(0);
-  const [items, setItems] = useState(video_list.slice(0, 8));
+  const [items, setItems] = useState(postList.slice(0, 8));
+
+  console.log(postList[2])
 
   const _infiniteScroll = useCallback(() => {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
@@ -18,7 +21,7 @@ export default function MainPage() {
 
     if(scrollTop + clientHeight === scrollHeight) {
       setItemIndex(itemIndex + 8);
-      setItems(items.concat(video_list.slice(itemIndex+8, itemIndex+16)));
+      setItems(items.concat(postList.slice(itemIndex+8, itemIndex+16)));
     }
   }, [itemIndex, items]);
 
@@ -56,9 +59,10 @@ export default function MainPage() {
           </div>
           <div className="main">
             <ul className="cards">
-              {items.map((item) => (
+              {postList.map((item) => (
                 <Grid
                   key={item.id}
+                  userId={item.userId}
                   userProfile={item.userProfile}
                   thumbnail={item.thumbnail}
                   title={item.title}

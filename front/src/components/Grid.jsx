@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import  './Grid.css'
 
-const Grid = ({key, userProfile, thumbnail, title, subtitle, broadcaster}) => {
+const Grid = ({key, userProfile, thumbnail, title, subtitle, broadcaster, userId}) => {
   return (
     <>
       <li className="cards_item" key={key}>
