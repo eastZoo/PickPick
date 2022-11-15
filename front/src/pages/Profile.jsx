@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "../components/Grid";
 import "./Profile.css";
 const props = {
@@ -9,17 +9,39 @@ const props = {
 };
 
 const Profile = () => {
+  const [user_id, setUserId] = useState();
+  const [nickName, setNickName] = useState();
+  const [profileImage, setProfileImage] = useState();
+  const getProfile = async () => {
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 획득
+      let data = await window.Kakao.API.request({
+        url: "/v2/user/me",
+      });
+      // 사용자 정보 변수에 저장
+      console.log(data);
+      setUserId(data.id);
+      setNickName(data.properties.nickname);
+      setProfileImage(data.properties.profile_image);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <div className="profile__container">
       <div className="profile__inner">
         {/* 프로필 명함 */}
         <div className="profile__header">
           <div className="profile__avatar">
-            <img src={props.profileImage} alt="" />
+            <img src={profileImage} alt="" />
           </div>
           <div className="profile__">
-            <div className="profile__name">{props.name}</div>
-            <div className="profile__nickname">@{props.nickname}</div>
+            <div className="profile__name">{nickName}</div>
+            <div className="profile__nickname">@{nickName}</div>
             <div className="profile__pick">OnePick : {props.pick}</div>
           </div>
         </div>
@@ -38,7 +60,7 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <Grid/>
+        <Grid />
       </div>
     </div>
   );
