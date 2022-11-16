@@ -5,8 +5,9 @@ import {  Avatar, List, Comment } from 'antd';
 import { MessageOutlined, HeartTwoTone, HeartOutlined } from '@ant-design/icons';
 import "./VideoDetail.css";
 import CommentForm from "../components/CommentForm";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 const myId = 6
@@ -51,28 +52,31 @@ const post = {
 
 const VideoDetail = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const postList = useSelector((state) => state.post);
   const CommentToggle = () => {
     setIsOpen(prev => !prev)
   }
-
+  const location = useLocation();
+  const currentUrl = location.state; // Grid Link로부터 넘어온 state
+  
+  const {key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId} = currentUrl
   const liked = post.Likers.find((v) => v.id === myId);
-
-  console.log(post.Comments);
+  
 
   return (
     <div className="video__container">
       <div className="video__card">
         <div className="video__inner">
           <div className="video__title">
-            <h2>{post.Title}</h2>
+            <h2>{title}</h2>
           </div>
           <ReactPlayer
             className="player"
-            url={"https://youtu.be/aMKr-Prt-EY"}
+            url={`https://youtu.be/${url}`}
             width="1300px" // 플레이어 크기 (가로)
             height="720px"
-            playing={false}
-            muted={true}
+            playing={true}
+            muted={false}
             controls={true}
           />
           <div className="comment__container">
@@ -84,7 +88,8 @@ const VideoDetail = (props) => {
                 <HeartOutlined key="heart" />
               )}
             </div>
-
+            
+            {/* 댓글창 부분 데이터  */}
             {isOpen && (
               <div className="comment__card">
                 <CommentForm post={post} />

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Loading from "./UI/Loading";
-import { kakaoLogin } from "../features/posts/postsSlice";
+import { kakaoLogin } from "../features/post/postSlice";
 import { useNavigate } from "react-router-dom";
 
 const KakaoOAuth = () => {

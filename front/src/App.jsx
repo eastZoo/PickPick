@@ -8,6 +8,7 @@ import './App.css'
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import KakaoOAuth from "./components/KakaoOAuth";
+import UserView from "./components/UserView";
 
 function App() {
   return (
