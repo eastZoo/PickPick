@@ -6,11 +6,13 @@ import './MainPage.css'
 import { useState } from 'react';
 import Button from '../components/UI/Button';
 import SearchBar from '../components/UI/SearchBar';
-import { fetchPosts } from "../features/post/postSlice";
+import { addPost, fetchPosts, selectAllPosts } from "../features/post/postSlice";
+import { Form } from 'antd';
 
 export default function MainPage() {
   const [ url ,  setUrl ] = useState('');
   const postList = useSelector((state) => state.post);
+  const posts = useSelector(selectAllPosts);
   const dispatch = useDispatch();
 
   const urlHandler = (event) => {
@@ -18,6 +20,11 @@ export default function MainPage() {
     console.log(url);
   };
 
+  const onSubmit = async () => {
+    dispatch(addPost(url))
+  };
+
+  // 처음 실행시 포스트 가져오기
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
@@ -29,19 +36,17 @@ export default function MainPage() {
           <div className="subheader">
             <h1>SHARED</h1>
           </div>
-          <div className="search">
+          <Form className="search">
             <SearchBar
               className="share__input"
               placeholder="share youtube URL!!"
               value={url}
               onChange={urlHandler}
             />
-            <Button
-              className="share__btn"
-            >
+            <Button className="share__btn" onClick={onSubmit}>
               share
             </Button>
-          </div>
+          </Form>
         </div>
         {/* 검색 카테고리 */}
         <div className="main__content">

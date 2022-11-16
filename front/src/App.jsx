@@ -6,7 +6,6 @@ import MainPage from "./pages/MainPage";
 import VideoDetail from "./pages/VideoDetail";
 import './App.css'
 import Profile from "./pages/Profile";
-import Login from "./pages/Login";
 import KakaoOAuth from "./components/KakaoOAuth";
 import UserView from "./components/UserView";
 
@@ -22,9 +21,6 @@ function App() {
       </Routes>
       <Routes>
         <Route exact path="/profile" element={<Profile />}/>
-      </Routes>
-      <Routes>
-        <Route exact path="/login" element={<Login />}/>
       </Routes>
       <Routes>
         <Route exact path="/oauth/callback/kakao" element={<KakaoOAuth />}/>

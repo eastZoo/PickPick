@@ -4,6 +4,7 @@ import InputForm from '../components/InputForm'
 import './Header.css'
 import { Link } from 'react-router-dom'
 import Button from '../components/UI/Button'
+import { KAKAO_AUTH_URL } from "../config/OAuth"
 
 export default function Header() {
   const handleKeyword = () => {
@@ -65,9 +66,9 @@ export default function Header() {
                 </ul>
               </li>
             </ul>
-            <Link to="/login" className="write_btn">
-              <Button className="header__btn">Login</Button>
-            </Link>
+            <a className="write_btn" href={KAKAO_AUTH_URL}>
+              <Button className="header__btn" >Login</Button>
+            </a>
           </div>
         </div>
       </nav>
