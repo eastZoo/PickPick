@@ -1,4 +1,4 @@
-package com.example.PickPick.user;
+package com.example.PickPick.dto;
 
 import lombok.Builder;
 import lombok.Getter;

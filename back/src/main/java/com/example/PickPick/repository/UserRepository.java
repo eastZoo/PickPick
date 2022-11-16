@@ -1,5 +1,6 @@
-package com.example.PickPick.user;
+package com.example.PickPick.repository;
 
+import com.example.PickPick.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

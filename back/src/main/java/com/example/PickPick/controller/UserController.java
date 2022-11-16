@@ -1,6 +1,8 @@
-package com.example.PickPick.user;
+package com.example.PickPick.controller;
 
-import com.example.PickPick.result.ResultDto;
+import com.example.PickPick.dto.ResultDto;
+import com.example.PickPick.dto.UserDto;
+import com.example.PickPick.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
