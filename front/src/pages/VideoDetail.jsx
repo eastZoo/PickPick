@@ -6,6 +6,7 @@ import { MessageOutlined, HeartTwoTone, HeartOutlined } from '@ant-design/icons'
 import "./VideoDetail.css";
 import CommentForm from "../components/CommentForm";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
 const myId = 6

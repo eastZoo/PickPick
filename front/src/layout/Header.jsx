@@ -65,9 +65,9 @@ export default function Header() {
                 </ul>
               </li>
             </ul>
-            <div className="write_btn">
+            <Link to="/login" className="write_btn">
               <Button className="header__btn">Login</Button>
-            </div>
+            </Link>
           </div>
         </div>
       </nav>

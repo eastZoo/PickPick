@@ -6,29 +6,18 @@ import { useState } from 'react';
 import Button from '../components/UI/Button';
 import SearchBar from '../components/UI/SearchBar';
 import { useDispatch, useSelector } from 'react-redux';
+import { addPost } from '../features/posts/postsSlice';
 
 export default function MainPage() {
+  const [ url ,  setUrl ] = useState('');
+
+  const urlHandler = (event) => {
+    setUrl(event.target.value);
+    console.log(url);
+  };
+
   const postList = useSelector((state) => state.posts.value);
-  const [itemIndex, setItemIndex] = useState(0);
-  const [items, setItems] = useState(postList.slice(0, 8));
-
-  console.log(postList[2])
-
-  const _infiniteScroll = useCallback(() => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-
-    if(scrollTop + clientHeight === scrollHeight) {
-      setItemIndex(itemIndex + 8);
-      setItems(items.concat(postList.slice(itemIndex+8, itemIndex+16)));
-    }
-  }, [itemIndex, items]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', _infiniteScroll, true);
-    return () => window.removeEventListener('scroll', _infiniteScroll, true);
-  }, [_infiniteScroll]);
+  const dispatch = useDispatch();
 
   return (
     <section className="mainpage">
@@ -41,8 +30,17 @@ export default function MainPage() {
             <SearchBar
               className="share__input"
               placeholder="share youtube URL!!"
+              value={url}
+              onChange={urlHandler}
             />
-            <Button className="share__btn">share</Button>
+            <Button
+              className="share__btn"
+              onClick={() =>
+                dispatch(addPost({ id: postList[postList.length - 1].id + 1, url }))
+              }
+            >
+              share
+            </Button>
           </div>
         </div>
         {/* 검색 카테고리 */}
