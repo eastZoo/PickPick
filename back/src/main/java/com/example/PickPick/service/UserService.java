@@ -1,6 +1,10 @@
-package com.example.PickPick.user;
+package com.example.PickPick.service;
 
-import com.example.PickPick.result.ResultDto;
+import com.example.PickPick.dto.ResultDto;
+import com.example.PickPick.dto.UserDto;
+import com.example.PickPick.domain.UserEntity;
+import com.example.PickPick.mapper.UserMapper;
+import com.example.PickPick.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Optional;

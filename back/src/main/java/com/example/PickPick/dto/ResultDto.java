@@ -1,4 +1,4 @@
-package com.example.PickPick.result;
+package com.example.PickPick.dto;
 
 import lombok.Getter;
 import lombok.Setter;

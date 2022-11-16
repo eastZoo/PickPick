@@ -1,4 +1,4 @@
-package com.example.PickPick.entity;
+package com.example.PickPick.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
