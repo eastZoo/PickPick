@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from '../images/main.png'
+import logo from '../../images/main.png'
 import { FaYoutube, FaTwitch, FaGithub, FaReact } from 'react-icons/fa';
 import './Footer.css'
-import Button from '../components/UI/Button';
-import SearchBar from '../components/UI/SearchBar';
+import Button from '../UI/Button';
+import SearchBar from '../UI/SearchBar';
 
 export default function Footer() {
   return (

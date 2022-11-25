@@ -10,7 +10,7 @@ import  './Grid.css'
 const Grid = (props) => {
   const dispatch = useDispatch()
   const [currentId, setCurrentId] = useState(props.url);
-
+  
   return (
     <>
       <li className="cards_item" key={props.key}>

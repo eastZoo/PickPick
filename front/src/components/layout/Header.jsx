@@ -1,10 +1,10 @@
 import React from 'react'
-import logo from '../images/main.png'
-import InputForm from '../components/InputForm'
+import logo from '../../images/main.png'
+import InputForm from '../InputForm'
 import './Header.css'
 import { Link } from 'react-router-dom'
-import Button from '../components/UI/Button'
-import { KAKAO_AUTH_URL } from "../config/OAuth"
+import Button from '../UI/Button'
+import { KAKAO_AUTH_URL } from "../../config/OAuth"
 
 export default function Header() {
   const handleKeyword = () => {

@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import {  Avatar, List, Comment } from 'antd';
 import { MessageOutlined, HeartTwoTone, HeartOutlined } from '@ant-design/icons';
 import "./VideoDetail.css";
-import CommentForm from "../components/CommentForm";
+import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -61,7 +61,7 @@ const VideoDetail = (props) => {
   
   const {key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId} = currentUrl
   const liked = post.Likers.find((v) => v.id === myId);
-  
+  console.log(url);
 
   return (
     <div className="video__container">

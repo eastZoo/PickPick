@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Grid from "../components/Grid";
+import Grid from "../Grid";
 import "./Profile.css";
 const props = {
   name: "EastZoo",
