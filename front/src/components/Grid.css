@@ -1,6 +1,11 @@
 /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
-
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
 /* COMMON */
 a {
   text-decoration: none;
@@ -10,6 +15,7 @@ a {
   width: 264px;
   height: 198px;
   margin: 25px auto;
+  transition: .7s;
 }
 /* 
 .btn {
@@ -63,30 +69,40 @@ a {
   padding: 20px;
 }
 
-/* 카드 호버 이미지 확대 */
-.card:hover .card_images .card_image {
-
+/* 썸네일 카드 호버 이미지 확대 */
+.card:hover .card_images .card_image img{
+  transform: scale(1.02);
+  transition: .7s;
 }
 
 .card .card_bedge{
-  background-color: #000;
-  border-radius: 50%;
-  width: 51px;
   height: 50px;
   position: absolute;
-  border: 2px solid ;
   cursor: pointer;
-  box-sizing: border-box;
+  display: flex;
+  color: #333;
+  z-index: 10;
 }
-
-.card .card_bedge:hover{
-  padding: 3px;
-}
-
-
-.card .card_bedge img{
-  width: 100%;
+.card .card_bedge .image__background{
+  background: #0d0c22;
   border-radius: 50%;
+}
+.card .card_bedge .card__user{
+  font-family: 'LINESeedKR-Bd', cursive;
+  font-size: 15px;
+}
+
+.card .card_bedge .image__background img{
+  width: 50px;
+  border: solid 2px #333;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition: .2s ease;
+}
+
+.card .card_bedge:hover .image__background img{
+  padding: 2px;
 }
 
 .card_content {
@@ -95,16 +111,16 @@ a {
 
 .card_title {
   color: #0d0c22;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 10px;
-  font-family: 'Bungee', cursive;
+  font-family: 'LINESeedKR-Bd', cursive;
 }
 
 .card_text {
   font-size: 0.875rem;  
   font-weight: 400;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'LINESeedKR-Bd', serif;
   color: rgb(112, 112, 112);
 }
 .card_btn{

@@ -21,19 +21,19 @@ const post = {
   Comments: [
     {
       User: { id: 1, nickname: "녹꾸리" },
-      content: "댓글입니다.!!",
+      content: "너무재밌어요.!!",
     },
     {
       User: { id: 2, nickname: "동주" },
-      content: "댓글입니다.!!",
+      content: "공유좋습니다",
     },
     {
       User: { id: 3, nickname: "진녕" },
-      content: "댓글입니다.!!",
+      content: "굿굿",
     },
     {
       User: { id: 4, nickname: "동하" },
-      content: "댓글입니다.!!",
+      content: "👏🏻👏🏻👏🏻",
     },
   ],
   Likers: [

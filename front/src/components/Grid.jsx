@@ -17,17 +17,21 @@ const Grid = (props) => {
         <div className="card">
           <Link to="/videodetail" state={props} className="card_images">
             <Link to="/profile" className="card_bedge">
-              <img src={props.userProfile} alt="" />
+              <div className='image__background'>
+                <img src={props.userProfile} alt="" />
+              </div>
+              <div className="card__user">
+                {props.userId} 회원님이 공유합니다
+              </div>
             </Link>
             <div class="card_image">
               <img src={props.thumbnail} alt="" />
             </div>
           </Link>
           <div className="card_content">
-            <h2 className="card_title">{props.title}</h2>
-            <p className="card_text">{props.subtitle}</p>
-            <button className="btn card_btn">Read More</button>
-          </div>
+              <h2 className="card_title">{props.title}</h2>
+              <p className="card_text">{props.subtitle ?  props.subtitle.slice(0, 50) + "..." : ''}</p>
+            </div>
         </div>
       </li>
     </>
