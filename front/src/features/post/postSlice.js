@@ -1,9 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { backUrl } from "../../config/config";;
+import { backUrl } from "../../config/config";
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = backUrl; // aws back서버에 ip주소로 변경
-
 const initialState = {
   loading: false,
   posts: [{
@@ -14,7 +14,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/1exrXkxFrao/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"1exrXkxFrao"
+    url: "1exrXkxFrao"
   },
   {
     id: "2",
@@ -24,7 +24,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/_zG3kpAn_MM/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-2.jpg",
-    url:"_zG3kpAn_MM"
+    url: "_zG3kpAn_MM"
   },
   {
     id: "3",
@@ -34,7 +34,7 @@ const initialState = {
     broadcaster: "주르르 JURURU",
     thumbnail: "https://img.youtube.com/vi/oZPaBHyUhY0/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-3.jpg",
-    url:"oZPaBHyUhY0"
+    url: "oZPaBHyUhY0"
   },
   {
     id: "4",
@@ -44,7 +44,7 @@ const initialState = {
     broadcaster: "고세구 GOSEGU",
     thumbnail: "https://img.youtube.com/vi/Luff9esx0TM/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-4.jpg",
-    url:"Luff9esx0TM"
+    url: "Luff9esx0TM"
   },
   {
     id: "5",
@@ -54,7 +54,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/vHTNARbI6Cg/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-5.jpg",
-    url:"vHTNARbI6Cg"
+    url: "vHTNARbI6Cg"
   },
   {
     id: "6",
@@ -64,7 +64,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/iMklu1tpIYc/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-6.jpg",
-    url:"iMklu1tpIYc"
+    url: "iMklu1tpIYc"
   },
   {
     id: "7",
@@ -74,7 +74,7 @@ const initialState = {
     broadcaster: "징버거 JINGBURGER",
     thumbnail: "https://img.youtube.com/vi/HOphA-rPxTc/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-7.jpg",
-    url:"HOphA-rPxTc"
+    url: "HOphA-rPxTc"
   },
   {
     id: "8",
@@ -84,7 +84,7 @@ const initialState = {
     broadcaster: "릴파 lilpa",
     thumbnail: "https://img.youtube.com/vi/5XSuX8Wnv60/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"5XSuX8Wnv60"
+    url: "5XSuX8Wnv60"
   },
   {
     id: "9",
@@ -94,7 +94,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/Me_MqT6txFM/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"Me_MqT6txFM"
+    url: "Me_MqT6txFM"
   },
   {
     id: "10",
@@ -104,7 +104,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/8hSzCyfdjVI/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"8hSzCyfdjVI"
+    url: "8hSzCyfdjVI"
   },
   {
     id: "11",
@@ -114,7 +114,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/uGqm6_jClUU/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"uGqm6_jClUU"
+    url: "uGqm6_jClUU"
   },
   {
     id: "12",
@@ -124,7 +124,7 @@ const initialState = {
     broadcaster: "고세구 GOSEGU",
     thumbnail: "https://img.youtube.com/vi/2MmuVgusBj8/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"2MmuVgusBj8"
+    url: "2MmuVgusBj8"
   },
   {
     id: "13",
@@ -134,7 +134,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/ynzXIOSEzZs/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"ynzXIOSEzZs"
+    url: "ynzXIOSEzZs"
   },
   {
     id: "14",
@@ -144,7 +144,7 @@ const initialState = {
     broadcaster: "고세구 GOSEGU",
     thumbnail: "https://img.youtube.com/vi/xtrOnlilmGQ/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"xtrOnlilmGQ"
+    url: "xtrOnlilmGQ"
   },
   {
     id: "15",
@@ -154,7 +154,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/3cKGMsMUvxI/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"3cKGMsMUvxI"
+    url: "3cKGMsMUvxI"
   },
   {
     id: "16",
@@ -164,7 +164,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/xL1w2mxNA5o/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"xL1w2mxNA5o"
+    url: "xL1w2mxNA5o"
   },
   {
     id: "17",
@@ -174,7 +174,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/OwuNA_LnDEI/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"OwuNA_LnDEI"
+    url: "OwuNA_LnDEI"
   },
   {
     id: "18",
@@ -184,7 +184,7 @@ const initialState = {
     broadcaster: "우왁굳의 게임방송",
     thumbnail: "https://img.youtube.com/vi/A7JiNM1bUm4/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"A7JiNM1bUm4"
+    url: "A7JiNM1bUm4"
   },
   {
     id: "19",
@@ -194,7 +194,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/kBGZNtR0FAs/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"kBGZNtR0FAs"
+    url: "kBGZNtR0FAs"
   },
   {
     id: "20",
@@ -204,7 +204,7 @@ const initialState = {
     broadcaster: "릴파 lilpa",
     thumbnail: "https://img.youtube.com/vi/fXUh_SoadGM/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"fXUh_SoadGM"
+    url: "fXUh_SoadGM"
   },
   {
     id: "21",
@@ -214,7 +214,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/NIAAXiVwuqs/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"NIAAXiVwuqs"
+    url: "NIAAXiVwuqs"
   },
   {
     id: "22",
@@ -224,7 +224,7 @@ const initialState = {
     broadcaster: "아이네 INE",
     thumbnail: "https://img.youtube.com/vi/U8IOYMFuWc0/hqdefault.jpg",
     userProfile: "https://gigaland.io/images/author/author-1.jpg",
-    url:"U8IOYMFuWc0"
+    url: "U8IOYMFuWc0"
   }],
   error: '',
   current: null,
@@ -244,8 +244,10 @@ export const kakaoLogin = createAsyncThunk("GET/LOGIN", async (code) => {
       console.log(res); // 토큰이 넘어올 것임
       const ACCESS_TOKEN = res.data;
       localStorage.setItem("token", ACCESS_TOKEN); //예시로 로컬에 저장함
-    })
-    .catch((error) => error);
+
+    }).catch((error) =>
+      console.log(error)
+    );
 });
 
 export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {

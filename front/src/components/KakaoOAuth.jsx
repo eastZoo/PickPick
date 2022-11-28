@@ -6,13 +6,15 @@ import { useNavigate } from "react-router-dom";
 
 const KakaoOAuth = () => {
   const dispatch = useDispatch();
-  let code = new URL(window.location.href).searchParams.get('code')
+  const navigate = useNavigate();
+  let code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
     dispatch(kakaoLogin(code));
+    navigate("/", { replace: true });
   }, []);
 
-  return <Loading/>
+  return <Loading />;
 };
 
 export default KakaoOAuth;
