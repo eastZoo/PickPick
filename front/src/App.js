@@ -11,6 +11,7 @@ import MainPage from "./components/pages/MainPage";
 import Profile from "./components/pages/Profile";
 import VideoDetail from "./components/pages/VideoDetail";
 import './App.css'
+import Mypage from "./components/pages/Mypage";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -31,6 +32,9 @@ const App = () => {
       </Routes>
       <Routes>
         <Route exact path="/profile" element={<Profile />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/mypage" element={<Mypage />} />
       </Routes>
       <Routes>
         <Route exact path="/oauth/callback/kakao" element={<KakaoOAuth />} />

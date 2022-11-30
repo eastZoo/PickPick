@@ -22,7 +22,7 @@ const KakaoOAuth = () => {
 
 
   return (
-    <div>hello</div>
+    <div>Loading..</div>
     );
 };
 

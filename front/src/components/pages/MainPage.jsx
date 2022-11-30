@@ -8,6 +8,7 @@ import Button from '../UI/Button';
 import SearchBar from '../UI/SearchBar';
 import { Form } from 'antd';
 import Card from '../Card';
+import { ADD_POST_REQUEST } from '../../redux/reducers/post';
 
 
 const MainPage = ( {posts} ) => {
@@ -57,8 +58,14 @@ const MainPage = ( {posts} ) => {
   const urlHandler = (event) => {
     setUrl(event.target.value);
   };
+  console.log(url.length);
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
+    if ( url.length > 10) {
+      const link = url.split('=');
+      dispatch({ type: ADD_POST_REQUEST, payload: link[1]})
+    }
+    setUrl('');
   };
 
   // 처음 실행시 포스트 가져오기 ( 임시 주석 처리 )
@@ -73,7 +80,7 @@ const MainPage = ( {posts} ) => {
           <div className="subheader">
             <h1>SHARED</h1>
           </div>
-          <Form className="search">
+          <Form className="search" onSubmit={onSubmit}>
             <SearchBar
               className="share__input"
               placeholder="share youtube URL!!"

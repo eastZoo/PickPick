@@ -8,13 +8,13 @@ import  './Card.css'
 //key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
 const Card = (props) => {
   const {key , url, id, userId, userProfile } = props;
-  const dispatch = useDispatch()
-  const [currentId, setCurrentId] = useState(props.url);
   const [youtube, setYoutube] = useState({
-    id: url,
+    id: id,
+    url :url,
     author: "",
     thumb: "",
-    title: ""
+    title: "",
+    userId: userId,
   });
 
   const getYoutubeInfo = (url) => {
@@ -30,6 +30,8 @@ const Card = (props) => {
   const setYoutubeInfo = (data) => {
     const {url, author_name, thumbnail_url, title} = data;
     setYoutube({
+      ...youtube, 
+      url: url,
       author: author_name,
       thumb: thumbnail_url,
       title: title
@@ -40,11 +42,12 @@ const Card = (props) => {
     getYoutubeInfo(url);
   }, [])
   
+  console.log(youtube)
   return (
     <>
       <li className="cards_item" key={key}>
         <div className="card">
-          <Link to="/videodetail" state={props} className="card_images">
+          <Link to="/videodetail" state={youtube} className="card_images">
             <Link to="/profile" className="card_bedge">
               <div className='image__background'>
                 <img src={userProfile} alt="" />

@@ -6,13 +6,18 @@ import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import { KAKAO_AUTH_URL } from "../../config/OAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { CLEAR_ERROR_REQUEST, LOG_IN_REQUEST } from "../../redux/reducers/auth";
+import { LOG_OUT_REQUEST } from "../../redux/reducers/auth";
 
 const Header = () => {
   const { isAuthenticated, userName, profileUrl } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  };
 
   return (
     <header>
@@ -37,8 +42,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="item">
-                <Link to="/hot" className="item__name">
-                  Hot
+                <Link to="/mypage" className="item__name">
+                  mypage
                 </Link>
               </li>
               <li className="item">

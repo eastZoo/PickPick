@@ -57,9 +57,11 @@ const VideoDetail = (props) => {
     setIsOpen(prev => !prev)
   }
   const location = useLocation();
-  const currentUrl = location.state; // Grid Link로부터 넘어온 state
-  
-  const {key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId} = currentUrl
+
+  // Grid Link로부터 넘어온 state
+  const currentProps = location.state; 
+  const {id, url, author, thumb, title, userId} = currentProps;
+
   const liked = comment.Likers.find((v) => v.id === myId);
   console.log(url);
 
@@ -72,11 +74,11 @@ const VideoDetail = (props) => {
           </div>
           <ReactPlayer
             className="player"
-            url={`https://youtu.be/${url}`}
+            url={url}
             width="1300px" // 플레이어 크기 (가로)
             height="720px"
             playing={true}
-            muted={false}
+            muted={true}
             controls={true}
           />
           <div className="comment__container">
