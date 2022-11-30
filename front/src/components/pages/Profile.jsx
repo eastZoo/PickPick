@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Grid from "../Grid";
+import Grid from "../Card";
 import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 

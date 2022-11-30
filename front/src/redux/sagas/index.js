@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 import axios from 'axios';
 import authSaga from './auth';
+import postSaga from './post';
 import { backUrl } from '../../config/config';
 
 axios.defaults.baseURL = backUrl;
@@ -10,5 +11,6 @@ axios.defaults.withCredentials = true; // sagas에서 보내는 axios요청들�
 export default function* rootSaga() {
   yield all([ // all은 동시에 실행할 수 있게 도와줌
     fork(authSaga),
+    fork(postSaga),
   ]);
 }

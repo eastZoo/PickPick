@@ -1,55 +1,57 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import Grid from '../Grid';
+import Grid from '../Card';
 import DropDown from '../DropDown';
 import './MainPage.css'
 import { useState } from 'react';
 import Button from '../UI/Button';
 import SearchBar from '../UI/SearchBar';
 import { Form } from 'antd';
+import Card from '../Card';
 
 
-const MainPage = () => {
+const MainPage = ( {posts} ) => {
   const [ url ,  setUrl ] = useState('');
   // const postList = useSelector((state) => state.post);
-  const postList = [
-    {
-      id: "1",
-      userId: 1,
-      title: "이게 충신이 맞아?",
-      subtitle: "이게 충신이 맞아?",
-      broadcaster: "우왁굳의 게임방송",
-      thumbnail: "https://img.youtube.com/vi/1exrXkxFrao/hqdefault.jpg",
-      userProfile: "https://gigaland.io/images/author/author-1.jpg"
-    },
-    {
-      id: "2",
-      userId: 1,
-      title: "개 뜬끔없이 듀얼하는 상황극(VR챗 상황극 콘테스트)",
-      subtitle: "매일 저녁 9시 업로드 (올릴거 있을 때만)",
-      broadcaster: "우왁굳의 게임방송",
-      thumbnail: "https://img.youtube.com/vi/_zG3kpAn_MM/hqdefault.jpg",
-      userProfile : "https://gigaland.io/images/author/author-2.jpg"
-    },
-    {
-      id: "3",
-      userId: 2,
-      title: "이세돌 숙소 살림 다 갖다파는 주르르",
-      subtitle: "#이세돌 #주르르 #VRC",
-      broadcaster: "주르르 JURURU",
-      thumbnail: "https://img.youtube.com/vi/oZPaBHyUhY0/hqdefault.jpg",
-      userProfile: "https://gigaland.io/images/author/author-3.jpg"
-    },
-    {
-      id: "4",
-      userId: 3,
-      title: "이네야~ ^a^",
-      subtitle: "ㅡ3ㅡ 이상적인~~~ 오네쨩다몽!",
-      broadcaster: "고세구 GOSEGU",
-      thumbnail: "https://img.youtube.com/vi/Luff9esx0TM/hqdefault.jpg",
-      userProfile: "https://gigaland.io/images/author/author-4.jpg"
-    }
-  ]
+  // const postList = [
+  //   {
+  //     id: "1",
+  //     userId: 1,
+  //     title: "이게 충신이 맞아?",
+  //     subtitle: "이게 충신이 맞아?",
+  //     broadcaster: "우왁굳의 게임방송",
+  //     thumbnail: "https://img.youtube.com/vi/1exrXkxFrao/hqdefault.jpg",
+  //     userProfile: "https://gigaland.io/images/author/author-1.jpg"
+  //   },
+  //   {
+  //     id: "2",
+  //     userId: 1,
+  //     title: "개 뜬끔없이 듀얼하는 상황극(VR챗 상황극 콘테스트)",
+  //     subtitle: "매일 저녁 9시 업로드 (올릴거 있을 때만)",
+  //     broadcaster: "우왁굳의 게임방송",
+  //     thumbnail: "https://img.youtube.com/vi/_zG3kpAn_MM/hqdefault.jpg",
+  //     userProfile : "https://gigaland.io/images/author/author-2.jpg"
+  //   },
+  //   {
+  //     id: "3",
+  //     userId: 2,
+  //     title: "이세돌 숙소 살림 다 갖다파는 주르르",
+  //     subtitle: "#이세돌 #주르르 #VRC",
+  //     broadcaster: "주르르 JURURU",
+  //     thumbnail: "https://img.youtube.com/vi/oZPaBHyUhY0/hqdefault.jpg",
+  //     userProfile: "https://gigaland.io/images/author/author-3.jpg"
+  //   },
+  //   {
+  //     id: "4",
+  //     userId: 3,
+  //     title: "이네야~ ^a^",
+  //     subtitle: "ㅡ3ㅡ 이상적인~~~ 오네쨩다몽!",
+  //     broadcaster: "고세구 GOSEGU",
+  //     thumbnail: "https://img.youtube.com/vi/Luff9esx0TM/hqdefault.jpg",
+  //     userProfile: "https://gigaland.io/images/author/author-4.jpg"
+  //   }
+  // ]
+  console.log(posts)
   const dispatch = useDispatch();
 
   const urlHandler = (event) => {
@@ -97,17 +99,13 @@ const MainPage = () => {
           </div>
           <div className="main">
             <ul className="cards">
-              {postList.map((post) => (
-                <Grid
+              {posts.map((post) => (
+                <Card
                   key={post.id}
                   url ={post.url}
                   id={post.id}
                   userId={post.userId}
                   userProfile={post.userProfile}
-                  thumbnail={post.thumbnail}
-                  title={post.title}
-                  subtitle={post.subtitle}
-                  broadcaster={post.broadcaster}
                 />
               ))}
             </ul>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CLEAR_ERROR_REQUEST, LOG_IN_REQUEST } from "../redux/reducers/auth";
+import { CLEAR_ERROR_REQUEST, LOG_IN_REQUEST } from "../../redux/reducers/auth";
 
 const KakaoOAuth = () => {
   const dispatch = useDispatch();

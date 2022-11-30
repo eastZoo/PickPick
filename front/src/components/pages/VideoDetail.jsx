@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 
 const myId = 6
-const post = {
+const comment = {
   id: 52,
   createdAt: "2022-05-20T11:30:34.000Z",
   updatedAt: "2022-05-20T11:30:34.000Z",
@@ -60,7 +60,7 @@ const VideoDetail = (props) => {
   const currentUrl = location.state; // Grid Link로부터 넘어온 state
   
   const {key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId} = currentUrl
-  const liked = post.Likers.find((v) => v.id === myId);
+  const liked = comment.Likers.find((v) => v.id === myId);
   console.log(url);
 
   return (
@@ -92,11 +92,11 @@ const VideoDetail = (props) => {
             {/* 댓글창 부분 데이터  */}
             {isOpen && (
               <div className="comment__card">
-                <CommentForm post={post} />
+                <CommentForm post={comment} />
                 <List
-                  header={`${post.Comments.length} 개의 댓글`}
+                  header={`${comment.Comments.length} 개의 댓글`}
                   itemLayout="horizontal"
-                  dataSource={post.Comments}
+                  dataSource={comment.Comments}
                   renderItem={(item) => (
                     <li>
                       <Comment

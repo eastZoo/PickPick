@@ -17,6 +17,11 @@ export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 
+// 로그인 유지
+export const USER_LOADING_REQUEST = "USER_LOADING_REQUEST";
+export const USER_LOADING_SUCCESS = "USER_LOADING_SUCCESS";
+export const USER_LOADING_FAILURE = "USER_LOADING_FAILURE";
+
 export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
@@ -36,7 +41,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOG_IN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
-      console.log(action.payload.token)
+      console.log(action);
       return {
         ...state,
         ...action.payload, // 응답 넘어온 값들 저장
@@ -44,7 +49,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         userId: action.payload.user.userId,
         userName: action.payload.user.userName,
-        profileUrl : action.payload.user.profileUrl,
+        profileUrl: action.payload.user.profileUrl,
         errorMsg: "",
       };
     case LOG_OUT_FAILURE:
@@ -86,6 +91,30 @@ const authReducer = (state = initialState, action) => {
     case CLEAR_ERROR_FAILURE:
       return {
         ...state,
+        errorMsg: "Clear Error Fail",
+        previousMatchMsg: "Clear Error Fail",
+      };
+    case USER_LOADING_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case USER_LOADING_SUCCESS:
+      console.log(action.payload)
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        userId: action.payload.user.userId,
+        userName: action.payload.user.userName,
+        profileUrl: action.payload.user.profileUrl,
+      };
+    case USER_LOADING_FAILURE:
+      return {
+        ...state,
+        userId: "",
+        isAuthenticated: false,
+        isLoading: false,
         errorMsg: "Clear Error Fail",
         previousMatchMsg: "Clear Error Fail",
       };
