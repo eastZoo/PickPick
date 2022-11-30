@@ -1,1 +1,1 @@
-export const backUrl = process.env.NODE_ENV === 'production' ? 'http://api.pickpick.co.kr' : 'http://localhost:8080';
+export const backUrl = process.env.NODE_ENV === 'production' ? 'http://api.pickpick.co.kr' : 'http://localhost:3065';

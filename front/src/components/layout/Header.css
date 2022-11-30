@@ -134,10 +134,14 @@ header nav .container .right .right__menu .item:hover .item__contents>li>a {
 }
 
 /* HEADER BUTTON */
-header nav .container .right .write_btn{
+header nav .container .right .login__btn{
   margin-left: 20px;
 }
-header nav .container .right .write_btn .header__btn{
+header nav .container .right .login__auth{
+  margin-left: 20px;
+  font-family: 'LINESeedKR-Bd';
+}
+header nav .container .right .login__btn .header__btn{
   width: 142px;
   height: 28px;
 }

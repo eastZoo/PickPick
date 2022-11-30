@@ -5,7 +5,7 @@ import './Footer.css'
 import Button from '../UI/Button';
 import SearchBar from '../UI/SearchBar';
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer>
       <div className="container">
@@ -43,5 +43,7 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
+
+export default Footer
