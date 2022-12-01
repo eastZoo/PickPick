@@ -1,7 +1,17 @@
 import axios from "axios";
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
 
-import {LOG_IN_SUCCESS, LOG_IN_FAILURE,LOG_IN_REQUEST,LOG_OUT_REQUEST,LOG_OUT_SUCCESS, LOG_OUT_FAILURE, USER_LOADING_SUCCESS, USER_LOADING_FAILURE, USER_LOADING_REQUEST} from '../reducers/auth'
+import {
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+  LOG_IN_REQUEST,
+  LOG_OUT_REQUEST,
+  LOG_OUT_SUCCESS,
+  LOG_OUT_FAILURE,
+  USER_LOADING_SUCCESS,
+  USER_LOADING_FAILURE,
+  USER_LOADING_REQUEST,
+} from "../reducers/auth";
 
 //Login 로그인
 const loginUserAPI = (code) => {
@@ -34,7 +44,6 @@ function* loginUser(action) {
 function* watchLoginUser() {
   yield takeLatest(LOG_IN_REQUEST, loginUser);
 }
-
 
 //LogOut 로그아웃
 function* logout(action) {
