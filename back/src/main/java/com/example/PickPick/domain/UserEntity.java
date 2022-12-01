@@ -21,9 +21,9 @@ public class UserEntity {
     @Column(name = "user_id")
     private String id;
 
-    @Column(name = "user_pwd")
-    private String pwd;
-
     @Column(name = "user_nickname")
     private String nickName;
+
+    @Column(name = "user_img")
+    private String imgUrl;
 }
