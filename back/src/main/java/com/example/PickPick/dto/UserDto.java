@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class UserDto {
     private String id;
-    private String pwd;
     private String nickName;
+    private String imgUrl;
 }
