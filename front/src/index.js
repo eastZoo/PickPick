@@ -1,20 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
-import store from './app/store';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import loadUser from "./components/auth/loadUser";
+import store, { history } from "./store";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
 
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser')
-  worker.start()
-}
+loadUser();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <App />
-    </Provider>
-  </React.StrictMode>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
 );

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function InputForm() {
+const InputForm = () => {
   const handleKeyword = () => {
   }
   return (
@@ -14,3 +14,5 @@ export default function InputForm() {
     </div>
   );
 }
+
+export default InputForm

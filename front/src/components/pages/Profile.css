@@ -28,13 +28,12 @@
   margin-left: 20px;
   text-align: left;
   margin: auto 20px;
+  font-family: 'LINESeedKR-Bd';
 }
 .profile__container .profile__inner .profile__header .profile__>.profile__name{
-  font-family: 'Bungee', cursive;
   font-size: 30px;
 }
 .profile__container .profile__inner .profile__header .profile__>.profile__nickname{
-  font-family: 'Roboto Slab', serif;
   font-weight: 600;
   font-size: 16px;
   margin-bottom: 10px;

@@ -1,15 +1,24 @@
-import React from 'react'
-import logo from '../../images/main.png'
-import InputForm from '../InputForm'
-import './Header.css'
-import { Link } from 'react-router-dom'
-import Button from '../UI/Button'
-import { KAKAO_AUTH_URL } from "../../config/OAuth"
+import React from "react";
+import logo from "../../images/main.png";
+import InputForm from "../InputForm";
+import "./Header.css";
+import { Link } from "react-router-dom";
+import Button from "../UI/Button";
+import { KAKAO_AUTH_URL } from "../../config/OAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { LOG_OUT_REQUEST } from "../../redux/reducers/auth";
 
-export default function Header() {
-  const handleKeyword = () => {
+const Header = () => {
+  const { isAuthenticated, userName, profileUrl } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  };
 
-  }
   return (
     <header>
       <nav>
@@ -33,8 +42,8 @@ export default function Header() {
                 </Link>
               </li>
               <li className="item">
-                <Link to="/hot" className="item__name">
-                  Hot
+                <Link to="/mypage" className="item__name">
+                  mypage
                 </Link>
               </li>
               <li className="item">
@@ -66,12 +75,18 @@ export default function Header() {
                 </ul>
               </li>
             </ul>
-            <a className="write_btn" href={KAKAO_AUTH_URL}>
-              <Button className="header__btn" >Login</Button>
-            </a>
+            {isAuthenticated ? (
+              <div className="login__auth">{userName} PICKER!!</div>
+            ) : (
+              <a className="login__btn" href={KAKAO_AUTH_URL}>
+                <Button className="header__btn">Login</Button>
+              </a>
+            )}
           </div>
         </div>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;

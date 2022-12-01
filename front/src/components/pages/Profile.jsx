@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Grid from "../Grid";
+import Grid from "../Card";
+import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
+
 const props = {
   name: "EastZoo",
   nickname: "eastzoo",
@@ -9,27 +11,9 @@ const props = {
 };
 
 const Profile = () => {
-  const [user_id, setUserId] = useState();
-  const [nickName, setNickName] = useState();
-  const [profileImage, setProfileImage] = useState();
-  const getProfile = async () => {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 획득
-      let data = await window.Kakao.API.request({
-        url: "/v2/user/me",
-      });
-      // 사용자 정보 변수에 저장
-      console.log(data);
-      setUserId(data.id);
-      setNickName(data.properties.nickname);
-      setProfileImage(data.properties.profile_image);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getProfile();
-  }, []);
+  const dispatch = useDispatch();
+  const { isAuthenticated, userName, profileUrl } = useSelector((state) => state.auth);
+
 
   return (
     <div className="profile__container">
@@ -37,11 +21,11 @@ const Profile = () => {
         {/* 프로필 명함 */}
         <div className="profile__header">
           <div className="profile__avatar">
-            <img src={profileImage} alt="" />
+            <img src={profileUrl} alt="" />
           </div>
           <div className="profile__">
-            <div className="profile__name">{nickName}</div>
-            <div className="profile__nickname">@{nickName}</div>
+            <div className="profile__name">{userName}</div>
+            <div className="profile__nickname">@{userName}</div>
             <div className="profile__pick">OnePick : {props.pick}</div>
           </div>
         </div>
@@ -60,7 +44,16 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <Grid />
+        {/* 더미 임시 props */}
+        <Grid
+          id="1"
+          userId="1"
+          title="이게 충신이 맞아?"
+          subtitle="이게 충신이 맞아?"
+          broadcaster="우왁굳의 게임방송"
+          thumbnail="https://img.youtube.com/vi/1exrXkxFrao/hqdefault.jpg"
+          userProfile="https://gigaland.io/images/author/author-1.jpg"
+        />
       </div>
     </div>
   );
