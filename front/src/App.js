@@ -16,7 +16,7 @@ import Mypage from "./components/pages/Mypage";
 const App = () => {
   const dispatch = useDispatch()
   const { posts } = useSelector((state) => state.post);
-
+  
   useEffect(() => {
     dispatch({ type: LOAD_POSTS_REQUEST, });
   }, [dispatch]);
