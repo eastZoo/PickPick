@@ -1,8 +1,11 @@
 package com.example.PickPick.service;
 
+import com.example.PickPick.config.JwtTokenProvider;
+import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.UserDto;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -10,9 +13,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
+@RequiredArgsConstructor
 public class OAuthService {
 
-    public String getKakaoAccessToken (String code) {
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public String getKakaoAccessToken(String code) {
         String access_Token = "";
         String refresh_Token;
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -94,6 +100,20 @@ public class OAuthService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;    //이거 한번 이야기 해봐야 할 듯, 토큰을 받았는데 사용자 정보를 못 받을 수 있나? 일단 없다고 가정하고 null 삽입
+        return null;
+    }
+
+    public ResultDto getJsonWebToken(UserDto user) {
+        ResultDto result = new ResultDto();
+        try{
+            result.setDetail(jwtTokenProvider.createToken(user));
+            result.setMsg("jwt발급");
+            result.setSuccess(true);
+        } catch(Exception e) {
+            result.setMsg("jwt발급실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
     }
 }
