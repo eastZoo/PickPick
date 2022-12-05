@@ -5,15 +5,15 @@ import App from "./App";
 import loadUser from "./components/auth/loadUser";
 import store, { history } from "./store";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
+import { connectRouter } from "connected-react-router";
 
-loadUser();
+// loadUser();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <connectRouter history={history}>
       <App />
-    </ConnectedRouter>
+    </connectRouter>
   </Provider>,
   document.getElementById("root")
 );

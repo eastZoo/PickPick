@@ -39,13 +39,13 @@ function* watchLoadPosts() {
 // post 게시글 등록
 function addPostAPI(url) {
   console.log(url);
-  return axios.post("/api/post", {url : url});
+  return axios.post("/video");
 }
 
 function* addPost(action) {
   try {
-    const result = yield call(addPostAPI, action.payload);
     console.log(result.data);
+    const result = yield call(addPostAPI, action.payload);
     yield put({
       type: ADD_POST_SUCCESS,
       payload: result.data,

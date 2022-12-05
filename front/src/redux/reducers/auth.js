@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
   userId: "",
   userName: "",
-  profileUrl:"",
+  profileUrl: "",
   errorMsg: "",
   successMsg: "",
   previousMatchMsg: "",
@@ -40,16 +40,13 @@ const authReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case LOG_IN_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
-      console.log(action);
+      localStorage.setItem("token", action.payload); // detail : token
+      console.log(action.payload);
       return {
         ...state,
         ...action.payload, // 응답 넘어온 값들 저장
         isAuthenticated: true,
         isLoading: false,
-        userId: action.payload.user.userId,
-        userName: action.payload.user.userName,
-        profileUrl: action.payload.user.profileUrl,
         errorMsg: "",
       };
     case LOG_OUT_FAILURE:

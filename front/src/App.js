@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { LOAD_POSTS_REQUEST } from "./redux/reducers/post";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import KakaoOAuth from "./components/auth/KakaoOAuth";
 import Footer from "./components/layout/Footer";
@@ -16,7 +16,7 @@ import Mypage from "./components/pages/Mypage";
 const App = () => {
   const dispatch = useDispatch()
   const { posts } = useSelector((state) => state.post);
-  
+
   useEffect(() => {
     dispatch({ type: LOAD_POSTS_REQUEST, });
   }, [dispatch]);

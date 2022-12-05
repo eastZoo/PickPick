@@ -1,16 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
-import {  Avatar, List, Comment } from 'antd';
-import { MessageOutlined, HeartTwoTone, HeartOutlined } from '@ant-design/icons';
+import { Avatar, List, Comment } from "antd";
+import {
+  MessageOutlined,
+  HeartTwoTone,
+  HeartOutlined,
+} from "@ant-design/icons";
 import "./VideoDetail.css";
 import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-
-const myId = 6
+const myId = 6;
 const comment = {
   id: 52,
   createdAt: "2022-05-20T11:30:34.000Z",
@@ -54,13 +57,13 @@ const VideoDetail = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const postList = useSelector((state) => state.post);
   const CommentToggle = () => {
-    setIsOpen(prev => !prev)
-  }
+    setIsOpen((prev) => !prev);
+  };
   const location = useLocation();
 
   // Grid Link로부터 넘어온 state
-  const currentProps = location.state; 
-  const {id, url, author, thumb, title, userId} = currentProps;
+  const currentProps = location.state;
+  const { id, url, author, thumb, title, userId } = currentProps;
 
   const liked = comment.Likers.find((v) => v.id === myId);
   console.log(url);
@@ -82,15 +85,15 @@ const VideoDetail = (props) => {
             controls={true}
           />
           <div className="comment__container">
-            <div className="comment__icon" >
-              <MessageOutlined onClick={CommentToggle}/>
+            <div className="comment__icon">
+              <MessageOutlined onClick={CommentToggle} />
               {liked ? (
                 <HeartTwoTone twoToneColor="#eb2f96" key="heart" />
               ) : (
                 <HeartOutlined key="heart" />
               )}
             </div>
-            
+
             {/* 댓글창 부분 데이터  */}
             {isOpen && (
               <div className="comment__card">
@@ -104,7 +107,7 @@ const VideoDetail = (props) => {
                       <Comment
                         author={item.User.nickname}
                         avatar={
-                          <Link>
+                          <Link to="/profile">
                             <a>
                               <Avatar>{item.User.nickname[0]}</Avatar>
                             </a>

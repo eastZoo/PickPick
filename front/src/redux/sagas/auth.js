@@ -21,21 +21,21 @@ const loginUserAPI = (code) => {
       "Content-Type": 'application/json',
     },
   };
-  return axios.post("api/auth", {code: code}, config);
+  return axios.post("/oauth", { code: code }, config);
 };
 
 function* loginUser(action) {
   try {
     const result = yield call(loginUserAPI, action.payload);
-    console.log(result);
+    console.log(result.data.detail);
     yield put({
       type: LOG_IN_SUCCESS,
-      payload: result.data,
+      payload: result.data.detail, // detail : "token"
     });
   } catch (e) {
     yield put({
       type: LOG_IN_FAILURE,
-      payload: e.response, 
+      payload: e.response,
     });
   }
 }
@@ -72,7 +72,7 @@ const userLoadingAPI = (token) => {
       "Content-Type": 'application/json',
     },
   };
-  if ( token ) {
+  if (token) {
     config.headers["x-auth-token"] = token
   }
   // 토큰을 가지고 유저를 확인하는 것 post가아니라 get
@@ -91,7 +91,7 @@ function* userLoading(action) {
   } catch (e) {
     yield put({
       type: USER_LOADING_FAILURE,
-      payload: e.response, 
+      payload: e.response,
     });
   }
 }
