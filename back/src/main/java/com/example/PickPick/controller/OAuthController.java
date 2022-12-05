@@ -1,7 +1,7 @@
 package com.example.PickPick.controller;
 
 import com.example.PickPick.config.JwtTokenProvider;
-import com.example.PickPick.dto.LoginResponseDto;
+import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.UserDto;
 import com.example.PickPick.service.OAuthService;
 import com.example.PickPick.service.UserService;
@@ -17,16 +17,13 @@ public class OAuthController {
 
     private final OAuthService oAuthService;
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("")
-    public LoginResponseDto login(@RequestBody String code) {
+    public ResultDto login(@RequestBody String code) {
         String token = oAuthService.getKakaoAccessToken(code);
         UserDto user = oAuthService.getKakaoUserInfo(token);
         userService.userCheck(user);
 
-        return LoginResponseDto.builder()
-                .token(jwtTokenProvider.createToken(user))
-                .build();
+        return oAuthService.getJsonWebToken(user);
     }
 }
