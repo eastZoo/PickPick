@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T13:34:34+0900",
+    date = "2022-12-05T17:47:44+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 public class UserMapperImpl implements UserMapper {
@@ -20,10 +20,8 @@ public class UserMapperImpl implements UserMapper {
         UserEntity.UserEntityBuilder userEntity = UserEntity.builder();
 
         userEntity.id( user.getId() );
-        userEntity.pwd( user.getPwd() );
         userEntity.nickName( user.getNickName() );
-        userEntity.img( user.getImg() );
-        userEntity.role( user.getRole() );
+        userEntity.imgUrl( user.getImgUrl() );
 
         return userEntity.build();
     }
@@ -37,10 +35,8 @@ public class UserMapperImpl implements UserMapper {
         UserDto.UserDtoBuilder userDto = UserDto.builder();
 
         userDto.id( user.getId() );
-        userDto.pwd( user.getPwd() );
         userDto.nickName( user.getNickName() );
-        userDto.img( user.getImg() );
-        userDto.role( user.getRole() );
+        userDto.imgUrl( user.getImgUrl() );
 
         return userDto.build();
     }
