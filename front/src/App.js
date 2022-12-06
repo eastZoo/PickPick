@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { history } from "./store";
+import React from "react";
+import {  Route  } from "react-router-dom";
 
 import KakaoOAuth from "./components/auth/KakaoOAuth";
 import Footer from "./components/layout/Footer";
@@ -8,32 +7,21 @@ import Header from "./components/layout/Header";
 import MainPage from "./components/pages/MainPage";
 import Profile from "./components/pages/Profile";
 import VideoDetail from "./components/pages/VideoDetail";
-import './App.css'
 import Mypage from "./components/pages/Mypage";
+import "./App.css";
+
 
 const App = () => {
-
   return (
-    <Router >
+    <>
       <Header />
-      <Routes>
-        <Route exact path="/" element={<MainPage />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/videodetail" element={<VideoDetail />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/profile" element={<Profile />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/mypage" element={<Mypage />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/oauth/callback/kakao" element={<KakaoOAuth />} />
-      </Routes>
+      <Route path="/" component={MainPage} exact={true} />
+      <Route path="/videodetail" component={VideoDetail} exact={true} />
+      <Route path="/mypage" component={Profile} exact={true} />
+      <Route path="/oauth/callback/kakao" component={KakaoOAuth} exact={true} />
       <Footer />
-    </Router>
+    </>
   );
-}
+};
 
 export default App;
