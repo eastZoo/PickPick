@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import { LOAD_POSTS_REQUEST } from "./redux/reducers/post";
-import { useDispatch, useSelector } from "react-redux";
+import { history } from "./store";
 
 import KakaoOAuth from "./components/auth/KakaoOAuth";
 import Footer from "./components/layout/Footer";
@@ -14,18 +12,12 @@ import './App.css'
 import Mypage from "./components/pages/Mypage";
 
 const App = () => {
-  const dispatch = useDispatch()
-  const { posts } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    dispatch({ type: LOAD_POSTS_REQUEST, });
-  }, [dispatch]);
 
   return (
-    <Router>
+    <Router >
       <Header />
       <Routes>
-        <Route exact path="/" element={<MainPage posts={posts} />} />
+        <Route exact path="/" element={<MainPage />} />
       </Routes>
       <Routes>
         <Route exact path="/videodetail" element={<VideoDetail />} />

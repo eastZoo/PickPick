@@ -1,5 +1,6 @@
 import axios from "axios";
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
+import { history } from "../../store";
 
 import {
   LOG_IN_SUCCESS,
@@ -32,6 +33,7 @@ function* loginUser(action) {
       type: LOG_IN_SUCCESS,
       payload: result.data.detail, // detail : "token"
     });
+    history.replace("/");
   } catch (e) {
     yield put({
       type: LOG_IN_FAILURE,
