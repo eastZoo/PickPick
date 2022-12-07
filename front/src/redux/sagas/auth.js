@@ -19,16 +19,16 @@ const loginUserAPI = (code) => {
       "Content-Type": 'application/json',
     },
   };
-  return axios.post("/oauth",  code , config); // code로 안넘어가면  { code }
+  return axios.post("/oauth", code, config); // code로 안넘어가면  { code }
 };
 
 function* loginUser(action) {
   try {
     const result = yield call(loginUserAPI, action.payload);
-    const userInfo =  jwt_decode(result.data.token); // 토큰 decode
+    const userInfo = jwt_decode(result.data.detail); // 토큰 decode
     yield put({
       type: LOG_IN_SUCCESS,
-      payload: {result , userInfo}, 
+      payload: { result, userInfo },
     });
     customHistory.replace("/");
   } catch (e) {

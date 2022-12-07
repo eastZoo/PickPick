@@ -32,15 +32,15 @@ const authReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case LOG_IN_SUCCESS:
-      localStorage.setItem("token", action.payload.result.data.token); // detail : token
+      localStorage.setItem("token", action.payload.result.data.detail); // detail : token
       console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        userId: action.payload.userInfo.id,
-        userName: action.payload.userInfo.name,
-        profileUrl: action.payload.userInfo.profileUrl,
+        userId: action.payload.userInfo.sub,
+        userName: action.payload.userInfo.nickname,
+        profileUrl: action.payload.userInfo.img,
         errorMsg: "",
       };
     case LOG_OUT_FAILURE:
