@@ -34,5 +34,5 @@ public class VideoEntity {
     private String userId;
 
     @Column(name = "category_id")
-    private String categoryId;
+    private int categoryId;
 }
