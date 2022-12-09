@@ -1,6 +1,8 @@
 package com.example.PickPick.controller;
 
+import com.example.PickPick.dto.CommentDto;
 import com.example.PickPick.dto.ResultDto;
+import com.example.PickPick.dto.VideoDetailDto;
 import com.example.PickPick.dto.VideoDto;
 import com.example.PickPick.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +24,10 @@ public class VideoController {
     public ResultDto<VideoDto> addVideo(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody VideoDto video){
         return videoService.addVideo(token, video);
     }
+
+    @GetMapping("/{id}")
+    public ResultDto<VideoDetailDto> getVideoDetail(@PathVariable(value = "id") int id){
+        return videoService.getVideoDetail(id);
+    }
+
 }
