@@ -7,7 +7,6 @@ import Header from "./components/layout/Header";
 import MainPage from "./components/pages/MainPage";
 import Profile from "./components/pages/Profile";
 import VideoDetail from "./components/pages/VideoDetail";
-import Mypage from "./components/pages/Mypage";
 import "./App.css";
 
 

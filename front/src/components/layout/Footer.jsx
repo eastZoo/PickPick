@@ -3,9 +3,10 @@ import logo from '../../images/main.png'
 import { FaYoutube, FaTwitch, FaGithub, FaReact } from 'react-icons/fa';
 import './Footer.css'
 import Button from '../UI/Button';
-import SearchBar from '../UI/SearchBar';
+import SearchBar from '../UI/SearchBar';;
 
 const Footer = () => {
+
   return (
     <footer>
       <div className="container">

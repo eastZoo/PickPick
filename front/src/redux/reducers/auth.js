@@ -21,9 +21,14 @@ export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
+
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_MY_INFO_REQUEST:
     case LOG_OUT_REQUEST:
     case LOG_IN_REQUEST:
       return {
@@ -33,7 +38,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOG_IN_SUCCESS:
       localStorage.setItem("token", action.payload.result.data.detail); // detail : token
-      console.log(action.payload);
+      localStorage.setItem("userInfo", JSON.stringify(action.payload.userInfo)); 
       return {
         ...state,
         isAuthenticated: true,
@@ -43,9 +48,12 @@ const authReducer = (state = initialState, action) => {
         profileUrl: action.payload.userInfo.img,
         errorMsg: "",
       };
+    case LOAD_MY_INFO_FAILURE:
     case LOG_OUT_FAILURE:
     case LOG_IN_FAILURE:
       localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
+      console.log(action)
       return {
         ...state,
         ...action.payload,
@@ -68,6 +76,17 @@ const authReducer = (state = initialState, action) => {
         userRole: null,
         errorMsg: "",
       };
+    case LOAD_MY_INFO_SUCCESS:
+      console.log(action)
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        userId: action.payload.sub,
+        userName: action.payload.nickname,
+        profileUrl: action.payload.img,
+        errorMsg: "",
+      }
     default:
       return state;
   }
