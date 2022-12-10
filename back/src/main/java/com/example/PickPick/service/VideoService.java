@@ -4,18 +4,16 @@ import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
-import com.example.PickPick.dto.CommentDto;
-import com.example.PickPick.dto.ResultDto;
-import com.example.PickPick.dto.VideoDetailDto;
-import com.example.PickPick.dto.VideoDto;
-import com.example.PickPick.repository.CommentRepository;
-import com.example.PickPick.repository.UserRepository;
-import com.example.PickPick.repository.VideoRepository;
+import com.example.PickPick.domain.VideoLikeEntity;
+import com.example.PickPick.dto.*;
+import com.example.PickPick.mapper.UserMapper;
+import com.example.PickPick.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +22,8 @@ public class VideoService {
     private final VideoRepository videoRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final VideoLikeRepository videoLikeRepository;
+    private final CommentLikeRepository commentLikeRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     public ResultDto getVideoList() {
@@ -67,20 +67,35 @@ public class VideoService {
     public ResultDto getVideoDetail(int id){
         ResultDto result = new ResultDto();
         try{
-            Optional<VideoEntity> video = videoRepository.findById(id);
-            Optional<UserEntity> user = userRepository.findById(video.get().getUserId());
-            List<CommentEntity> comment = commentRepository.findAllByVideoId(video.get().getId());
+            //Entity to Dto
+            //Video Dto 관련해서 이야기나눠야할듯
+            VideoEntity video = videoRepository.findById(id)
+                    .orElseThrow(IllegalArgumentException::new);
+
+            UserEntity userEntity = userRepository.findById(video.getUserId())
+                    .orElseThrow(IllegalArgumentException::new);
+            UserDto user = UserMapper.mapper.userEntityToDto(userEntity);
+
+            List<CommentEntity> commentEntity = commentRepository.findAllByVideoId(video.getId());
+            List<CommentDto> comment = commentEntity.stream()
+                            .map(c -> new CommentDto(c))
+                            .collect(Collectors.toList());
+
+            //좋아요 조회
+            int videoLike = videoLikeRepository.countByVideoId(video.getId());
+            int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
+
 
             result.setMsg("영상 조회 성공");
             result.setDetail(VideoDetailDto.builder()
-                            .videoId(video.get().getId())
-                            .url(video.get().getUrl())
-                            .videoUserProfile(user.get().getImgUrl())
-                            .videoUserNickname(user.get().getNickName())
-                            .videoLike(0)
-                            .categoryId(0)
+                            .videoId(video.getId())
+                            .url(video.getUrl())
+                            .videoUserProfile(user.getImgUrl())
+                            .videoUserNickname(user.getNickName())
+                            .videoLike(videoLike)
+                            .categoryId(video.getCategoryId())
                             .comments(comment)
-                            .commentsLike(0)
+                            .commentsLike(commentLike)
                     .build());
         }catch(Exception e){
             result.setMsg("영상 조회 실패");
