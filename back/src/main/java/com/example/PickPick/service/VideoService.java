@@ -68,7 +68,6 @@ public class VideoService {
         ResultDto result = new ResultDto();
         try{
             //Entity to Dto
-            //Video Dto 관련해서 이야기나눠야할듯
             VideoEntity video = videoRepository.findById(id)
                     .orElseThrow(IllegalArgumentException::new);
 
@@ -83,9 +82,10 @@ public class VideoService {
 
             //좋아요 조회
             int videoLike = videoLikeRepository.countByVideoId(video.getId());
+            // 댓글 관련 수정해야함.
             int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
 
-
+            result.setSuccess(true);
             result.setMsg("영상 조회 성공");
             result.setDetail(VideoDetailDto.builder()
                             .videoId(video.getId())

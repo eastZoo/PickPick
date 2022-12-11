@@ -1,7 +1,7 @@
 package com.example.PickPick.dto;
 
 import com.example.PickPick.domain.CommentEntity;
-import lombok.Builder;
+import com.example.PickPick.mapper.UserMapper;
 import lombok.Getter;
 
 @Getter
@@ -10,7 +10,7 @@ public class CommentDto {
     private String comment;
     private String createdAt;
     private String updateAt;
-    private String userId;
+    private UserDto user;
     private int video;
 
     //Entity to Dto
@@ -19,7 +19,7 @@ public class CommentDto {
         this.comment = entity.getComment();
         this.createdAt = entity.getCreatedAt();
         this.updateAt = entity.getUpdateAt();
-        this.userId = entity.getUserId();
+        this.user = UserMapper.mapper.userEntityToDto(entity.getUserId());
         this.video = entity.getVideo().getId();
     }
 }

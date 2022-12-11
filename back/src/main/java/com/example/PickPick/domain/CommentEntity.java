@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -28,8 +30,10 @@ public class CommentEntity {
     @Column(name = "comment_update_at")
     private String updateAt;
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private UserEntity userId;
 
     @ManyToOne
     @JoinColumn(name = "video_id")

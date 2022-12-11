@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -28,9 +27,12 @@ public class CommentLikeEntity {
     @Column(name = "comment_like_update_at")
     private String updateAt;
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private UserEntity userId;
 
-    @Column(name = "comment_id")
-    private String commentId;
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private CommentEntity commentId;
 }
