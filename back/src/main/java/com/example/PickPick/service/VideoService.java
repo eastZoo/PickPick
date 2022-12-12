@@ -45,7 +45,8 @@ public class VideoService {
                 VideoEntity videoEntity = VideoEntity.builder()
                         .url(video.getUrl())
                         .categoryId(video.getCategoryId())
-                        .userId(jwtTokenProvider.getSubject(token))
+                        .user(userRepository.findById(jwtTokenProvider.getSubject(token))
+                                .orElseThrow(IllegalArgumentException::new))
                         .build();
                 videoRepository.save(videoEntity);
                 result.setMsg("영상 추가");
@@ -72,7 +73,7 @@ public class VideoService {
             VideoEntity video = videoRepository.findById(id)
                     .orElseThrow(IllegalArgumentException::new);
 
-            UserEntity userEntity = userRepository.findById(video.getUserId())
+            UserEntity userEntity = userRepository.findById(video.getUser().getId())
                     .orElseThrow(IllegalArgumentException::new);
             UserDto user = UserMapper.mapper.userEntityToDto(userEntity);
 
