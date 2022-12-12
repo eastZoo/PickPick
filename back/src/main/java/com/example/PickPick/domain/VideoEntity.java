@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -25,10 +26,10 @@ public class VideoEntity {
     private String url;
 
     @Column(name = "video_created_at")
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "video_update_at")
-    private String updateAt;
+    private LocalDateTime updateAt;
 
     @Column(name = "user_id")
     private String userId;
