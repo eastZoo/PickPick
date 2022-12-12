@@ -13,13 +13,16 @@ public class CommentDto {
     private UserDto user;
     private int video;
 
+    private int like;
+
     //Entity to Dto
-    public CommentDto(CommentEntity entity){
+    public CommentDto(CommentEntity entity, int like){
         this.commentId = entity.getCommentId();
         this.comment = entity.getComment();
         this.createdAt = entity.getCreatedAt();
         this.updateAt = entity.getUpdateAt();
         this.user = UserMapper.mapper.userEntityToDto(entity.getUserId());
         this.video = entity.getVideo().getId();
+        this.like = like;
     }
 }
