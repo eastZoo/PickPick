@@ -1,7 +1,5 @@
 import axios from "axios";
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
-import { history } from "../../store";
-
 import {
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -9,31 +7,34 @@ import {
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILURE,
-  USER_LOADING_SUCCESS,
-  USER_LOADING_FAILURE,
-  USER_LOADING_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE,
+  LOAD_MY_INFO_REQUEST,
 } from "../reducers/auth";
+import jwt_decode from "jwt-decode";
+import { customHistory } from "../../store";
 
 //Login 로그인
 const loginUserAPI = (code) => {
-  console.log(code, "code");
+  console.log("SAGAS code :", code);
   const config = {
     headers: {
       "Content-Type": 'application/json',
     },
   };
-  return axios.post("/oauth", { code: code }, config);
+  return axios.post("/oauth", {code}, config); // code로 안넘어가면  { code }
 };
 
 function* loginUser(action) {
   try {
     const result = yield call(loginUserAPI, action.payload);
-    console.log(result.data.detail);
+    console.log(result)
+    const userInfo = jwt_decode(result.data.detail); // 토큰 decode
     yield put({
       type: LOG_IN_SUCCESS,
-      payload: result.data.detail, // detail : "token"
+      payload: { result, userInfo },
     });
-    history.replace("/");
+    customHistory.replace("/");
   } catch (e) {
     yield put({
       type: LOG_IN_FAILURE,
@@ -48,7 +49,7 @@ function* watchLoginUser() {
 }
 
 //LogOut 로그아웃
-function* logout(action) {
+function* logout() {
   try {
     yield put({
       type: LOG_OUT_SUCCESS,
@@ -65,42 +66,24 @@ function* watchLogout() {
   yield takeLatest(LOG_OUT_REQUEST, logout);
 }
 
-// User Loading 로그인유지
-// 로그인과 다른점 토큰 값만 넘겨주면 된다.
-const userLoadingAPI = (token) => {
-  console.log(token)
-  const config = {
-    headers: {
-      "Content-Type": 'application/json',
-    },
-  };
-  if (token) {
-    config.headers["x-auth-token"] = token
-  }
-  // 토큰을 가지고 유저를 확인하는 것 post가아니라 get
-  return axios.get("api/auth/user", config);
-};
-
-function* userLoading(action) {
+//새로고침 시 로그인 유지
+function* loadMyInfoUser(action) {
+  console.log(action.payload);
   try {
-    console.log(action, "userLoading");
-    const result = yield call(userLoadingAPI, action.payload);
-    console.log(result);
     yield put({
-      type: USER_LOADING_SUCCESS,
-      payload: result.data,
+      type: LOAD_MY_INFO_SUCCESS,
+      payload: action.payload
     });
-  } catch (e) {
+  } catch (err) {
+    console.error(err);
     yield put({
-      type: USER_LOADING_FAILURE,
-      payload: e.response,
+      type: LOAD_MY_INFO_FAILURE,
     });
   }
 }
 
-//LOG_IN_REQUEST가 들어오면 loginUser함수를 실행시켜라라는 뜻 순서 1번
-function* watchLoginLoading() {
-  yield takeLatest(USER_LOADING_REQUEST, userLoading);
+function* watchLoadMyInfoUser() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfoUser);
 }
 
 
@@ -108,6 +91,6 @@ export default function* authSaga() {
   yield all([
     fork(watchLoginUser),
     fork(watchLogout),
-    fork(watchLoginLoading)
+    fork(watchLoadMyInfoUser)
   ]);
 }

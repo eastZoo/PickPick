@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import { KAKAO_AUTH_URL } from "../../config/OAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { LOG_OUT_REQUEST } from "../../redux/reducers/auth";
+import { LOAD_MY_INFO_REQUEST, LOG_OUT_REQUEST } from "../../redux/reducers/auth";
+import { useEffect } from "react";
+import { LOAD_POSTS_REQUEST } from "../../redux/reducers/post";
 
 const Header = () => {
   const { isAuthenticated, userName, profileUrl } = useSelector(
@@ -18,6 +20,14 @@ const Header = () => {
       type: LOG_OUT_REQUEST,
     });
   };
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    console.log(userInfo)
+    if (userInfo) {
+      dispatch({ type: LOAD_MY_INFO_REQUEST , payload : JSON.parse(userInfo)});
+    }
+  }, [] )
 
   return (
     <header>

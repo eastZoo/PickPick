@@ -8,6 +8,7 @@ import  './Card.css'
 //key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
 const Card = (props) => {
   const {key , url, id, userId, userProfile } = props;
+  console.log(props)
   const [youtube, setYoutube] = useState({
     id: id,
     url :url,
@@ -42,7 +43,6 @@ const Card = (props) => {
     getYoutubeInfo(url);
   }, [])
   
-  console.log(youtube)
   return (
     <>
       <li className="cards_item" key={key}>
