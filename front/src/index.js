@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import store, { history } from "./store";
 import { Provider } from "react-redux";
-import { connectRouter } from "connected-react-router";
+import store, { customHistory } from "./store";
+import { Router } from "react-router-dom";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <connectRouter history={history}>
+  <Router history={customHistory}>
+    <Provider store={store}>
       <App />
-    </connectRouter>
-  </Provider>,
+    </Provider>
+  </Router>,
   document.getElementById("root")
 );
