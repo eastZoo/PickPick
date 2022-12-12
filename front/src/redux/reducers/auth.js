@@ -38,7 +38,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOG_IN_SUCCESS:
       localStorage.setItem("token", action.payload.result.data.detail); // detail : token
-      localStorage.setItem("userInfo", JSON.stringify(action.payload.userInfo)); 
+      localStorage.setItem("userInfo", JSON.stringify(action.payload.userInfo));
       return {
         ...state,
         isAuthenticated: true,
@@ -67,6 +67,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOG_OUT_SUCCESS:
       localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
       return {
         token: null,
         user: null,
