@@ -7,7 +7,10 @@ import Button from "../UI/Button";
 import SearchBar from "../UI/SearchBar";
 import { Form } from "antd";
 import Card from "../Card";
-import { ADD_POST_REQUEST, LOAD_POSTS_REQUEST } from "../../redux/reducers/post";
+import {
+  ADD_POST_REQUEST,
+  LOAD_POSTS_REQUEST,
+} from "../../redux/reducers/post";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -50,9 +53,7 @@ const MainPage = () => {
   //     userProfile: "https://gigaland.io/images/author/author-4.jpg",
   //   },
   // ];
-  const { mainPosts } = useSelector(
-    (state) => state.post
-  );
+  const { mainPosts } = useSelector((state) => state.post);
 
   const urlHandler = (event) => {
     setUrl(event.target.value);
@@ -74,9 +75,9 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch({ type: LOAD_POSTS_REQUEST });
-  }, []);
+  }, [mainPosts]); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
 
-  console.log(mainPosts)
+  console.log(mainPosts);
   return (
     <section className="mainpage">
       <div className="mainpage__wrapper">
@@ -91,7 +92,9 @@ const MainPage = () => {
               value={url}
               onChange={urlHandler}
             />
-            <Button className="share__btn" onClick={onSubmit}>share</Button>
+            <Button className="share__btn" onClick={onSubmit}>
+              share
+            </Button>
           </Form>
         </div>
         {/* 검색 카테고리 */}
@@ -113,8 +116,9 @@ const MainPage = () => {
                   key={post.id}
                   url={post.url}
                   id={post.id}
-                  userId={post.userId}
-                  userProfile={post.userProfile}
+                  userId={post.user.id}
+                  userProfile={post.user.imgUrl}
+                  userName={post.user.nickName}
                 />
               ))}
             </ul>
