@@ -33,7 +33,7 @@ public class CommentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    private UserEntity userId;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "video_id")

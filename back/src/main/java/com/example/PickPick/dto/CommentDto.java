@@ -21,7 +21,7 @@ public class CommentDto {
         this.comment = entity.getComment();
         this.createdAt = entity.getCreatedAt();
         this.updateAt = entity.getUpdateAt();
-        this.user = UserMapper.mapper.userEntityToDto(entity.getUserId());
+        this.user = UserMapper.mapper.userEntityToDto(entity.getUser());
         this.video = entity.getVideo().getId();
         this.like = like;
     }

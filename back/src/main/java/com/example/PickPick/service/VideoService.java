@@ -4,7 +4,6 @@ import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
-import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
 import com.example.PickPick.mapper.UserMapper;
 import com.example.PickPick.repository.*;
@@ -12,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,6 +62,9 @@ public class VideoService {
         return  result;
     }
 
+    /**
+     * 영상 상세 조회
+     */
     public ResultDto getVideoDetail(int id){
         ResultDto result = new ResultDto();
         try{
@@ -101,6 +102,35 @@ public class VideoService {
             result.setDetail(e.getMessage());
             e.printStackTrace();
         }
+        return result;
+    }
+
+    /**
+     * 댓글 추가
+     */
+    public ResultDto addComment(String token, int id, CommentDto commentDto){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)){
+//                VideoEntity video = videoRepository.findById(id)
+//                        .orElseThrow(IllegalArgumentException::new);
+//                CommentEntity comment = CommentEntity.builder()
+//                        .comment(commentDto.getComment())
+//                        ..build();
+//
+//                commentRepository.save(comment);
+//                result.setSuccess(true);
+//                result.setMsg("댓글 추가 성공");
+//                result.setDetail(comment.getCommentId());
+            } else{
+                result.setMsg("토큰 유효기간 초과");
+            }
+        }catch(Exception e){
+            result.setMsg("댓글 추가 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+
         return result;
     }
 

@@ -30,4 +30,9 @@ public class VideoController {
         return videoService.getVideoDetail(id);
     }
 
+    @PostMapping("/{id}")
+    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "id") int id, @RequestBody CommentDto comment){
+        return videoService.addComment(token, id, comment);
+    }
+
 }
