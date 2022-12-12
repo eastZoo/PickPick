@@ -75,7 +75,7 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch({ type: LOAD_POSTS_REQUEST });
-  }, [mainPosts]); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
+  }, []); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
 
   console.log(mainPosts);
   return (
