@@ -77,13 +77,13 @@ public class VideoService {
 
             List<CommentEntity> commentEntity = commentRepository.findAllByVideoId(video.getId());
             List<CommentDto> comment = commentEntity.stream()
-                            .map(c -> new CommentDto(c))
+                            .map(c -> new CommentDto(c, commentLikeRepository.countByCommentId(c.getCommentId())))
                             .collect(Collectors.toList());
 
             //좋아요 조회
             int videoLike = videoLikeRepository.countByVideoId(video.getId());
             // 댓글 관련 수정해야함.
-            int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
+//            int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
 
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
@@ -95,7 +95,6 @@ public class VideoService {
                             .videoLike(videoLike)
                             .categoryId(video.getCategoryId())
                             .comments(comment)
-                            .commentsLike(commentLike)
                     .build());
         }catch(Exception e){
             result.setMsg("영상 조회 실패");
