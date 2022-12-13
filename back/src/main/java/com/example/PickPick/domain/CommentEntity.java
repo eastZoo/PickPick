@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -18,6 +20,7 @@ import javax.persistence.*;
 @Table(name = "comments")
 public class CommentEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private int commentId;
 
@@ -25,10 +28,10 @@ public class CommentEntity {
     private String comment;
 
     @Column(name = "comment_created_at")
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "comment_update_at")
-    private String updateAt;
+    private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

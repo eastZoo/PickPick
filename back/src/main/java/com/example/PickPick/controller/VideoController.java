@@ -1,9 +1,6 @@
 package com.example.PickPick.controller;
 
-import com.example.PickPick.dto.CommentDto;
-import com.example.PickPick.dto.ResultDto;
-import com.example.PickPick.dto.VideoDetailDto;
-import com.example.PickPick.dto.VideoDto;
+import com.example.PickPick.dto.*;
 import com.example.PickPick.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +28,7 @@ public class VideoController {
     }
 
     @PostMapping("/{id}")
-    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "id") int id, @RequestBody CommentDto comment){
+    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "id") int id, @RequestBody CommentRequestDto comment){
         return videoService.addComment(token, id, comment);
     }
 

@@ -84,8 +84,6 @@ public class VideoService {
 
             //좋아요 조회
             int videoLike = videoLikeRepository.countByVideoId(video.getId());
-            // 댓글 관련 수정해야함.
-//            int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
 
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
@@ -109,20 +107,21 @@ public class VideoService {
     /**
      * 댓글 추가
      */
-    public ResultDto addComment(String token, int id, CommentDto commentDto){
+    public ResultDto addComment(String token, int id, CommentRequestDto input){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-//                VideoEntity video = videoRepository.findById(id)
-//                        .orElseThrow(IllegalArgumentException::new);
-//                CommentEntity comment = CommentEntity.builder()
-//                        .comment(commentDto.getComment())
-//                        ..build();
-//
-//                commentRepository.save(comment);
-//                result.setSuccess(true);
-//                result.setMsg("댓글 추가 성공");
-//                result.setDetail(comment.getCommentId());
+                CommentEntity comment = CommentEntity.builder()
+                        .comment(input.getComment())
+                        .video(videoRepository.findById(id)
+                                .orElseThrow(IllegalArgumentException::new))
+                        .user(userRepository.findById(jwtTokenProvider.getSubject(token))
+                                .orElseThrow(IllegalArgumentException::new))
+                        .build();
+                commentRepository.save(comment);
+                result.setSuccess(true);
+                result.setMsg("댓글 추가 성공");
+                result.setDetail(comment.getCommentId());
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
