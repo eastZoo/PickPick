@@ -17,7 +17,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "comments")
-public class CommentEntity {
+@AttributeOverrides({
+        @AttributeOverride(name = "createdAt", column = @Column(name = "comment_created_at")),
+        @AttributeOverride(name = "updateAt", column = @Column(name = "comment_update_at"))
+})
+public class CommentEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
@@ -25,12 +29,6 @@ public class CommentEntity {
 
     @Column(name = "comment_comment")
     private String comment;
-
-    @Column(name = "comment_created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "comment_update_at")
-    private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

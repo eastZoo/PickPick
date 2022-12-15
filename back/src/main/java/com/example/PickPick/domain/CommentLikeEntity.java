@@ -16,16 +16,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "comment_likes")
+@AttributeOverrides({
+        @AttributeOverride(name = "createdAt", column = @Column(name = "comment_like_created_at")),
+        @AttributeOverride(name = "updateAt", column = @Column(name = "comment_like_update_at"))
+})
 public class CommentLikeEntity {
     @Id
     @Column(name = "comment_like_id")
     private int id;
-
-    @Column(name = "comment_like_created_at")
-    private String createdAt;
-
-    @Column(name = "comment_like_update_at")
-    private String updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
