@@ -15,7 +15,7 @@ const App = () => {
     <>
       <Header />
       <Route path="/" component={MainPage} exact={true} />
-      <Route path="/videodetail" component={VideoDetail} exact={true} />
+      <Route path="/video/:id" component={VideoDetail} exact={true} />
       <Route path="/mypage" component={Profile} exact={true} />
       <Route path="/oauth/callback/kakao" component={KakaoOAuth} exact={true} />
       <Footer />

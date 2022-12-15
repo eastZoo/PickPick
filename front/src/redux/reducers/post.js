@@ -1,6 +1,7 @@
 // store.js 에 있는 initialState 이름과 같이해줘야됨
 const initialState = {
   mainPosts: [],
+  comments: [],
   singlePost: null, // LOAD_POST_REQUEST 게시글 하나만 불러올때 (다이나믹 라우팅 )
   loadPostsLoading: false,
   loadPostsDone: false,
@@ -8,11 +9,18 @@ const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  loadCommentLoading: false,
+  loadCommentDone: false,
+  loadCommentError: null,
 };
 
 export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
 export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
 export const LOAD_POSTS_FAILURE = "LOAD_POSTS_FAILURE";
+
+export const LOAD_COMMENT_REQUEST = "LOAD_COMMENT_REQUEST";
+export const LOAD_COMMENT_SUCCESS = "LOAD_COMMENT_SUCCESS";
+export const LOAD_COMMENT_FAILURE = "LOAD_COMMENT_FAILURE";
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
@@ -64,7 +72,27 @@ const postReducer = (state = initialState, action) => {
         addPostLoading: false,
         addPostError: action.error,
       };
-
+    case LOAD_COMMENT_REQUEST:
+      return {
+        ...state,
+        loadCommentLoading:true,
+        loadCommentDone: false,
+        loadCommentError: null,
+      }
+    case LOAD_COMMENT_SUCCESS:
+      console.log(action.data.comments)
+      return {
+        ...state,
+        loadCommentLoading: false,
+        loadCommentDone: true,
+        comments: [action.data.comments],
+      };
+    case LOAD_COMMENT_FAILURE:
+      return {
+        ...state,
+        loadCommentLoading: false,
+        loadCommentError: action.error,
+      };
     default:
       return state;
   }

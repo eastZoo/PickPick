@@ -10,8 +10,9 @@ import {
 import "./VideoDetail.css";
 import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LOAD_COMMENT_REQUEST } from "../../redux/reducers/post";
 
 const myId = 6;
 const comment = {
@@ -53,27 +54,33 @@ const comment = {
   Retweet: null,
 };
 
-const VideoDetail = (props) => {
+const VideoDetail = () => {
+  const dispatch = useDispatch();
+  const location = useLocation()
   const [isOpen, setIsOpen] = useState(false);
-  const postList = useSelector((state) => state.post);
+
+  const {comments} = useSelector((state) => state.post);
   const CommentToggle = () => {
     setIsOpen((prev) => !prev);
   };
-  const location = useLocation();
 
-  // Grid Link로부터 넘어온 state
-  const currentProps = location.state;
-  const { id, url, author, thumb, title, userId } = currentProps;
+  console.log(comments[0])
+  const { videoId, url, author, title, userId} = location.state
 
   const liked = comment.Likers.find((v) => v.id === myId);
-  console.log(url);
+
+  useEffect(()=> {
+    const token = localStorage.getItem("token");
+    dispatch({ type : LOAD_COMMENT_REQUEST, data: {videoId: videoId,token : token } })
+  }, [])
 
   return (
     <div className="video__container">
       <div className="video__card">
         <div className="video__inner">
           <div className="video__title">
-            <h2>{title}</h2>
+            <h2>{title}, videoId : {videoId}, userId : {userId}</h2>
+            <div>{author}</div>
           </div>
           <ReactPlayer
             className="player"
@@ -99,21 +106,21 @@ const VideoDetail = (props) => {
               <div className="comment__card">
                 <CommentForm post={comment} />
                 <List
-                  header={`${comment.Comments.length} 개의 댓글`}
+                  header={`${comments[0].length} 개의 댓글`}
                   itemLayout="horizontal"
-                  dataSource={comment.Comments}
+                  dataSource={comments[0]}
                   renderItem={(item) => (
                     <li>
                       <Comment
-                        author={item.User.nickname}
+                        author={item.user.nickName}
                         avatar={
                           <Link to="/profile">
                             <a>
-                              <Avatar>{item.User.nickname[0]}</Avatar>
+                              <Avatar>{item.user.nickName[0]}</Avatar>
                             </a>
                           </Link>
                         }
-                        content={item.content}
+                        content={item.comment}
                       />
                     </li>
                   )}

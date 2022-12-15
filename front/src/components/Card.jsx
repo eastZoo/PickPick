@@ -9,7 +9,7 @@ const Card = (props) => {
   const { key, url, id, userId, userProfile, userName } = props;
   console.log(props);
   const [youtube, setYoutube] = useState({
-    id: id,
+    videoId: id,
     url: url,
     author: "",
     thumb: "",
@@ -38,6 +38,8 @@ const Card = (props) => {
     });
   };
 
+  console.log(id);
+
   useEffect(() => {
     getYoutubeInfo(url);
   }, []);
@@ -46,7 +48,10 @@ const Card = (props) => {
     <>
       <li className="cards_item" key={key}>
         <div className="card">
-          <Link to="/videodetail" state={youtube} className="card_images">
+          <Link to={{
+            pathname : `/video/${id}`,
+            state : youtube
+          }} className="card_images">
             <Link to="/profile" className="card_bedge">
               <div className="image__background">
                 <img src={userProfile} alt="" />
