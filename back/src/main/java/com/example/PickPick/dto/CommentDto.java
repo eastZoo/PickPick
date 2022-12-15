@@ -3,13 +3,14 @@ package com.example.PickPick.dto;
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.mapper.UserMapper;
 import lombok.Getter;
+import java.time.LocalDateTime;
 
 @Getter
 public class CommentDto {
     private int commentId;
     private String comment;
-    private String createdAt;
-    private String updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
     private UserDto user;
     private int video;
 

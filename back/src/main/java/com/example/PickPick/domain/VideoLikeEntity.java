@@ -15,16 +15,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "video_likes")
+@AttributeOverrides({
+        @AttributeOverride(name = "createdAt", column = @Column(name = "video_like_created_at")),
+        @AttributeOverride(name = "updateAt", column = @Column(name = "video_like_update_at"))
+})
 public class VideoLikeEntity {
     @Id
     @Column(name = "video_like_id")
     private int id;
-
-    @Column(name = "video_like_created_at")
-    private String createdAt;
-
-    @Column(name = "video_like_update_at")
-    private String updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -34,5 +32,4 @@ public class VideoLikeEntity {
     @ManyToOne
     @JoinColumn(name = "video_id")
     private VideoEntity videoId;
-
 }

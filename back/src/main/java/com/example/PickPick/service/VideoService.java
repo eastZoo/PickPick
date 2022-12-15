@@ -24,6 +24,9 @@ public class VideoService {
     private final CommentLikeRepository commentLikeRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
+     * 영상 리스트 조회 -> 메인화면
+     */
     public ResultDto getVideoList() {
         ResultDto result = new ResultDto();
         try{
@@ -38,6 +41,9 @@ public class VideoService {
         return result;
     }
 
+    /**
+     * 영상 추가
+     */
     public ResultDto addVideo(String token, VideoDto video){
         ResultDto result = new ResultDto();
         try{
@@ -48,10 +54,10 @@ public class VideoService {
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
-                videoRepository.save(videoEntity);
+                int videoId = videoRepository.save(videoEntity).getId();
                 result.setMsg("영상 추가");
                 result.setSuccess(true);
-                result.setDetail(videoEntity.getUrl());
+                result.setDetail(videoRepository.findById(videoId));
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
@@ -84,8 +90,6 @@ public class VideoService {
 
             //좋아요 조회
             int videoLike = videoLikeRepository.countByVideoId(video.getId());
-            // 댓글 관련 수정해야함.
-//            int commentLike = commentLikeRepository.countByCommentId(comment.get(0).getVideo());
 
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
@@ -109,20 +113,21 @@ public class VideoService {
     /**
      * 댓글 추가
      */
-    public ResultDto addComment(String token, int id, CommentDto commentDto){
+    public ResultDto addComment(String token, int id, CommentRequestDto input){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-//                VideoEntity video = videoRepository.findById(id)
-//                        .orElseThrow(IllegalArgumentException::new);
-//                CommentEntity comment = CommentEntity.builder()
-//                        .comment(commentDto.getComment())
-//                        ..build();
-//
-//                commentRepository.save(comment);
-//                result.setSuccess(true);
-//                result.setMsg("댓글 추가 성공");
-//                result.setDetail(comment.getCommentId());
+                CommentEntity comment = CommentEntity.builder()
+                        .comment(input.getComment())
+                        .video(videoRepository.findById(id)
+                                .orElseThrow(IllegalArgumentException::new))
+                        .user(userRepository.findById(jwtTokenProvider.getSubject(token))
+                                .orElseThrow(IllegalArgumentException::new))
+                        .build();
+                commentRepository.save(comment);
+                result.setSuccess(true);
+                result.setMsg("댓글 추가 성공");
+                result.setDetail(comment.getCommentId());
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
@@ -132,6 +137,61 @@ public class VideoService {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+    /**
+     * 댓글 수정
+     */
+    public ResultDto modifiedComment(String token, int commentId, CommentRequestDto commentDto){
+        ResultDto result = new ResultDto();
+            try{
+                if(jwtTokenProvider.validateToken(token)){
+                    CommentEntity commentEntity = commentRepository.findById(commentId)
+                            .orElseThrow(IllegalArgumentException::new);
+                    commentRepository.updateComment(commentId, commentDto.getComment());
+                    int like = commentLikeRepository.countByCommentId(commentId);
+                    CommentDto comment = new CommentDto(commentEntity, like);
+                    result.setSuccess(true);
+                    result.setMsg("댓글 수정 성공");
+                    result.setDetail(comment);
+                }else{
+                    result.setMsg("토큰 유효기간 만료");
+                }
+            }catch(Exception e){
+                result.setMsg("댓글 수정 실패");
+                result.setDetail(e.getMessage());
+                e.printStackTrace();
+            }
+        return result;
+    }
+
+    /**
+     * 댓글 삭제
+     */
+    public ResultDto deleteComment(String token, int commentId){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)){
+                CommentEntity comment = commentRepository.findById(commentId)
+                        .orElseThrow(IllegalArgumentException::new);
+                if(comment.getUser()
+                        .getId()
+                        .equals(jwtTokenProvider.getSubject(token))){
+                    commentRepository.delete(comment);
+                    result.setSuccess(true);
+                    result.setMsg("삭제 성공");
+                }else{
+                    result.setMsg("작성자만 삭제할 수 있습니다.");
+                }
+            }else{
+                result.setMsg("토큰 유효기간 초과");
+            }
+        }catch(Exception e){
+            result.setMsg("댓글 삭제 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
         return result;
     }
 

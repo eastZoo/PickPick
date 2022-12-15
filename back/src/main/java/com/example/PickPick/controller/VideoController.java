@@ -1,9 +1,6 @@
 package com.example.PickPick.controller;
 
-import com.example.PickPick.dto.CommentDto;
-import com.example.PickPick.dto.ResultDto;
-import com.example.PickPick.dto.VideoDetailDto;
-import com.example.PickPick.dto.VideoDto;
+import com.example.PickPick.dto.*;
 import com.example.PickPick.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +22,24 @@ public class VideoController {
         return videoService.addVideo(token, video);
     }
 
-    @GetMapping("/{id}")
-    public ResultDto<VideoDetailDto> getVideoDetail(@PathVariable(value = "id") int id){
-        return videoService.getVideoDetail(id);
+    @GetMapping("/{VideoId}")
+    public ResultDto<VideoDetailDto> getVideoDetail(@PathVariable(value = "VideoId") int videoId){
+        return videoService.getVideoDetail(videoId);
     }
 
-    @PostMapping("/{id}")
-    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "id") int id, @RequestBody CommentDto comment){
-        return videoService.addComment(token, id, comment);
+    @PostMapping("/{VideoId}/comment")
+    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "VideoId") int VideoId, @RequestBody CommentRequestDto comment){
+        return videoService.addComment(token, VideoId, comment);
+    }
+
+    @PutMapping("/{VideoId}/comment/{CommentId}")
+    public ResultDto<CommentDto> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentRequestDto comment){
+        return videoService.modifiedComment(token, commentId, comment);
+    }
+
+    @DeleteMapping("/{VideoId}/comment/{CommentId}")
+    public ResultDto deleteComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId){
+        return videoService.deleteComment(token,commentId);
     }
 
 }

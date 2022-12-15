@@ -14,19 +14,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "videos")
-public class VideoEntity {
+@AttributeOverrides({
+        @AttributeOverride(name = "createdAt", column = @Column(name = "video_created_at")),
+        @AttributeOverride(name = "updateAt", column = @Column(name = "video_update_at"))
+})
+public class VideoEntity extends BaseTimeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_id")
     private int id;
 
     @Column(name = "video_url")
     private String url;
-
-    @Column(name = "video_created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "video_update_at")
-    private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
