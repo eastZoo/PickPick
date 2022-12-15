@@ -54,10 +54,10 @@ public class VideoService {
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
-                videoRepository.save(videoEntity);
+                int videoId = videoRepository.save(videoEntity).getId();
                 result.setMsg("영상 추가");
                 result.setSuccess(true);
-                result.setDetail(videoEntity.getUrl());
+                result.setDetail(videoRepository.findById(videoId));
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
