@@ -18,7 +18,7 @@ public class OAuthController {
     private final OAuthService oAuthService;
     private final UserService userService;
 
-    @PostMapping("")
+    @PostMapping
     public ResultDto login(@RequestBody String code) {
         String token = oAuthService.getKakaoAccessToken(code);
         UserDto user = oAuthService.getKakaoUserInfo(token);

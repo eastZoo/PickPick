@@ -2,13 +2,11 @@ package com.example.PickPick.controller;
 
 import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.UserDto;
+import com.example.PickPick.dto.VideoDto;
 import com.example.PickPick.service.UserService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -16,5 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping("/mypage")
+    public ResultDto<VideoDto> getUserInfo(@RequestHeader("X-AUTH-TOKEN") String token) {
+        return userService.getUserInfo(token);
+    }
 
 }
