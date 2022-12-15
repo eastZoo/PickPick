@@ -116,7 +116,7 @@ const VideoDetail = () => {
                         avatar={
                           <Link to="/profile">
                             <a>
-                              <Avatar>{item.user.nickName[0]}</Avatar>
+                              <Avatar src={item.user.imgUrl}></Avatar>
                             </a>
                           </Link>
                         }
