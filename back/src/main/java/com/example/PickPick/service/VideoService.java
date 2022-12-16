@@ -180,6 +180,7 @@ public class VideoService {
                         .getId()
                         .equals(jwtTokenProvider.getSubject(token))){
                     commentRepository.delete(comment);
+                    result.setDetail(commentId);
                     result.setSuccess(true);
                     result.setMsg("삭제 성공");
                 }else{
