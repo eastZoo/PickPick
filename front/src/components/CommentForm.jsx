@@ -8,19 +8,20 @@ import Button from './UI/Button';
 
 const CommentForm = ({videoId}) => {
   const dispatch = useDispatch();
-  const [commitText, setCommitText] = useState('');
+  const [commentText, setCommentText] = useState('');
 
   const onClick = () => {
     const token = localStorage.getItem("token");
     dispatch({
       type: ADD_COMMENT_REQUEST,
-      data: { videoId: videoId, commitText:commitText, token: token },
+      data: { videoId: videoId, commentText:commentText, token: token },
     });
-    setCommitText('');
+    setCommentText('');
    };
 
-  const commitHandler = (event) => {
-    setCommitText(event.target.value);
+  const commentHandler = (event) => {
+    setCommentText(event.target.value);
+    console.log(commentText)
   }
 
   const onKeyPress = (e) => {
@@ -32,7 +33,7 @@ const CommentForm = ({videoId}) => {
   return (
     <Form>
       <Form.Item style={{ position: "relative", margin: 0 }}>
-        <Input.TextArea rows={4} onKeyPress={onKeyPress} value={commitText} onChange={commitHandler}/>
+        <Input.TextArea rows={4} onKeyPress={onKeyPress} value={commentText} onChange={commentHandler}/>
         <Button style={{float: "right", width: "100px"}} onClick={onClick}>
           Send
         </Button>

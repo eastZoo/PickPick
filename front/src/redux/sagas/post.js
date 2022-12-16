@@ -54,6 +54,7 @@ function addPostAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
+  console.log(data.userId)
   return axios.post("/video", { url: data.url, categoryId: 1, userId : data.userId }, config);
 }
 
@@ -125,7 +126,7 @@ function addCommentAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post(`/video/${data.videoId}/comment`,{comment : data.commitText}, config);
+  return axios.post(`/video/${data.videoId}/comment`, { comment : data.commentText }, config);
 }
 
 function* addComment(action) {
@@ -135,7 +136,7 @@ function* addComment(action) {
     console.log(result);
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      data: result.data[0],
+      data: result.data,
     });
   } catch (err) {
     yield put({
