@@ -74,7 +74,7 @@ const postReducer = (state = initialState, action) => {
         addPostError: null,
       };
     case ADD_POST_SUCCESS:
-      console.log(action.data)
+      console.log(action.data[0])
       console.log(state.mainPosts)
       return {
         ...state,
@@ -82,6 +82,7 @@ const postReducer = (state = initialState, action) => {
         addPostDone: true,
         mainPosts: [...state.mainPosts, action.data[0]],
       };
+
     case ADD_POST_FAILURE:
       return {
         ...state,

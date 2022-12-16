@@ -54,7 +54,7 @@ function addPostAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post("/video", { url: data.url, categoryId: 1 }, config);
+  return axios.post("/video", { url: data.url, categoryId: 1, userId : data.userId }, config);
 }
 
 function* addPost(action) {

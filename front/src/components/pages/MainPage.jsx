@@ -17,18 +17,20 @@ const MainPage = () => {
   const [url, setUrl] = useState("");
 
   const { mainPosts } = useSelector((state) => state.post);
+  const { userId } = useSelector((state) => state.auth);
 
   const urlHandler = (event) => {
     setUrl(event.target.value);
   };
 
+  console.log(url)
   const onSubmit = () => {
     if (url.length > 10) {
       const link = url.split("=");
       const token = localStorage.getItem("token");
       dispatch({
         type: ADD_POST_REQUEST,
-        payload: { url: link[1], token: token },
+        payload: { url: link[1], token: token, userId:userId },
       });
     }
     setUrl("");
