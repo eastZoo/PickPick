@@ -117,17 +117,19 @@ public class VideoService {
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-                CommentEntity comment = CommentEntity.builder()
+                CommentEntity commentEntity = CommentEntity.builder()
                         .comment(input.getComment())
                         .video(videoRepository.findById(id)
                                 .orElseThrow(IllegalArgumentException::new))
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
-                commentRepository.save(comment);
+                commentRepository.save(commentEntity);
+                CommentDto comment = new CommentDto(commentEntity,
+                        commentLikeRepository.countByCommentId(commentEntity.getCommentId()));
                 result.setSuccess(true);
                 result.setMsg("댓글 추가 성공");
-                result.setDetail(comment.getCommentId());
+                result.setDetail(comment);
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
@@ -136,7 +138,6 @@ public class VideoService {
             result.setDetail(e.getMessage());
             e.printStackTrace();
         }
-
         return result;
     }
 
