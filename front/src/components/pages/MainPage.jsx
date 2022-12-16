@@ -21,13 +21,11 @@ const MainPage = () => {
   const urlHandler = (event) => {
     setUrl(event.target.value);
   };
-  console.log(url.length);
 
   const onSubmit = () => {
     if (url.length > 10) {
       const link = url.split("=");
       const token = localStorage.getItem("token");
-      console.log(token, link);
       dispatch({
         type: ADD_POST_REQUEST,
         payload: { url: link[1], token: token },
@@ -40,7 +38,7 @@ const MainPage = () => {
     dispatch({ type: LOAD_POSTS_REQUEST });
   }, []); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
 
-  console.log(mainPosts);
+
   return (
     <section className="mainpage">
       <div className="mainpage__wrapper">

@@ -7,7 +7,6 @@ import "./Card.css";
 //key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
 const Card = (props) => {
   const { key, url, id, userId, userProfile, userName } = props;
-  console.log(props);
   const [youtube, setYoutube] = useState({
     videoId: id,
     url: url,
@@ -38,7 +37,6 @@ const Card = (props) => {
     });
   };
 
-  console.log(id);
 
   useEffect(() => {
     getYoutubeInfo(url);

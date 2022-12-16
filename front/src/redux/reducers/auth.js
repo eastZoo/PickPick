@@ -3,7 +3,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null, // 인증 여부
   isLoading: false,
-  userId: "",
+  userId: "",   // 배열 만들어서 id, name , url 합치기
   userName: "",
   profileUrl: "",
   errorMsg: "",
@@ -53,7 +53,6 @@ const authReducer = (state = initialState, action) => {
     case LOG_IN_FAILURE:
       localStorage.removeItem("token");
       localStorage.removeItem("userInfo");
-      console.log(action)
       return {
         ...state,
         ...action.payload,
@@ -78,7 +77,6 @@ const authReducer = (state = initialState, action) => {
         errorMsg: "",
       };
     case LOAD_MY_INFO_SUCCESS:
-      console.log(action)
       return {
         ...state,
         isAuthenticated: true,
