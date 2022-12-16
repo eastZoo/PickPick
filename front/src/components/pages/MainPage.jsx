@@ -23,7 +23,7 @@ const MainPage = () => {
     setUrl(event.target.value);
   };
 
-  console.log(url)
+
   const onSubmit = () => {
     if (url.length > 10) {
       const link = url.split("=");

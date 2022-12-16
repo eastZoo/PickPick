@@ -7,6 +7,7 @@ function SearchBar(props) {
       className={`searchbar ${props.className}`}
       placeholder={props.placeholder || "input 부탁드립니다 です"}
       onChange={props.onChange}
+      value={props.value}
     >
       {props.children}
     </input>
