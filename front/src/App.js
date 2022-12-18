@@ -8,12 +8,15 @@ import MainPage from "./components/pages/MainPage";
 import Profile from "./components/pages/Profile";
 import VideoDetail from "./components/pages/VideoDetail";
 import "./App.css";
+import Floating from "./components/layout/Floating";
+
 
 
 const App = () => {
   return (
     <>
       <Header />
+      <Floating/>
       <Route path="/" component={MainPage} exact={true} />
       <Route path="/video/:id" component={VideoDetail} exact={true} />
       <Route path="/mypage" component={Profile} exact={true} />

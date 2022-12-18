@@ -23,18 +23,16 @@ header {
   font-family: 'Roboto Slab', serif;
   font-weight: 600;
   z-index: 10;
+  margin: 0 auto;
 }
 
 header nav {
   margin: 0 auto;
   max-width: 1320px;
-  position: relative;
 }
 
 header nav .container {
-  width: 1320px;
   display: flex;
-  justify-content: space-between;
   height: 90px;
 }
 
@@ -44,14 +42,12 @@ header nav .container .left {
 
 header nav .container .left .main__logo {
   height: 75px;
-  position: relative;
   margin-right: 35px;
 }
 header nav .container .left .main__logo img{
   margin-top: -17px;
 }
 header nav .container .left .search {
-  position: relative;
   margin: auto 0;
   width: 300px;
   
@@ -71,6 +67,7 @@ header nav .container .right {
   justify-content: center;
   align-items: center;
   height: auto;
+  margin: 0 0 0 auto;
 }
 
 header nav .container .right .right__menu{

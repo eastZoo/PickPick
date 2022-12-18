@@ -45,11 +45,11 @@ const Card = (props) => {
   return (
     <>
       <li className="cards_item" key={key}>
-        <div className="card">
-          <Link to={{
+        <Link to={{
             pathname : `/video/${id}`,
             state : youtube
-          }} className="card_images">
+          }} className="card">
+          <div className="card_images">
             <Link to="/profile" className="card_bedge">
               <div className="image__background">
                 <img src={userProfile} alt="" />
@@ -59,12 +59,12 @@ const Card = (props) => {
             <div class="card_image">
               <img src={youtube.thumb} alt="" />
             </div>
-          </Link>
+          </div>
           <div className="card_content">
             <h2 className="card_title">{youtube.title}</h2>
             <p className="card_text">{youtube.author}</p>
           </div>
-        </div>
+        </Link>
       </li>
     </>
   );
