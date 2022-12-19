@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaCartPlus } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_WISH_REQUEST } from '../../redux/reducers/wishList';
 import WishList from '../WishList';
@@ -42,7 +42,7 @@ const Floating = () => {
           </ul>
         </div>
         <button onClick={handleClick} className="btn">
-          <FaCartPlus
+          <FaShoppingCart
             style={{ fontSize: "30px", color: "#e4e4e6", marginTop: "5px" }}
           />
         </button>

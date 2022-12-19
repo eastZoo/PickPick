@@ -8,6 +8,7 @@
  border:1px solid #DDD;
  border-radius: 30px;
  background-color: #0d0c22;
+ margin-left: auto;
 }
 
 button:hover{
@@ -17,7 +18,8 @@ button:hover{
 }
 
 .cart{
-  width: 400px;
+  width: 410px;
+  max-height: 600px;
   height: 100%;
   background: #FDFBF8;
   display: flex;
@@ -31,18 +33,19 @@ button:hover{
   transform: scale(1);
   transition: all .5s ease-in-out;
   transform-origin: left;
+  overflow: auto;
 }
 
 
 .wrapper{
   position: fixed;
   display: flex;
-  right: 20px;
-  bottom: 50px;
+  right: 110px;
+  bottom: 72px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 1000;
+  z-index: 15;
   justify-content: flex-end;
 }
 
@@ -54,6 +57,8 @@ button:hover{
 }
 
 .hidden{
- transform:scale(0);
+  transform:scale(0);
+  height: 0;
+  width: 0;
  transform-origin: bottom;
 }

@@ -9,15 +9,18 @@
 .video__container {
   width: 1320px;
   margin: 150px auto;
+  
 }
 
 .video__container .video__card {
   justify-content: center;
+  position: relative;
   background-color: #fdfbf8;
   box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
   border: 1px solid #888;
   box-sizing: border-box;
   height: auto;
+  z-index: 10;
 }
 
 .video__container .video__card .video__inner {

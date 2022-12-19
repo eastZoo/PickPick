@@ -1,19 +1,26 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { FaCartPlus } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ADD_WISH_REQUEST } from "../redux/reducers/wishList";
 import "./Card.css";
 
 //key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
 const Card = (props) => {
-  const { key, url, id, userId, userProfile, userName } = props;
+  const dispatch = useDispatch();
+
+  const { userId } = useSelector((state) => state.auth);
+
+  // post owner data , id = videoId
+  const { key, url, id, userProfile, userName } = props;
+  
   const [youtube, setYoutube] = useState({
     videoId: id,
     url: url,
     author: "",
     thumb: "",
     title: "",
-    userId: userId,
   });
 
   const getYoutubeInfo = (url) => {
@@ -37,6 +44,14 @@ const Card = (props) => {
     });
   };
 
+  const addWishHandler = () => {
+    const token = localStorage.getItem("token");
+    dispatch({
+      type: ADD_WISH_REQUEST,
+      payload: { token: token, videoId:id , userId: userId },
+    });
+    alert("나중에 볼 영상에 추가되었습니다!!");
+  };
 
   useEffect(() => {
     getYoutubeInfo(url);
@@ -45,11 +60,11 @@ const Card = (props) => {
   return (
     <>
       <li className="cards_item" key={key}>
-        <Link to={{
+        <div className="card">
+          <Link to={{
             pathname : `/video/${id}`,
             state : youtube
-          }} className="card">
-          <div className="card_images">
+          }} className="card_images">
             <Link to="/profile" className="card_bedge">
               <div className="image__background">
                 <img src={userProfile} alt="" />
@@ -59,15 +74,29 @@ const Card = (props) => {
             <div class="card_image">
               <img src={youtube.thumb} alt="" />
             </div>
-          </div>
+          </Link>
           <div className="card_content">
             <h2 className="card_title">{youtube.title}</h2>
-            <p className="card_text">{youtube.author}</p>
+            <p className="card_text">
+              {youtube.author}
+              <FaCartPlus
+                style={{
+                  fontSize: "30px",
+                  color: "#0d0c22c1",
+                  marginTop: "5px",
+                  position: "relative",
+                  right: 0,
+                }}
+                onClick={addWishHandler}
+                className="add__wish"
+              />
+            </p>
           </div>
-        </Link>
+        </div>
       </li>
     </>
   );
 };
 
 export default Card;
+

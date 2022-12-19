@@ -138,7 +138,7 @@ const postReducer = (state = initialState, action) => {
             addCommentError: null,
           }
         case REMOVE_COMMENT_SUCCESS:
-          console.log(typeof(action.data))
+          console.log(state.comments)
           return {
             ...state,
             addCommentLoading:false,

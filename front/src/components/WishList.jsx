@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { FaTimes } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { REMOVE_WISH_REQUEST } from '../redux/reducers/wishList';
 import "./WishList.css";
 // 내가담은 비디오 공유한사람
 // user = {
@@ -9,12 +12,13 @@ import "./WishList.css";
 // };
 
 const WishList = (props) => {
+  const dispatch = useDispatch();
+
+  // 위시리스트 들어있는 video info
   const { url, user, id } = props.wish;
-  console.log(url, user, id)
 
   // Card 컴포넌트 유튜브 중복로직 발생 따로 모듈 만들기
   const [youtube, setYoutube] = useState({
-    wishId: id,
     url: url,
     author: "",
     thumb: "",
@@ -42,19 +46,40 @@ const WishList = (props) => {
     });
   };
 
+  const deleteWish = () => {
+    const token = localStorage.getItem("token");
+    dispatch({
+      type: REMOVE_WISH_REQUEST,
+      payload: { token: token, videoId:id  },
+    });
+  }
+
 
   useEffect(() => {
     getYoutubeInfo(url);
-  }, []);
+  }, [url]);
 
   return (
     <li className="cart__list">
+      {/* 위시리스트 요소 삭제 버튼 */}
+      <FaTimes
+        style={{
+          fontSize: "18px",
+          marginRight: "5px"
+        }}
+        onClick={deleteWish}
+        className="remove__wish"
+      />
       <img className="cart__img" src={youtube.thumb} alt="유튜브 썸네일" />
       <div>
-        <div className='cart__title'>
+        <div className="cart__title">
           <h4>{youtube.author}</h4>
-          <div className='cart__shared'>
-            <img className='shared-profile' src={user.imgUrl} alt="영상 공유자 프로필이미지" />
+          <div className="cart__shared">
+            <img
+              className="shared-profile"
+              src={user.imgUrl}
+              alt="영상 공유자 프로필이미지"
+            />
             <div className="card__user">{user.nickName} 회원님이 공유</div>
           </div>
         </div>

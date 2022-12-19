@@ -118,12 +118,16 @@ a {
 }
 
 .card_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.875rem;  
   font-weight: 400;
   font-family: 'LINESeedKR-Bd', serif;
   color: rgb(112, 112, 112);
 }
-.card_btn{
-  margin-top: 10px;
-  text-align: center;
+
+.add__wish{
+  cursor: pointer;
 }
+

@@ -4,11 +4,25 @@ const initialState = {
   loadWishLoading: false,
   loadWishDone: false,
   loadWishError: null,
+  addWishLoading: false,
+  addWishDone: false,
+  addWishError: null,
+  removeWishLoading: false,
+  removeWishDone: false,
+  removeWishError: null,
 };
 
 export const LOAD_WISH_REQUEST = "LOAD_WISH_REQUEST"
 export const LOAD_WISH_SUCCESS = "LOAD_WISH_SUCCESS"
 export const LOAD_WISH_FAILURE = "LOAD_WISH_FAILURE"
+
+export const ADD_WISH_REQUEST = "ADD_WISH_REQUEST"
+export const ADD_WISH_SUCCESS = "ADD_WISH_SUCCESS"
+export const ADD_WISH_FAILURE = "ADD_WISH_FAILURE"
+
+export const REMOVE_WISH_REQUEST = 'REMOVE_WISH_REQUEST';
+export const REMOVE_WISH_SUCCESS = 'REMOVE_WISH_SUCCESS';
+export const REMOVE_WISH_FAILURE = 'REMOVE_WISH_FAILURE';
 
 // 중요!! reducer란?? 이전상태를 액션을 통해 다음 상태로 만들어내는 함수!!(단 불변성을 지키면서)
 const wishReducer = (state = initialState, action) => {
@@ -18,7 +32,7 @@ const wishReducer = (state = initialState, action) => {
       return {
         ...state,
         loadWishLoading: true,
-        loadWishDone: true,
+        loadWishDone: false,
         loadWishError: null,
       };
     case LOAD_WISH_SUCCESS:
@@ -26,7 +40,7 @@ const wishReducer = (state = initialState, action) => {
       return {
         ...state,
         loadWishLoading: false,
-        loadWishDone: false,
+        loadWishDone: true,
         wishList: action.data,
       };
     case LOAD_WISH_FAILURE:
@@ -34,8 +48,51 @@ const wishReducer = (state = initialState, action) => {
         ...state,
         loadWishLoading: true,
         loadWishDone: false,
-        loadWishError: null,
+        loadWishError: action.msg,
       };
+    case ADD_WISH_REQUEST:
+      return {
+        ...state,
+        addWishLoading: true,
+        addWishDone: false,
+        addWishError: null,
+      };
+    case ADD_WISH_SUCCESS:
+      console.log(action.data);
+      return {
+        ...state,
+        addWishLoading: false,
+        addWishDone: true,
+        wishList: [...state.wishList ,action.data],
+      };
+    case ADD_WISH_FAILURE:
+      return {
+        ...state,
+        addWishLoading: true,
+        addWishDone: false,
+        addWishError: action.msg,
+      };
+      case REMOVE_WISH_REQUEST:
+        return {
+          ...state,
+          removeWishLoading: true,
+          removeWishDone: false,
+          removeWishError: null,
+        };
+      case REMOVE_WISH_SUCCESS:
+        return {
+          ...state,
+          removeWishLoading: false,
+          removeWishDone: true,
+          wishList: state.wishList.filter((v) => v.id !== action.data)
+        }
+      case REMOVE_WISH_FAILURE:
+        return {
+          ...state,
+          removeWishLoading: true,
+          removeWishDone: false,
+          removeWishError: action.data.msg,
+        };
     default:
       return state;
   }

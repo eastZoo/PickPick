@@ -4,6 +4,10 @@
   margin-bottom: 10px;
 }
 
+.remove__wish{
+  cursor: pointer;
+}
+
 .cart__img{
   width: 80px;
   height: 50px;
@@ -21,4 +25,8 @@
   width: 30px;
   border-radius: 30px;
   transform:scale(.7);
+}
+
+.card__user{
+  font-size: 12px;
 }
