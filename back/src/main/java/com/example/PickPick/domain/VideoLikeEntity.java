@@ -21,6 +21,7 @@ import javax.persistence.*;
 })
 public class VideoLikeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_like_id")
     private int id;
 

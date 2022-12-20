@@ -4,6 +4,7 @@ import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
+import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
 import com.example.PickPick.mapper.UserMapper;
 import com.example.PickPick.repository.*;
@@ -197,4 +198,49 @@ public class VideoService {
         return result;
     }
 
+    public ResultDto addLikeVideo(String token, int videoId){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                VideoLikeEntity entity = VideoLikeEntity.builder()
+                        .userId(userRepository.findById(jwtTokenProvider.getSubject(token))
+                                .orElseThrow(IllegalArgumentException::new))
+                        .videoId(videoRepository.findById(videoId)
+                                .orElseThrow(IllegalArgumentException::new))
+                        .build();
+                videoLikeRepository.save(entity);
+                result.setMsg("영상 좋아요 추가 성공");
+                result.setSuccess(true);
+                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+            }else{
+                result.setMsg("토큰 만료");
+            }
+        }catch(Exception e){
+            result.setMsg("영상 좋아요 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultDto deleteLikeVideo(String token, int videoId){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                VideoLikeEntity entity = videoLikeRepository.findByUserId(userRepository.findById(jwtTokenProvider.getSubject(token))
+                        .orElseThrow(IllegalArgumentException::new));
+                videoLikeRepository.delete(entity);
+                result.setMsg("영상 좋아요 삭제 성공");
+                result.setSuccess(true);
+                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+            }else{
+                result.setMsg("토큰 만료");
+            }
+        }catch(Exception e){
+            result.setMsg("영상 좋아요 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
