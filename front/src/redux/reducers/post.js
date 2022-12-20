@@ -2,6 +2,7 @@
 const initialState = {
   mainPosts: [],
   comments: [],
+  myShared: [],
   singlePost: null, // LOAD_POST_REQUEST 게시글 하나만 불러올때 (다이나믹 라우팅 )
   loadPostsLoading: false,
   loadPostsDone: false,
@@ -18,6 +19,9 @@ const initialState = {
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
+  loadMySharedLoading : false,
+  loadMySharedDone: false,
+  loadMySharedError: null,
 };
 
 export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
@@ -39,6 +43,11 @@ export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
 export const REMOVE_COMMENT_REQUEST = 'REMOVE_COMMENT_REQUEST';
 export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS';
 export const REMOVE_COMMENT_FAILURE = 'REMOVE_COMMENT_FAILURE';
+
+export const LOAD_MYSHARED_REQUEST = 'LOAD_MYSHARED_REQUEST';
+export const LOAD_MYSHARED_SUCCESS = 'LOAD_MYSHARED_SUCCESS';
+export const LOAD_MYSHARED_FAILURE = 'LOAD_MYSHARED_FAILURE';
+
 
 
 // 중요!! reducer란?? 이전상태를 액션을 통해 다음 상태로 만들어내는 함수!!(단 불변성을 지키면서)
@@ -74,7 +83,7 @@ const postReducer = (state = initialState, action) => {
         addPostError: null,
       };
     case ADD_POST_SUCCESS:
-      console.log(action.data)
+      console.log(action.data);
       return {
         ...state,
         addPostLoading: false,
@@ -91,17 +100,17 @@ const postReducer = (state = initialState, action) => {
     case LOAD_COMMENT_REQUEST:
       return {
         ...state,
-        loadCommentLoading:true,
+        loadCommentLoading: true,
         loadCommentDone: false,
         loadCommentError: null,
-      }
+      };
     case LOAD_COMMENT_SUCCESS:
-      console.log(action.data.comments)
+      console.log(action.data.comments);
       return {
         ...state,
         loadCommentLoading: false,
         loadCommentDone: true,
-        comments: action.data.comments
+        comments: action.data.comments,
       };
     case LOAD_COMMENT_FAILURE:
       return {
@@ -109,49 +118,70 @@ const postReducer = (state = initialState, action) => {
         loadCommentLoading: false,
         loadCommentError: action.error,
       };
-      case ADD_COMMENT_REQUEST:
-        return {
-          ...state,
-          addCommentLoading:true,
-          addCommentDone: false,
-          addCommentError: null,
-        }
-      case ADD_COMMENT_SUCCESS:
-        console.log(action.data.detail)
-        return {
-          ...state,
-          addCommentLoading: false,
-          addCommentDone: true,
-          comments: [...state.comments, action.data.detail]
-        };
-      case ADD_COMMENT_FAILURE:
-        return {
-          ...state,
-          addCommentLoading: false,
-          addCommentError: action.error,
-        };
-        case REMOVE_COMMENT_REQUEST:
-          return {
-            ...state,
-            removeCommentLoading:true,
-            removeCommentDone: true,
-            addCommentError: null,
-          }
-        case REMOVE_COMMENT_SUCCESS:
-          console.log(state.comments)
-          return {
-            ...state,
-            addCommentLoading:false,
-            addCommentDone: false,
-            comments: state.comments.filter((v) => v.commentId !== action.data)
-          }
-        case REMOVE_COMMENT_FAILURE:
-          return {
-            ...state,
-            addCommentLoading:true,
-            addCommentDone: false,
-            addCommentError: null,
-          }
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+        addCommentLoading: true,
+        addCommentDone: false,
+        addCommentError: null,
+      };
+    case ADD_COMMENT_SUCCESS:
+      console.log(action.data.detail);
+      return {
+        ...state,
+        addCommentLoading: false,
+        addCommentDone: true,
+        comments: [...state.comments, action.data.detail],
+      };
+    case ADD_COMMENT_FAILURE:
+      return {
+        ...state,
+        addCommentLoading: false,
+        addCommentError: action.error,
+      };
+    case REMOVE_COMMENT_REQUEST:
+      return {
+        ...state,
+        removeCommentLoading: true,
+        removeCommentDone: true,
+        addCommentError: null,
+      };
+    case REMOVE_COMMENT_SUCCESS:
+      console.log(state.comments);
+      return {
+        ...state,
+        addCommentLoading: false,
+        addCommentDone: false,
+        comments: state.comments.filter((v) => v.commentId !== action.data),
+      };
+    case REMOVE_COMMENT_FAILURE:
+      return {
+        ...state,
+        addCommentLoading: true,
+        addCommentDone: false,
+        addCommentError: null,
+      };
+    case LOAD_MYSHARED_REQUEST:
+      return {
+        ...state,
+        loadMySharedLoading: true,
+        loadMySharedDone: false,
+        loadMySharedError: null,
+      };
+    case LOAD_MYSHARED_SUCCESS:
+      console.log(action.data)
+      return {
+        ...state,
+        loadMySharedLoading: false,
+        loadMySharedDone: true,
+        myShared: action.data.detail,
+      };
+    case LOAD_MYSHARED_FAILURE:
+      return {
+        ...state,
+        loadCommentLoading: false,
+        loadCommentError: action.error,
+      };
     default:
       return state;
   }

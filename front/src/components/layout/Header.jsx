@@ -49,11 +49,11 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="item">
+              {/* <li className="item">
                 <Link to="/favorite" className="item__name">
                   Favorite
                 </Link>
-              </li>
+              </li> */}
               <li className="item">
                 <Link to="/mypage" className="item__name">
                   mypage

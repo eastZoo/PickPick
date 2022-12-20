@@ -22,6 +22,7 @@
 .profile__container .profile__inner .profile__header .profile__avatar>img{
   border-radius: 50%;
   width: 150px;
+  height: 135px;
 }
 
 .profile__container .profile__inner .profile__header .profile__{

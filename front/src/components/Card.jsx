@@ -76,7 +76,7 @@ const Card = (props) => {
             </div>
           </Link>
           <div className="card_content">
-            <h2 className="card_title">{youtube.title}</h2>
+            <h2 className="card_title">{youtube.title.length >30 ?  youtube.title.substr(0,30)+"..." : youtube.title}</h2>
             <p className="card_text">
               {youtube.author}
               <FaCartPlus

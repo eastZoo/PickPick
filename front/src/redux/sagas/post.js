@@ -16,6 +16,9 @@ import {
   REMOVE_COMMENT_REQUEST,
   REMOVE_COMMENT_SUCCESS,
   REMOVE_COMMENT_FAILURE,
+  LOAD_MYSHARED_SUCCESS,
+  LOAD_MYSHARED_FAILURE,
+  LOAD_MYSHARED_REQUEST,
 } from "../reducers/post";
 
 // GET posts 전체 불러오기 메인
@@ -183,6 +186,42 @@ function* deleteComment(action) {
 function* watchDeleteComment() {
   yield takeLatest(REMOVE_COMMENT_REQUEST, deleteComment);
 }
+//END
+
+// GET 마이페이지 내가 공유한 글
+function loadMySharedAPI(data) {
+  console.log(data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    }
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.get("/user/mypage", config);
+}
+
+function* loadMyShared(action) {
+  try {
+    console.log(action.data);
+    const result = yield call(loadMySharedAPI, action.data);
+    console.log(result)
+    yield put({
+      type: LOAD_MYSHARED_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_MYSHARED_FAILURE,
+      error: err.response.data
+    });
+  }
+}
+
+function* watchLoadMyShared() {
+  yield takeLatest(LOAD_MYSHARED_REQUEST, loadMyShared);
+}
+//END
+
 
 export default function* postSaga() {
   yield all([
@@ -190,6 +229,7 @@ export default function* postSaga() {
     fork(watchAddPost),
     fork(watchloadComment),
     fork(watchAddComment),
-    fork(watchDeleteComment)
+    fork(watchDeleteComment),
+    fork(watchLoadMyShared)
   ]);
 }

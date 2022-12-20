@@ -27,7 +27,7 @@ const Floating = () => {
       type: LOAD_WISH_REQUEST,
       payload: { token: token },
     });
-  }, []); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
+  }, [])
 
 	
 	return (

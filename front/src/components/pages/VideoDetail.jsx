@@ -25,8 +25,6 @@ const VideoDetail = () => {
   // current login user ID
   const { userId } = useSelector((state) => state.auth);
 
-
-  console.log(comments)
   // Card 컴포넌트 Link로부터 받아온 상태값
   const { videoId, url, author, title } = location.state;
 
@@ -60,7 +58,7 @@ const VideoDetail = () => {
         <div className="video__inner">
           <div className="video__title">
             <h2>
-              {title}, videoId : {videoId}
+              {title}
             </h2>
             <div>{author}</div>
           </div>

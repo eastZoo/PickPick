@@ -6,16 +6,30 @@
 
 .remove__wish{
   cursor: pointer;
+  transition: all ease 1s;
+}
+.remove__wish:hover{
+  transform: rotate( 90deg );
 }
 
+.content__wrapper{
+  display: flex;
+  text-decoration: none;
+  color: inherit; 
+}
+.content__wrapper:hover{
+  color: inherit; 
+}
 .cart__img{
-  width: 80px;
+  width: 75px;
   height: 50px;
+  margin-right: 10px;
 }
 
 .cart__title{
   display: flex;
   justify-content: space-between;
+  font-family: 'LINESeedKR-Bd', cursive;
 }
 .cart__shared{
   display: flex;

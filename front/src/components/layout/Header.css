@@ -181,9 +181,11 @@ header nav .container .right .login__auth .medal:hover .front {
 }
 header nav .container .right .login__auth .medal .back {
   transform: rotateY(-180deg);
+  margin-top: 10px;
 }
 header nav .container .right .login__auth .medal .back .back__medal{
   font-size: 10px;
+  display :inline-block;
 }
 header nav .container .right .login__auth .medal:hover .back {
   transform: rotateY(0deg);

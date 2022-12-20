@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { REMOVE_WISH_REQUEST } from '../redux/reducers/wishList';
 import "./WishList.css";
 // 내가담은 비디오 공유한사람
@@ -55,6 +56,7 @@ const WishList = (props) => {
     });
   }
 
+  console.log(youtube.title.length)
 
   useEffect(() => {
     getYoutubeInfo(url);
@@ -66,27 +68,36 @@ const WishList = (props) => {
       <FaTimes
         style={{
           fontSize: "18px",
-          marginRight: "5px"
+          marginRight: "5px",
         }}
         onClick={deleteWish}
         className="remove__wish"
       />
-      <img className="cart__img" src={youtube.thumb} alt="유튜브 썸네일" />
-      <div>
-        <div className="cart__title">
-          <h4>{youtube.author}</h4>
-          <div className="cart__shared">
-            <img
-              className="shared-profile"
-              src={user.imgUrl}
-              alt="영상 공유자 프로필이미지"
-            />
-            <div className="card__user">{user.nickName} 회원님이 공유</div>
+      <Link to={{
+            pathname : `/video/${id}`,
+            state : youtube
+          }}  className="content__wrapper">
+        <img className="cart__img" src={youtube.thumb} alt="유튜브 썸네일" />
+        <div>
+          <div className="cart__title">
+            <h4>{youtube.author}</h4>
+            <div className="cart__shared">
+              <img
+                className="shared-profile"
+                src={user.imgUrl}
+                alt="영상 공유자 프로필이미지"
+              />
+              <div className="card__user">{user.nickName} 회원님이 공유</div>
+            </div>
+          </div>
+
+          <div>
+            {youtube.title.length > 30
+              ? youtube.title.substr(0, 30) + "..."
+              : youtube.title}
           </div>
         </div>
-
-        <a>{youtube.title}</a>
-      </div>
+      </Link>
     </li>
   );
 }
