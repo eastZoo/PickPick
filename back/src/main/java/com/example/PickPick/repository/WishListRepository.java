@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface WishListRepository extends JpaRepository<WishEntity, Integer> {
     List<WishEntity> findAllByUserId(String userId);
-    void deleteByUserIdAndVideoId(String userId, int videoId);
+    void deleteById(int wishListId);
 }
