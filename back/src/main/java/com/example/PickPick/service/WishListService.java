@@ -65,14 +65,15 @@ public class WishListService {
         return result;
     }
 
-    public ResultDto deleteWish(String token, int videoId) {
+    public ResultDto deleteWish(String token, int wishListId) {
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
                 String userId = jwtTokenProvider.getSubject(token);
-                wishListRepository.deleteByUserIdAndVideoId(userId, videoId);
+                wishListRepository.deleteById(wishListId);
                 result.setMsg("나중에 볼 목록에서 영상 삭제");
                 result.setSuccess(true);
+                result.setDetail(wishListId);
             } else {
                 result.setMsg("토큰만료");
             }

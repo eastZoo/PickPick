@@ -25,9 +25,9 @@ public class WishListController {
         return wishListService.addWish(token, wish);
     }
 
-    @DeleteMapping("/{VideoId}")
+    @DeleteMapping("/{WishListId}")
     @Transactional
-    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "VideoId") int videoId) {
-        return wishListService.deleteWish(token, videoId);
+    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "WishListId") int wishListId) {
+        return wishListService.deleteWish(token, wishListId);
     }
 }
