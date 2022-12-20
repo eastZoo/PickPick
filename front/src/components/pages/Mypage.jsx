@@ -14,7 +14,7 @@ const Mypage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    dispatch({ type: LOAD_MYSHARED_REQUEST, data: token });
+    dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   }, []);
 
   console.log(myShared)

@@ -70,6 +70,11 @@
   cursor: pointer;
   transition: .5s;
 }
+.profile__container .profile__inner .profile__category .category__selector .item:first-child>span{
+  background-color: #0d0c22;
+  color: #fff;
+}
+
 .profile__container .profile__inner .profile__category .category__selector .item>span:hover{
   background-color: #0d0c22;
   color: #fff;

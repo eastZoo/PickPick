@@ -53,24 +53,22 @@ const VideoDetail = () => {
 
   console.log(edit)
   return (
-    <div className="video__container">
-      <div className="video__card">
+    <section className="videodetail">
+      <div className="videodetail__wrapper">
         <div className="video__inner">
-          <div className="video__title">
-            <h2>
-              {title}
-            </h2>
-            <div>{author}</div>
-          </div>
           <ReactPlayer
             className="player"
             url={url}
-            width="1300px" // 플레이어 크기 (가로)
+            width="100%" // 플레이어 크기 (가로)
             height="720px"
             playing={true}
             muted={true}
             controls={true}
           />
+          <div className="video__title">
+            <h2>{title}</h2>
+            <div className="video__sub">{author}</div>
+          </div>
           <div className="comment__container">
             <div className="comment__icon">
               {liked ? (
@@ -139,7 +137,7 @@ const VideoDetail = () => {
                           avatar={<Avatar src={item.user.imgUrl} />}
                           title={item.user.nickName} //  user nickname
                         />
-                        <CommentForm/>
+                        <CommentForm />
                       </Skeleton>
                     ) : (
                       <Skeleton
@@ -162,7 +160,7 @@ const VideoDetail = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
