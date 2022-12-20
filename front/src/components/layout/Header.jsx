@@ -90,7 +90,17 @@ const Header = () => {
             </ul>
             {isAuthenticated ? (
               <div className="login__auth">
-                {userName} PICKER!!<button onClick={onLogout}>Logout</button>
+
+                <div class="medal">
+                  <div class="front">
+                    <img src={profileUrl} alt="profileUrl" />
+                  </div>
+                  <div class="back">
+                    <Button className="back__medal" onClick={onLogout}>LOGOUT</Button>
+                  </div>
+                </div>
+
+                <div>{userName} PICKER!!</div>
               </div>
             ) : (
               <a className="login__btn" href={KAKAO_AUTH_URL}>

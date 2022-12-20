@@ -37,7 +37,7 @@ const Floating = () => {
           <div className='floating__title'>MY Cart</div>
           <ul>
             {wishList.map((wish) => (
-              <WishList wish={wish.video} />
+              <WishList wishVideo={wish.video} wish={wish}/>
             ))}
           </ul>
         </div>

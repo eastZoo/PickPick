@@ -137,7 +137,58 @@ header nav .container .right .login__btn{
 header nav .container .right .login__auth{
   margin-left: 20px;
   font-family: 'LINESeedKR-Bd';
+  display: flex;
+  align-items: center;
 }
+
+.login__profile{
+  position:relative;
+  transform-style: preserve-3d; transition: all 1s;
+}
+.login__profile:hover{
+  transform: rotateY(180deg);
+}
+
+
+/* 로그인시 뱃지 */
+header nav .container .right .login__auth .medal{
+  width: 50px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: 10px;
+}
+header nav .container .right .login__auth .medal .front,
+header nav .container .right .login__auth .medal .back{
+  position: absolute;
+  transition: 1s;
+  backface-visibility: hidden;
+}
+
+header nav .container .right .login__auth .medal .front {
+  transform: rotateY(0deg);
+}
+
+header nav .container .right .login__auth .medal .front img{
+  width: 50px;
+  height: 45px;
+  border-radius: 50%;
+}
+header nav .container .right .login__auth .medal:hover .front {
+  transform: rotateY(180deg);
+}
+header nav .container .right .login__auth .medal .back {
+  transform: rotateY(-180deg);
+}
+header nav .container .right .login__auth .medal .back .back__medal{
+  font-size: 10px;
+}
+header nav .container .right .login__auth .medal:hover .back {
+  transform: rotateY(0deg);
+}
+
 header nav .container .right .login__btn .header__btn{
   width: 142px;
   height: 28px;

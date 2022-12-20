@@ -79,7 +79,7 @@ function deleteWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.delete(`/wishlist/${data.videoId}`, config);
+  return axios.delete(`/wishlist/${data.wishListId}`, config);
 }
 
 function* deleteWish(action) {

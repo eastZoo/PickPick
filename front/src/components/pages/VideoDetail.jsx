@@ -20,6 +20,7 @@ const VideoDetail = () => {
   const location = useLocation();
 
   const [liked, setLiked] = useState(false);
+  const [edit, setEdit] = useState(false);
   const { comments, removePostLoading } = useSelector((state) => state.post);
   // current login user ID
   const { userId } = useSelector((state) => state.auth);
@@ -52,7 +53,7 @@ const VideoDetail = () => {
     });
   };
 
-
+  console.log(edit)
   return (
     <div className="video__container">
       <div className="video__card">
@@ -102,8 +103,12 @@ const VideoDetail = () => {
                           <Button.Group>
                             {userId && item.user.id === userId ? ( // 로그인 했고 내아이디가 게시글 작성자와 같다면
                               // 수정 , 삭제 가능
-                              <div >
-                                <Button>수정</Button>
+                              <div>
+                                <Button
+                                  onClick={() => setEdit((prev) => !prev)}
+                                >
+                                  수정
+                                </Button>
                                 <Button
                                   type="danger"
                                   loading={removePostLoading}
@@ -116,73 +121,45 @@ const VideoDetail = () => {
                               // 다르면 신고 가능
                               <Button>신고</Button>
                             )}
-                          </Button.Group>
-                    ]}
+                          </Button.Group>,
+                        ]}
                       >
-                        <EllipsisOutlined style={{ fontSize: '20px', cursor: 'pointer'}}/>
+                        <EllipsisOutlined
+                          style={{ fontSize: "20px", cursor: "pointer" }}
+                        />
                       </Popover>,
                     ]}
                   >
-                    <Skeleton
-                      avatar
-                      title={false}
-                      loading={item.loading}
-                      active
-                    >
-                      <List.Item.Meta
-                        avatar={<Avatar src={item.user.imgUrl} />}
-                        title={item.user.nickName} //  user nickname
-                        description={item.comment} //  user comment
-                      />
-                    </Skeleton>
+                    {edit ? (
+                      <Skeleton
+                        avatar
+                        title={false}
+                        loading={item.loading}
+                        active
+                      >
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.user.imgUrl} />}
+                          title={item.user.nickName} //  user nickname
+                        />
+                        <CommentForm/>
+                      </Skeleton>
+                    ) : (
+                      <Skeleton
+                        avatar
+                        title={false}
+                        loading={item.loading}
+                        active
+                      >
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.user.imgUrl} />}
+                          title={item.user.nickName} //  user nickname
+                          description={item.comment} //  user comment
+                        />
+                      </Skeleton>
+                    )}
                   </List.Item>
                 )}
               />
-
-              {/* <List
-                header={`${comments.length}개의 댓글`}
-                itemLayout="horizontal"
-                dataSource={comments}
-                renderItem={(item) => (
-                  <List.Item
-                    style={{ padding: 0 }}
-                    actions={
-                      <Button.Group>
-                        {userId && item.user.id === userId ? ( // 로그인 했고 내아이디가 게시글 작성자와 같다면
-                          // 수정 , 삭제 가능
-                          <>
-                            <Button>수정</Button>
-                            <Button
-                              type="danger"
-                              loading={removePostLoading}
-                              onClick={onRemovePost}
-                            >
-                              삭제
-                            </Button>
-                          </>
-                        ) : (
-                          // 다르면 신고 가능
-                          <Button>신고</Button>
-                        )}
-                      </Button.Group>
-                    }
-                  >
-                    <li>
-                      <Comment
-                        author={item.user.nickName}
-                        avatar={
-                          <Link to="/profile">
-                            <a>
-                              <Avatar src={item.user.imgUrl}></Avatar>
-                            </a>
-                          </Link>
-                        }
-                        content={item.comment}
-                      />
-                    </li>
-                  </List.Item>
-                )}
-              /> */}
             </div>
           </div>
         </div>
