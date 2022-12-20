@@ -19,7 +19,7 @@ const initialState = {
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
-  loadMySharedLoading : false,
+  loadMySharedLoading: false,
   loadMySharedDone: false,
   loadMySharedError: null,
 };
@@ -174,7 +174,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
-        myShared: action.data.detail,
+        myShared: action.data,
       };
     case LOAD_MYSHARED_FAILURE:
       return {
