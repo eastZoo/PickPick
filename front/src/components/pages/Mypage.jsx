@@ -9,6 +9,7 @@ const Mypage = () => {
   const { isAuthenticated, userName, profileUrl } = useSelector((state) => state.auth);
   const { myShared } = useSelector((state) => state.post);
 
+  console.log(myShared)
   const {id, imgUrl, nickName } = myShared
 
 

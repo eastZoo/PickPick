@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import { Avatar, List, Popover, Button, Skeleton  } from "antd";
@@ -12,35 +12,46 @@ import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LOAD_COMMENT_REQUEST, REMOVE_COMMENT_REQUEST } from "../../redux/reducers/post";
+import { LIKE_POST_REQUEST, LOAD_COMMENT_REQUEST, LOAD_POST_REQUEST, REMOVE_COMMENT_REQUEST, UNLIKE_POST_REQUEST } from "../../redux/reducers/post";
 
 
 const VideoDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [liked, setLiked] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { comments, removePostLoading } = useSelector((state) => state.post);
+  const { singlePost } = useSelector((state) => state.post);
   // current login user ID
   const { userId } = useSelector((state) => state.auth);
 
   // Card 컴포넌트 Link로부터 받아온 상태값
-  const { videoId, url, author, title } = location.state;
+  // const { videoId, url, author, title } = location.state;
+
+  const { videoId, author, title, likers, url } = location.state;
 
 
-  useEffect(() => {
+  const onLike = () => {
+    if (!userId) {
+      return alert('로그인이 필요합니다.');
+    }
     const token = localStorage.getItem("token");
-    dispatch({
-      type: LOAD_COMMENT_REQUEST,
-      data: { videoId: videoId, token: token },
+    return dispatch({
+      type: LIKE_POST_REQUEST,
+      data: { videoId: videoId, token: token}
     });
-    console.log(comments)
-  }, []);
+  };
 
-  const changeLike = () => {
-    setLiked((prev) => !prev)
-  }
+  const onUnlike = () => {
+    if (!userId) {
+      return alert('로그인이 필요합니다.'); 
+    }
+    const token = localStorage.getItem("token");
+    return dispatch({
+      type: UNLIKE_POST_REQUEST,
+      data: { videoId: videoId, token: token},
+    });
+  };
+
 
   // -> sagas/post removePost
   const onRemovePost = (commentId) => {
@@ -51,7 +62,17 @@ const VideoDetail = () => {
     });
   };
 
-  console.log(edit)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    dispatch({
+      type: LOAD_POST_REQUEST,
+      data: { videoId: videoId, token: token },
+    });
+  }, []);
+
+  // const { url ,videoLike, comments} = singlePost;
+  const liked = singlePost?.videoLike.find((v) => v.userId === userId);
+
   return (
     <section className="videodetail">
       <div className="videodetail__wrapper">
@@ -72,13 +93,19 @@ const VideoDetail = () => {
           <div className="comment__container">
             <div className="comment__icon">
               {liked ? (
-                <HeartTwoTone
-                  twoToneColor="#eb2f96"
-                  key="heart"
-                  onClick={changeLike}
-                />
+                <>
+                  <HeartTwoTone
+                    twoToneColor="#eb2f96"
+                    key="heart"
+                    onClick={onUnlike}
+                  />
+                  <span>{singlePost?.videoLike.length}</span>
+                </>
               ) : (
-                <HeartOutlined key="heart" onClick={changeLike} />
+                <>
+                  <HeartOutlined key="heart" onClick={onLike} />
+                  <span>{singlePost?.videoLike.length}</span>
+                </>
               )}
             </div>
 
@@ -87,9 +114,9 @@ const VideoDetail = () => {
             <div className="comment__card">
               <CommentForm videoId={videoId} />
               <List
-                header={`${comments.length}개의 댓글`}
+                header={`${singlePost?.comments.length}개의 댓글`}
                 itemLayout="horizontal"
-                dataSource={comments}
+                dataSource={singlePost?.comments}
                 renderItem={(item) => (
                   <List.Item
                     actions={[
@@ -107,7 +134,6 @@ const VideoDetail = () => {
                                 </Button>
                                 <Button
                                   type="danger"
-                                  loading={removePostLoading}
                                   onClick={() => onRemovePost(item.commentId)}
                                 >
                                   삭제

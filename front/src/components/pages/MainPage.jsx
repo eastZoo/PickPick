@@ -82,6 +82,7 @@ const MainPage = () => {
                   userId={post.user.id}
                   userProfile={post.user.imgUrl}
                   userName={post.user.nickName}
+                  like={post.like}
                 />
               ))}
             </ul>

@@ -7,9 +7,6 @@ import {
   LOAD_POSTS_FAILURE,
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
-  LOAD_COMMENT_REQUEST,
-  LOAD_COMMENT_SUCCESS,
-  LOAD_COMMENT_FAILURE,
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_FAILURE,
@@ -19,6 +16,15 @@ import {
   LOAD_MYSHARED_SUCCESS,
   LOAD_MYSHARED_FAILURE,
   LOAD_MYSHARED_REQUEST,
+  LOAD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
+  LOAD_POST_REQUEST,
+  LIKE_POST_SUCCESS,
+  LIKE_POST_FAILURE,
+  LIKE_POST_REQUEST,
+  UNLIKE_POST_SUCCESS,
+  UNLIKE_POST_FAILURE,
+  UNLIKE_POST_REQUEST,
 } from "../reducers/post";
 
 // GET posts 전체 불러오기 메인
@@ -82,43 +88,6 @@ function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
 // END
-
-
-// GET 게시글 댓글
-function loadCommentAPI(data) {
-  console.log(data);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    params: { video_id: data.videoId },
-  };
-  config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.get(`/video/${data.videoId}`, config);
-}
-
-function* loadComment(action) {
-  try {
-    console.log(action);
-    const result = yield call(loadCommentAPI, action.data);
-    console.log(result.data.detail);
-    yield put({
-      type: LOAD_COMMENT_SUCCESS,
-      data: result.data.detail,
-    });
-  } catch (err) {
-    yield put({
-      type: LOAD_COMMENT_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function* watchloadComment() {
-  yield takeLatest(LOAD_COMMENT_REQUEST, loadComment);
-}
-// END
-
 
 // POST 게시글 댓글
 function addCommentAPI(data) {
@@ -222,14 +191,116 @@ function* watchLoadMyShared() {
 }
 //END
 
+// GET 마이페이지 내가 공유한 글
+// 게시글 하나만 불러오는 경우
+function loadPostAPI(data) {
+  console.log(data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.get(`/video/${data.videoId}`, config);
+}
+
+function* loadPost(action) {
+  try {
+    const result = yield call(loadPostAPI, action.data);
+    console.log(result)
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_POST_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
+function* watchLoadPost() {
+  yield takeLatest(LOAD_POST_REQUEST, loadPost);
+}
+//END
+
+
+// POST 좋아요 추가
+function likePostAPI(data) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.post(`/video/${data.videoId}/like`, config); // 좋아요개수 하나 올려주는 거니까 patch
+}
+
+function* likePost(action) {
+  try {
+    const result = yield call(likePostAPI, action.data);
+    console.log("result:", result);
+    yield put({
+      type: LIKE_POST_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LIKE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchLikePost() {
+  yield takeLatest(LIKE_POST_REQUEST, likePost);
+}
+//END
+
+// DELETE 좋아요 삭제
+function unlikePostAPI(data) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.delete(`/video/${data.videoId}/like`, config);
+}
+
+function* unlikePost(action) {
+  try {
+    const result = yield call(unlikePostAPI, action.data);
+    console.log(result.data.detail)
+    yield put({
+      type: UNLIKE_POST_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UNLIKE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchUnlikePost() {
+  yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
+}
 
 export default function* postSaga() {
   yield all([
     fork(watchLoadPosts),
     fork(watchAddPost),
-    fork(watchloadComment),
     fork(watchAddComment),
     fork(watchDeleteComment),
-    fork(watchLoadMyShared)
+    fork(watchLoadMyShared),
+    fork(watchLoadPost),
+    fork(watchLikePost),
+    fork(watchUnlikePost),
   ]);
 }
