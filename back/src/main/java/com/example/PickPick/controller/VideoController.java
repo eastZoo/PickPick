@@ -42,4 +42,14 @@ public class VideoController {
         return videoService.deleteComment(token,commentId);
     }
 
+    @PostMapping("/{VideoId}/like")
+    public ResultDto addLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("VideoId") int videoId){
+        return videoService.addLikeVideo(token, videoId);
+    }
+
+    @DeleteMapping("/{VideoId}/like")
+    public ResultDto deleteLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("VideoId") int videoId){
+        return videoService.deleteLikeVideo(token, videoId);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
+import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
 import com.example.PickPick.mapper.UserMapper;
 import com.example.PickPick.repository.*;
@@ -89,8 +90,10 @@ public class VideoService {
                             .collect(Collectors.toList());
 
             //좋아요 조회
-            int videoLike = videoLikeRepository.countByVideoId(video.getId());
-
+            List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideoId(video);
+            List<VideoLikeDto> videoLikeDto = videoLikeEntity.stream()
+                            .map(l -> new VideoLikeDto(l.getId(), l.getUserId().getId(), l.getVideoId().getId()))
+                            .collect(Collectors.toList());
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
             result.setDetail(VideoDetailDto.builder()
@@ -98,7 +101,7 @@ public class VideoService {
                             .url(video.getUrl())
                             .videoUserProfile(user.getImgUrl())
                             .videoUserNickname(user.getNickName())
-                            .videoLike(videoLike)
+                            .videoLike(videoLikeDto)
                             .categoryId(video.getCategoryId())
                             .comments(comment)
                     .build());
@@ -197,4 +200,49 @@ public class VideoService {
         return result;
     }
 
+    public ResultDto addLikeVideo(String token, int videoId){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                VideoLikeEntity entity = VideoLikeEntity.builder()
+                        .userId(userRepository.findById(jwtTokenProvider.getSubject(token))
+                                .orElseThrow(IllegalArgumentException::new))
+                        .videoId(videoRepository.findById(videoId)
+                                .orElseThrow(IllegalArgumentException::new))
+                        .build();
+                videoLikeRepository.save(entity);
+                result.setMsg("영상 좋아요 추가 성공");
+                result.setSuccess(true);
+                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+            }else{
+                result.setMsg("토큰 만료");
+            }
+        }catch(Exception e){
+            result.setMsg("영상 좋아요 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultDto deleteLikeVideo(String token, int videoId){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                VideoLikeEntity entity = videoLikeRepository.findByUserId(userRepository.findById(jwtTokenProvider.getSubject(token))
+                        .orElseThrow(IllegalArgumentException::new));
+                videoLikeRepository.delete(entity);
+                result.setMsg("영상 좋아요 삭제 성공");
+                result.setSuccess(true);
+                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+            }else{
+                result.setMsg("토큰 만료");
+            }
+        }catch(Exception e){
+            result.setMsg("영상 좋아요 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

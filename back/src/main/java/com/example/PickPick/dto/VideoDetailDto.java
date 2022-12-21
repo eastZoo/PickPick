@@ -13,11 +13,11 @@ public class VideoDetailDto {
     private String videoUserNickname;
     private String videoUserProfile;
     private int categoryId;
-    private int videoLike;
+    private List<VideoLikeDto> videoLike;
     private List<CommentDto> comments;
 
     @Builder
-    public VideoDetailDto(int videoId, String url, String videoUserNickname, String videoUserProfile, int categoryId, int videoLike, List<CommentDto> comments){
+    public VideoDetailDto(int videoId, String url, String videoUserNickname, String videoUserProfile, int categoryId, List<VideoLikeDto> videoLike, List<CommentDto> comments){
         this.videoId = videoId;
         this.url = url;
         this.videoUserNickname = videoUserNickname;
