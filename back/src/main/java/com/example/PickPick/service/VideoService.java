@@ -211,9 +211,14 @@ public class VideoService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 videoLikeRepository.save(entity);
+                VideoLikeDto videoLike = VideoLikeDto.builder()
+                        .id(entity.getId())
+                        .videoId(entity.getVideoId().getId())
+                        .userId(entity.getUserId().getId())
+                        .build();
                 result.setMsg("영상 좋아요 추가 성공");
                 result.setSuccess(true);
-                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+                result.setDetail(videoLike);
             }else{
                 result.setMsg("토큰 만료");
             }
@@ -229,12 +234,21 @@ public class VideoService {
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)) {
-                VideoLikeEntity entity = videoLikeRepository.findByUserId(userRepository.findById(jwtTokenProvider.getSubject(token))
-                        .orElseThrow(IllegalArgumentException::new));
+                UserEntity user = userRepository.findById(jwtTokenProvider.getSubject(token))
+                        .orElseThrow(IllegalArgumentException::new);
+                VideoEntity video = videoRepository.findById(videoId)
+                        .orElseThrow(IllegalArgumentException::new);
+
+                VideoLikeEntity entity = videoLikeRepository.findByUserIdAndVideoId(user, video);
+                VideoLikeDto videoLike = VideoLikeDto.builder()
+                        .id(entity.getId())
+                        .videoId(entity.getVideoId().getId())
+                        .userId(entity.getUserId().getId())
+                        .build();
                 videoLikeRepository.delete(entity);
                 result.setMsg("영상 좋아요 삭제 성공");
                 result.setSuccess(true);
-                result.setDetail(videoLikeRepository.countByVideoId(videoId));
+                result.setDetail(videoLike);
             }else{
                 result.setMsg("토큰 만료");
             }
