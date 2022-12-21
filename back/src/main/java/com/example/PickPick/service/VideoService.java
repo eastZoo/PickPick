@@ -90,8 +90,10 @@ public class VideoService {
                             .collect(Collectors.toList());
 
             //좋아요 조회
-            int videoLike = videoLikeRepository.countByVideoId(video.getId());
-
+            List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideoId(video);
+            List<VideoLikeDto> videoLikeDto = videoLikeEntity.stream()
+                            .map(l -> new VideoLikeDto(l.getId(), l.getUserId().getId(), l.getVideoId().getId()))
+                            .collect(Collectors.toList());
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
             result.setDetail(VideoDetailDto.builder()
@@ -99,7 +101,7 @@ public class VideoService {
                             .url(video.getUrl())
                             .videoUserProfile(user.getImgUrl())
                             .videoUserNickname(user.getNickName())
-                            .videoLike(videoLike)
+                            .videoLike(videoLikeDto)
                             .categoryId(video.getCategoryId())
                             .comments(comment)
                     .build());
