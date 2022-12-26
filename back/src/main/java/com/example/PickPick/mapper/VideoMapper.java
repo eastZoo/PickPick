@@ -11,5 +11,5 @@ public interface VideoMapper {
 
     VideoEntity videoDtoToEntity(VideoDto video);
 
-    VideoDto videoEntityToDto(VideoEntity user);
+    VideoDto videoEntityToDto(VideoEntity video);
 }

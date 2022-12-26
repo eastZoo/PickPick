@@ -2,12 +2,16 @@ package com.example.PickPick.service;
 
 import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.VideoEntity;
+import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.UserDto;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.dto.VideoDto;
+import com.example.PickPick.dto.VideoLikeDto;
 import com.example.PickPick.mapper.UserMapper;
+import com.example.PickPick.mapper.VideoMapper;
 import com.example.PickPick.repository.UserRepository;
+import com.example.PickPick.repository.VideoLikeRepository;
 import com.example.PickPick.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final VideoRepository videoRepository;
+    private final VideoLikeRepository videoLikeRepository;
 
     public ResultDto userCheck(UserDto user){
         ResultDto result = new ResultDto();
@@ -47,7 +52,7 @@ public class UserService {
         return result;
     }
 
-    public ResultDto getUserInfo(String token){
+    public ResultDto getSharedVideo(String token){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)) {
@@ -77,6 +82,32 @@ public class UserService {
         }
         catch(Exception e) {
             result.setMsg("유저정보 조회 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultDto getLikeList(String token){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                String userId = jwtTokenProvider.getSubject(token);
+
+                List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserId(userId);
+                List<VideoLikeDto.VideoLikeList> videos = videoLikeEntities.stream()
+                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), VideoMapper.mapper.videoEntityToDto(vl.getVideoId())))
+                        .collect(Collectors.toList());
+
+                result.setDetail(videos);
+                result.setSuccess(true);
+                result.setMsg("좋아요 표시한 영상 조회 성공");
+            } else {
+                result.setMsg("토큰 유효기간 초과");
+            }
+        }
+        catch(Exception e) {
+            result.setMsg("좋아요 표시한 영상 조회 실패");
             result.setDetail(e.getMessage());
             e.printStackTrace();
         }
