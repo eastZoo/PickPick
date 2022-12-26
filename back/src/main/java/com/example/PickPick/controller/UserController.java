@@ -20,4 +20,9 @@ public class UserController {
         return userService.getSharedVideo(token);
     }
 
+    @GetMapping("/likeList")
+    public ResultDto getLikeList(@RequestHeader("X-AUTH-TOKEN") String token) {
+        return userService.getLikeList(token);
+    }
+
 }
