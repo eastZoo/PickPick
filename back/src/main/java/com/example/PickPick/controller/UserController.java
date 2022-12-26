@@ -15,9 +15,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/mypage")
-    public ResultDto<VideoDto> getUserInfo(@RequestHeader("X-AUTH-TOKEN") String token) {
-        return userService.getUserInfo(token);
+    @GetMapping("/videos")
+    public ResultDto<VideoDto> getSharedVideo(@RequestHeader("X-AUTH-TOKEN") String token) {
+        return userService.getSharedVideo(token);
     }
 
 }

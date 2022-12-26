@@ -47,7 +47,7 @@ public class UserService {
         return result;
     }
 
-    public ResultDto getUserInfo(String token){
+    public ResultDto getSharedVideo(String token){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)) {
