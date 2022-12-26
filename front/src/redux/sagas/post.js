@@ -64,7 +64,7 @@ function addPostAPI(data) {
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
   console.log(data.userId)
-  return axios.post("/video", { url: data.url, categoryId: 1, userId : data.userId }, config);
+  return axios.post("/video", { url: data.url, categoryId: 1, userId: data.userId }, config);
 }
 
 function* addPost(action) {
@@ -98,7 +98,7 @@ function addCommentAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post(`/video/${data.videoId}/comment`, { comment : data.commentText }, config);
+  return axios.post(`/video/${data.videoId}/comment`, { comment: data.commentText }, config);
 }
 
 function* addComment(action) {
@@ -235,7 +235,7 @@ function likePostAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post(`/video/${data.videoId}/like`, config); // 좋아요개수 하나 올려주는 거니까 patch
+  return axios.post(`/video/${data.videoId}/like`, {}, config); // 좋아요개수 하나 올려주는 거니까 patch
 }
 
 function* likePost(action) {
