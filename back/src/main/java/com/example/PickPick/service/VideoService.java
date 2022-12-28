@@ -92,7 +92,7 @@ public class VideoService {
             //좋아요 조회
             List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideoId(video);
             List<VideoLikeDto> videoLikeDto = videoLikeEntity.stream()
-                            .map(l -> new VideoLikeDto(l.getId(), l.getUserId().getId(), l.getVideoId().getId()))
+                            .map(l -> new VideoLikeDto(l.getId(), l.getUser().getId(), l.getVideo().getId()))
                             .collect(Collectors.toList());
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
@@ -205,16 +205,16 @@ public class VideoService {
         try{
             if(jwtTokenProvider.validateToken(token)) {
                 VideoLikeEntity entity = VideoLikeEntity.builder()
-                        .userId(userRepository.findById(jwtTokenProvider.getSubject(token))
+                        .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
-                        .videoId(videoRepository.findById(videoId)
+                        .video(videoRepository.findById(videoId)
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 videoLikeRepository.save(entity);
                 VideoLikeDto videoLike = VideoLikeDto.builder()
                         .id(entity.getId())
-                        .videoId(entity.getVideoId().getId())
-                        .userId(entity.getUserId().getId())
+                        .videoId(entity.getVideo().getId())
+                        .userId(entity.getUser().getId())
                         .build();
                 result.setMsg("영상 좋아요 추가 성공");
                 result.setSuccess(true);
@@ -242,8 +242,8 @@ public class VideoService {
                 VideoLikeEntity entity = videoLikeRepository.findByUserIdAndVideoId(user, video);
                 VideoLikeDto videoLike = VideoLikeDto.builder()
                         .id(entity.getId())
-                        .videoId(entity.getVideoId().getId())
-                        .userId(entity.getUserId().getId())
+                        .videoId(entity.getVideo().getId())
+                        .userId(entity.getUser().getId())
                         .build();
                 videoLikeRepository.delete(entity);
                 result.setMsg("영상 좋아요 삭제 성공");
