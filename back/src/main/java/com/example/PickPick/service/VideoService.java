@@ -90,7 +90,7 @@ public class VideoService {
                             .collect(Collectors.toList());
 
             //좋아요 조회
-            List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideoId(video);
+            List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideo(video);
             List<VideoLikeDto> videoLikeDto = videoLikeEntity.stream()
                             .map(l -> new VideoLikeDto(l.getId(), l.getUser().getId(), l.getVideo().getId()))
                             .collect(Collectors.toList());
