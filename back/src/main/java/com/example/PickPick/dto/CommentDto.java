@@ -2,6 +2,7 @@ package com.example.PickPick.dto;
 
 import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.mapper.UserMapper;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.time.LocalDateTime;
 
@@ -25,5 +26,15 @@ public class CommentDto {
         this.user = UserMapper.mapper.userEntityToDto(entity.getUser());
         this.video = entity.getVideo().getId();
         this.like = like;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class MyComments {
+        private int id;
+        private String comment;
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAt;
+        private VideoDto video;
     }
 }
