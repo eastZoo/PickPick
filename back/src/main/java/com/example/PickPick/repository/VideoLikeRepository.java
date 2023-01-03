@@ -16,7 +16,7 @@ public interface VideoLikeRepository extends JpaRepository<VideoLikeEntity, Inte
 
     List<VideoLikeEntity> findByVideo(VideoEntity video);
 
-    VideoLikeEntity findByUserIdAndVideoId(UserEntity user, VideoEntity video);
+    VideoLikeEntity findByUserAndVideo(UserEntity user, VideoEntity video);
 
     List<VideoLikeEntity> findAllByUserId(String userId);
 }

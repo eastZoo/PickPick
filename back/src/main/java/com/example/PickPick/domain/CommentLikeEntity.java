@@ -28,9 +28,9 @@ public class CommentLikeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    private UserEntity userId;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
-    private CommentEntity commentId;
+    private CommentEntity comment;
 }
