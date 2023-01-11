@@ -122,7 +122,7 @@ public class UserService {
 
                 List<CommentEntity> commentEntities = commentRepository.findAllByUserId(userId);
                 List<CommentDto.MyComments> comments = commentEntities.stream()
-                        .map(c -> new CommentDto.MyComments(c.getCommentId(), c.getComment(), c.getCreatedAt(), c.getUpdateAt(), VideoMapper.mapper.videoEntityToDto(c.getVideo())))
+                        .map(c -> new CommentDto.MyComments(c.getCommentId(), c.getComment(), c.getCreatedAt(), c.getUpdateAt(), c.getVideo()))
                         .collect(Collectors.toList());
 
                 result.setDetail(comments);
