@@ -1,6 +1,5 @@
 package com.example.PickPick.controller;
 
-import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.UserDto;
 import com.example.PickPick.service.OAuthService;

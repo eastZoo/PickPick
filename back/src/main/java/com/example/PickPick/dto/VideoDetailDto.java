@@ -1,6 +1,5 @@
 package com.example.PickPick.dto;
 
-import com.example.PickPick.domain.CommentEntity;
 import lombok.Builder;
 import lombok.Getter;
 
