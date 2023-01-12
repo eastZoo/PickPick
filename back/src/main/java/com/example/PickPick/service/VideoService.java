@@ -239,7 +239,7 @@ public class VideoService {
                 VideoEntity video = videoRepository.findById(videoId)
                         .orElseThrow(IllegalArgumentException::new);
 
-                VideoLikeEntity entity = videoLikeRepository.findByUserIdAndVideoId(user, video);
+                VideoLikeEntity entity = videoLikeRepository.findByUserAndVideo(user, video);
                 VideoLikeDto videoLike = VideoLikeDto.builder()
                         .id(entity.getId())
                         .videoId(entity.getVideo().getId())
