@@ -29,7 +29,4 @@ public class VideoEntity extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    @Column(name = "category_id")
-    private int categoryId;
 }

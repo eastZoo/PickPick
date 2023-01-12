@@ -13,5 +13,4 @@ public class VideoDto {
     private int id;
     private String url;
     private String userId;
-    private int categoryId;
 }
