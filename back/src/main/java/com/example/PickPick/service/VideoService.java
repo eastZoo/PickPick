@@ -51,7 +51,6 @@ public class VideoService {
             if(jwtTokenProvider.validateToken(token)){
                 VideoEntity videoEntity = VideoEntity.builder()
                         .url(video.getUrl())
-                        .categoryId(video.getCategoryId())
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
@@ -102,7 +101,6 @@ public class VideoService {
                             .videoUserProfile(user.getImgUrl())
                             .videoUserNickname(user.getNickName())
                             .videoLike(videoLikeDto)
-                            .categoryId(video.getCategoryId())
                             .comments(comment)
                     .build());
         }catch(Exception e){

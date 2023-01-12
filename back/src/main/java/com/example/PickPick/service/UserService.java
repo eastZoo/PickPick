@@ -63,7 +63,7 @@ public class UserService {
 
                 List<VideoEntity> videoEntities = videoRepository.findAllByUserId(userId);
                 List<VideoDto> videos = videoEntities.stream()
-                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getUser().getId(), v.getCategoryId()))
+                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getUser().getId()))
                         .collect(Collectors.toList());
 
                 UserDto.UserInfo userInfo = UserDto.UserInfo.builder()
