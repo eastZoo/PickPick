@@ -1,6 +1,7 @@
 package com.example.PickPick.dto;
 
 import com.example.PickPick.domain.CommentEntity;
+import com.example.PickPick.domain.VideoEntity;
 import com.example.PickPick.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,6 @@ public class CommentDto {
     private LocalDateTime updateAt;
     private UserDto user;
     private int video;
-
     private int like;
 
     //Entity to Dto
@@ -35,6 +35,6 @@ public class CommentDto {
         private String comment;
         private LocalDateTime createdAt;
         private LocalDateTime updateAt;
-        private VideoDto video;
+        private VideoEntity video;
     }
 }
