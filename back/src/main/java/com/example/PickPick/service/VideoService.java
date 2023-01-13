@@ -6,13 +6,11 @@ import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
 import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
-import com.example.PickPick.mapper.UserMapper;
 import com.example.PickPick.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,34 +73,26 @@ public class VideoService {
     public ResultDto getVideoDetail(int id){
         ResultDto result = new ResultDto();
         try{
-            //Entity to Dto
-            VideoEntity video = videoRepository.findById(id)
+            VideoEntity videoEntity = videoRepository.findById(id)
                     .orElseThrow(IllegalArgumentException::new);
 
-            UserEntity userEntity = userRepository.findById(video.getUser().getId())
+            UserEntity user = userRepository.findById(videoEntity.getUser().getId())
                     .orElseThrow(IllegalArgumentException::new);
-            UserDto user = UserMapper.mapper.userEntityToDto(userEntity);
 
-            List<CommentEntity> commentEntity = commentRepository.findAllByVideoId(video.getId());
-            List<CommentDto> comment = commentEntity.stream()
-                            .map(c -> new CommentDto(c, commentLikeRepository.countByCommentId(c.getCommentId())))
-                            .collect(Collectors.toList());
-
+            List<CommentEntity> commentEntities = commentRepository.findAllByVideoId(videoEntity.getId());
             //좋아요 조회
-            List<VideoLikeEntity> videoLikeEntity = videoLikeRepository.findByVideo(video);
-            List<VideoLikeDto> videoLikeDto = videoLikeEntity.stream()
-                            .map(l -> new VideoLikeDto(l.getId(), l.getUser().getId(), l.getVideo().getId()))
-                            .collect(Collectors.toList());
+            List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findByVideo(videoEntity);
+
+            VideoDto.VideoDetailDto video = VideoDto.VideoDetailDto.builder()
+                    .videoId(videoEntity.getId())
+                    .url(videoEntity.getUrl())
+                    .user(user)
+                    .videoLike(videoLikeEntities)
+                    .comments(commentEntities)
+                    .build();
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
-            result.setDetail(VideoDetailDto.builder()
-                            .videoId(video.getId())
-                            .url(video.getUrl())
-                            .videoUserProfile(user.getImgUrl())
-                            .videoUserNickname(user.getNickName())
-                            .videoLike(videoLikeDto)
-                            .comments(comment)
-                    .build());
+            result.setDetail(video);
         }catch(Exception e){
             result.setMsg("영상 조회 실패");
             result.setDetail(e.getMessage());
@@ -126,8 +116,14 @@ public class VideoService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 commentRepository.save(commentEntity);
-                CommentDto comment = new CommentDto(commentEntity,
-                        commentLikeRepository.countByCommentId(commentEntity.getCommentId()));
+                CommentDto comment = CommentDto.builder()
+                        .commentId(commentEntity.getCommentId())
+                        .comment(commentEntity.getComment())
+                        .createdAt(commentEntity.getCreatedAt())
+                        .updateAt(commentEntity.getUpdateAt())
+                        .user(commentEntity.getUser())
+                        .video(commentEntity.getVideo())
+                        .build();
                 result.setSuccess(true);
                 result.setMsg("댓글 추가 성공");
                 result.setDetail(comment);
@@ -147,24 +143,31 @@ public class VideoService {
      */
     public ResultDto modifiedComment(String token, int commentId, CommentRequestDto commentDto){
         ResultDto result = new ResultDto();
-            try{
-                if(jwtTokenProvider.validateToken(token)){
-                    CommentEntity commentEntity = commentRepository.findById(commentId)
-                            .orElseThrow(IllegalArgumentException::new);
-                    commentRepository.updateComment(commentId, commentDto.getComment());
-                    int like = commentLikeRepository.countByCommentId(commentId);
-                    CommentDto comment = new CommentDto(commentEntity, like);
-                    result.setSuccess(true);
-                    result.setMsg("댓글 수정 성공");
-                    result.setDetail(comment);
-                }else{
-                    result.setMsg("토큰 유효기간 만료");
-                }
-            }catch(Exception e){
-                result.setMsg("댓글 수정 실패");
-                result.setDetail(e.getMessage());
-                e.printStackTrace();
+        try{
+            if(jwtTokenProvider.validateToken(token)){
+                CommentEntity commentEntity = commentRepository.findById(commentId)
+                        .orElseThrow(IllegalArgumentException::new);
+                commentRepository.updateComment(commentId, commentDto.getComment());
+                int like = commentLikeRepository.countByCommentId(commentId);
+                CommentDto comment = CommentDto.builder()
+                        .commentId(commentEntity.getCommentId())
+                        .comment(commentEntity.getComment())
+                        .createdAt(commentEntity.getCreatedAt())
+                        .updateAt(commentEntity.getUpdateAt())
+                        .user(commentEntity.getUser())
+                        .video(commentEntity.getVideo())
+                        .build();
+                result.setSuccess(true);
+                result.setMsg("댓글 수정 성공");
+                result.setDetail(comment);
+            }else{
+                result.setMsg("토큰 유효기간 만료");
             }
+        }catch(Exception e){
+            result.setMsg("댓글 수정 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
         return result;
     }
 
