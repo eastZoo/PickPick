@@ -25,6 +25,12 @@ import {
   UNLIKE_POST_SUCCESS,
   UNLIKE_POST_FAILURE,
   UNLIKE_POST_REQUEST,
+  LOAD_MYLIKE_REQUEST,
+  LOAD_MYLIKE_FAILURE,
+  LOAD_MYLIKE_SUCCESS,
+  LOAD_MYCOMMENT_SUCCESS,
+  LOAD_MYCOMMENT_FAILURE,
+  LOAD_MYCOMMENT_REQUEST,
 } from "../reducers/post";
 
 // GET posts 전체 불러오기 메인
@@ -157,6 +163,7 @@ function* watchDeleteComment() {
 }
 //END
 
+
 // GET 마이페이지 내가 공유한 글
 function loadMySharedAPI(data) {
   console.log(data);
@@ -166,7 +173,7 @@ function loadMySharedAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.get("/user/mypage", config);
+  return axios.get("/user/videos", config);
 }
 
 function* loadMyShared(action) {
@@ -191,9 +198,8 @@ function* watchLoadMyShared() {
 }
 //END
 
-// GET 마이페이지 내가 공유한 글
-// 게시글 하나만 불러오는 경우
-function loadPostAPI(data) {
+// GET 마이페이지 내가 좋아요한 글
+function loadMyLikeAPI(data) {
   console.log(data);
   const config = {
     headers: {
@@ -201,31 +207,64 @@ function loadPostAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.get(`/video/${data.videoId}`, config);
+  return axios.get(`/user/likeList`, config);
 }
 
-function* loadPost(action) {
+function* loadMyLike(action) {
   try {
-    const result = yield call(loadPostAPI, action.data);
+    const result = yield call(loadMyLikeAPI, action.data);
     console.log(result)
     yield put({
-      type: LOAD_POST_SUCCESS,
-      data: result.data.detail,
+      type: LOAD_MYLIKE_SUCCESS,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
-      type: LOAD_POST_FAILURE,
+      type: LOAD_MYLIKE_FAILURE,
       data: err.response.data,
     });
   }
 }
 
-function* watchLoadPost() {
-  yield takeLatest(LOAD_POST_REQUEST, loadPost);
+function* watchLoadMyLike() {
+  yield takeLatest(LOAD_MYLIKE_REQUEST, loadMyLike);
 }
 //END
 
+// GET 마이페이지 내가 댓글단 글
+function loadMyCommentsAPI(data) {
+  console.log(data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.get(`/user/comments`, config);
+}
+
+function* loadMyComments(action) {
+  try {
+    const result = yield call(loadMyCommentsAPI, action.data);
+    console.log(result)
+    yield put({
+      type: LOAD_MYCOMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MYCOMMENT_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
+function* watchLoadMyComments() {
+  yield takeLatest(LOAD_MYCOMMENT_REQUEST, loadMyComments);
+}
+//END
 
 // POST 좋아요 추가
 function likePostAPI(data) {
@@ -292,14 +331,50 @@ function* watchUnlikePost() {
   yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
 }
 
+// GET 상세페이지
+function loadPostAPI(data) {
+  console.log(data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.get(`/video/${data.videoId}`, config);
+}
+
+function* loadPost(action) {
+  try {
+    const result = yield call(loadPostAPI, action.data);
+    console.log(result)
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_POST_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
+function* watchLoadPost() {
+  yield takeLatest(LOAD_POST_REQUEST, loadPost);
+}
+//END
+
 export default function* postSaga() {
   yield all([
     fork(watchLoadPosts),
+    fork(watchLoadPost),
     fork(watchAddPost),
     fork(watchAddComment),
     fork(watchDeleteComment),
     fork(watchLoadMyShared),
-    fork(watchLoadPost),
+    fork(watchLoadMyLike),
+    fork(watchLoadMyComments),
     fork(watchLikePost),
     fork(watchUnlikePost),
   ]);

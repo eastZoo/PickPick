@@ -61,6 +61,14 @@ export const LOAD_MYSHARED_REQUEST = "LOAD_MYSHARED_REQUEST";
 export const LOAD_MYSHARED_SUCCESS = "LOAD_MYSHARED_SUCCESS";
 export const LOAD_MYSHARED_FAILURE = "LOAD_MYSHARED_FAILURE";
 
+export const LOAD_MYLIKE_REQUEST = "LOAD_MYLIKE_REQUEST";
+export const LOAD_MYLIKE_SUCCESS = "LOAD_MYLIKE_SUCCESS";
+export const LOAD_MYLIKE_FAILURE = "LOAD_MYLIKE_FAILURE";
+
+export const LOAD_MYCOMMENT_REQUEST = "LOAD_MYCOMMENT_REQUEST";
+export const LOAD_MYCOMMENT_SUCCESS = "LOAD_MYCOMMENT_SUCCESS";
+export const LOAD_MYCOMMENT_FAILURE = "LOAD_MYCOMMENT_FAILURE";
+
 export const LOAD_POST_REQUEST = "LOAD_POST_REQUEST";
 export const LOAD_POST_SUCCESS = "LOAD_POST_SUCCESS";
 export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
@@ -120,12 +128,12 @@ const postReducer = (state = initialState, action) => {
         addCommentError: null,
       };
     case ADD_COMMENT_SUCCESS:
-      console.log(action.data.detail);
+      const post = state.singlePost.comments
+      post.unshift(action.data.detail)
       return {
         ...state,
         addCommentLoading: false,
         addCommentDone: true,
-        comments: [...state.comments, action.data.detail],
       };
     case ADD_COMMENT_FAILURE:
       return {
@@ -142,11 +150,14 @@ const postReducer = (state = initialState, action) => {
       };
     case REMOVE_COMMENT_SUCCESS:
       console.log(state.comments);
+      console.log(state.singlePost.comments)
+      console.log(action.data)
+      let comment = state.singlePost.comments;
+      state.singlePost.comments = comment.filter((v) => v.commentId !== action.data);
       return {
         ...state,
         addCommentLoading: false,
         addCommentDone: false,
-        comments: state.comments.filter((v) => v.commentId !== action.data),
       };
     case REMOVE_COMMENT_FAILURE:
       return {
@@ -155,6 +166,8 @@ const postReducer = (state = initialState, action) => {
         addCommentDone: false,
         addCommentError: null,
       };
+    case LOAD_MYCOMMENT_REQUEST:
+    case LOAD_MYLIKE_REQUEST:
     case LOAD_MYSHARED_REQUEST:
       return {
         ...state,
@@ -163,18 +176,37 @@ const postReducer = (state = initialState, action) => {
         loadMySharedError: null,
       };
     case LOAD_MYSHARED_SUCCESS:
-      console.log(action.data);
+      console.log(action.data.videos)
+      return {
+        ...state,
+        loadMySharedLoading: true,
+        loadMySharedDone: false,
+        myShared: action.data
+      }
+    case LOAD_MYLIKE_SUCCESS:
+      console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
         myShared: action.data,
-      };
+      }
+    case LOAD_MYCOMMENT_SUCCESS:
+      console.log(state.myShared)
+      console.log(action.data)
+      return {
+        ...state,
+        loadMySharedLoading: false,
+        loadMySharedDone: true,
+        myShared: action.data,
+      }
+    case LOAD_MYCOMMENT_FAILURE:
+    case LOAD_MYLIKE_FAILURE:
     case LOAD_MYSHARED_FAILURE:
       return {
         ...state,
-        loadCommentLoading: false,
-        loadCommentError: action.error,
+        loadMySharedLoading: false,
+        loadMySharedError: action.error,
       };
     case LIKE_POST_REQUEST:
       return {
@@ -206,9 +238,10 @@ const postReducer = (state = initialState, action) => {
         loadMySharedError: null,
       };
     case UNLIKE_POST_SUCCESS:
-      console.log(action.data)
+      console.log(state.singlePost.videoLike)
+      console.log(action.data.userId)
       let like = state.singlePost.videoLike;
-      state.singlePost.videoLike = like.filter((v) => v.id !== action.data.id);
+      state.singlePost.videoLike = like.filter((v) => v.user.id !== action.data.userId);
       return {
         ...state,
         loadMySharedLoading: false,
@@ -234,7 +267,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadPostLoading: false,
         loadPostDone: true,
-        singlePost : action.data
+        singlePost: action.data
       };
     case LOAD_POST_FAILURE:
       return {

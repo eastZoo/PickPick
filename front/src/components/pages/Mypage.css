@@ -1,83 +1,111 @@
 .profile__container {
   position: relative;
-  background: #FAF6F1;
+  background: #faf6f1;
   margin: auto;
   padding-top: 130px;
 }
 
-.profile__container .profile__inner{
+.profile__container .profile__inner {
   max-width: 1320px;
   width: 100%;
   margin: auto;
 }
 
-.profile__container .profile__inner .profile__header{
+.profile__container .profile__inner .profile__header {
   width: 100%;
   display: flex;
 }
 
-.profile__container .profile__inner .profile__header .profile__avatar{
-
+.profile__container .profile__inner .profile__header .profile__avatar {
 }
-.profile__container .profile__inner .profile__header .profile__avatar>img{
+.profile__container .profile__inner .profile__header .profile__avatar > img {
   border-radius: 50%;
   width: 150px;
   height: 135px;
 }
 
-.profile__container .profile__inner .profile__header .profile__{
+.profile__container .profile__inner .profile__header .profile__ {
   margin-left: 20px;
   text-align: left;
   margin: auto 20px;
-  font-family: 'LINESeedKR-Bd';
+  font-family: "LINESeedKR-Bd";
 }
-.profile__container .profile__inner .profile__header .profile__>.profile__name{
+.profile__container
+  .profile__inner
+  .profile__header
+  .profile__
+  > .profile__name {
   font-size: 30px;
 }
-.profile__container .profile__inner .profile__header .profile__>.profile__nickname{
+.profile__container
+  .profile__inner
+  .profile__header
+  .profile__
+  > .profile__nickname {
   font-weight: 600;
   font-size: 16px;
   margin-bottom: 10px;
 }
-.profile__container .profile__inner .profile__header .profile__>.profile__pick{
-  font-family: 'Roboto Slab', serif;
+.profile__container
+  .profile__inner
+  .profile__header
+  .profile__
+  > .profile__pick {
+  font-family: "Roboto Slab", serif;
   font-weight: 600;
   font-size: 15px;
 }
 
-.profile__container .profile__inner .profile__category{
+.profile__container .profile__inner .profile__category {
   height: 50px;
   margin-top: 50px;
 }
 
-.profile__container .profile__inner .profile__category .category__selector{
+.profile__container .profile__inner .profile__category .category__selector {
 }
 
-.profile__container .profile__inner .profile__category .category__selector .item{
+.profile__container
+  .profile__inner
+  .profile__category
+  .category__selector
+  .item {
   margin-right: 20px;
-  height:40px;
+  height: 40px;
   text-align: center;
   float: left;
 }
 
-.profile__container .profile__inner .profile__category .category__selector .item>span{
+.profile__container
+  .profile__inner
+  .profile__category
+  .category__selector
+  .item
+  > span {
   background-color: #fff;
   color: #0d0c22;
   border: solid 1px #888;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 600;
   padding: 10px 15px;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
 }
-.profile__container .profile__inner .profile__category .category__selector .item:first-child>span{
+.profile__container
+  .profile__inner
+  .profile__category
+  .category__selector
+  .item
+  .item__name__active {
   background-color: #0d0c22;
   color: #fff;
 }
 
-.profile__container .profile__inner .profile__category .category__selector .item>span:hover{
+.profile__container
+  .profile__inner
+  .profile__category
+  .category__selector
+  .item
+  > span:hover {
   background-color: #0d0c22;
   color: #fff;
 }
-
-

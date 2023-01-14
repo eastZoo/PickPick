@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
-import { Avatar, List, Popover, Button, Skeleton  } from "antd";
+import { Avatar, List, Popover, Button, Skeleton, Input, Form } from "antd";
 import {
   HeartTwoTone,
   HeartOutlined,
@@ -12,8 +12,13 @@ import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LIKE_POST_REQUEST, LOAD_COMMENT_REQUEST, LOAD_POST_REQUEST, REMOVE_COMMENT_REQUEST, UNLIKE_POST_REQUEST } from "../../redux/reducers/post";
-
+import {
+  LIKE_POST_REQUEST,
+  LOAD_COMMENT_REQUEST,
+  LOAD_POST_REQUEST,
+  REMOVE_COMMENT_REQUEST,
+  UNLIKE_POST_REQUEST,
+} from "../../redux/reducers/post";
 
 const VideoDetail = () => {
   const dispatch = useDispatch();
@@ -29,36 +34,34 @@ const VideoDetail = () => {
 
   const { videoId, author, title, likers, url } = location.state;
 
-
   const onLike = () => {
     if (!userId) {
-      return alert('로그인이 필요합니다.');
+      return alert("로그인이 필요합니다.");
     }
     const token = localStorage.getItem("token");
     return dispatch({
       type: LIKE_POST_REQUEST,
-      data: { videoId: videoId, token: token}
+      data: { videoId: videoId, token: token },
     });
   };
 
   const onUnlike = () => {
     if (!userId) {
-      return alert('로그인이 필요합니다.'); 
+      return alert("로그인이 필요합니다.");
     }
     const token = localStorage.getItem("token");
     return dispatch({
       type: UNLIKE_POST_REQUEST,
-      data: { videoId: videoId, token: token},
+      data: { videoId: videoId, token: token },
     });
   };
-
 
   // -> sagas/post removePost
   const onRemovePost = (commentId) => {
     const token = localStorage.getItem("token");
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
-      data: { videoId: videoId, commentId:commentId, token: token },
+      data: { videoId: videoId, commentId: commentId, token: token },
     });
   };
 
@@ -71,7 +74,7 @@ const VideoDetail = () => {
   }, []);
 
   // const { url ,videoLike, comments} = singlePost;
-  const liked = singlePost?.videoLike.find((v) => v.userId === userId);
+  const liked = singlePost?.videoLike.find((v) => v.user.id === userId);
 
   return (
     <section className="videodetail">
@@ -163,7 +166,7 @@ const VideoDetail = () => {
                           avatar={<Avatar src={item.user.imgUrl} />}
                           title={item.user.nickName} //  user nickname
                         />
-                        <CommentForm />
+                        <Form title={item.comment} />
                       </Skeleton>
                     ) : (
                       <Skeleton
