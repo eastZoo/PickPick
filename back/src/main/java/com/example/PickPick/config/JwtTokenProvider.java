@@ -6,18 +6,18 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
 
-    private String secretKey = "pickpick"; // TODO 추후에 따로 파일로 빼기
-
-    private long tokenValidTime = 30 * 60 * 1000L;
+    @Value("${jwt.secretKey}")
+    private String secretKey;
+    @Value("${jwt.tokenValidTime}")
+    private long tokenValidTime;
 
     public String createToken(UserDto user) {
         Claims claims = Jwts.claims().setSubject(user.getId());

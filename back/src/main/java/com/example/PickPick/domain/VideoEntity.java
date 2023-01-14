@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -30,7 +29,4 @@ public class VideoEntity extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    @Column(name = "category_id")
-    private int categoryId;
 }

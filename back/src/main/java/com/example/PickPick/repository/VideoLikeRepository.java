@@ -14,9 +14,9 @@ public interface VideoLikeRepository extends JpaRepository<VideoLikeEntity, Inte
     @Query(value = "select count(*) from video_likes where video_likes.video_id=:videoId", nativeQuery = true)
     int countByVideoId(@Param("videoId") int videoId);
 
-    List<VideoLikeEntity> findByVideoId(VideoEntity videoId);
+    List<VideoLikeEntity> findByVideo(VideoEntity video);
 
-    VideoLikeEntity findByUserIdAndVideoId(UserEntity userId, VideoEntity videoId);
+    VideoLikeEntity findByUserAndVideo(UserEntity user, VideoEntity video);
 
     List<VideoLikeEntity> findAllByUserId(String userId);
 }

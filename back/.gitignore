@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+application-postgresql.properties
+application-jwt.properties
+
 src/main/generated/com/example/PickPick/mapper/UserMapperImpl.java
 src/main/generated/com/example/PickPick/mapper/VideoMapperImpl.java
 

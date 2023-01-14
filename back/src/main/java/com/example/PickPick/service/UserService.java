@@ -1,15 +1,14 @@
 package com.example.PickPick.service;
 
 import com.example.PickPick.config.JwtTokenProvider;
+import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.VideoEntity;
 import com.example.PickPick.domain.VideoLikeEntity;
-import com.example.PickPick.dto.ResultDto;
-import com.example.PickPick.dto.UserDto;
+import com.example.PickPick.dto.*;
 import com.example.PickPick.domain.UserEntity;
-import com.example.PickPick.dto.VideoDto;
-import com.example.PickPick.dto.VideoLikeDto;
 import com.example.PickPick.mapper.UserMapper;
 import com.example.PickPick.mapper.VideoMapper;
+import com.example.PickPick.repository.CommentRepository;
 import com.example.PickPick.repository.UserRepository;
 import com.example.PickPick.repository.VideoLikeRepository;
 import com.example.PickPick.repository.VideoRepository;
@@ -28,6 +27,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final VideoRepository videoRepository;
     private final VideoLikeRepository videoLikeRepository;
+    private final CommentRepository commentRepository;
 
     public ResultDto userCheck(UserDto user){
         ResultDto result = new ResultDto();
@@ -63,7 +63,7 @@ public class UserService {
 
                 List<VideoEntity> videoEntities = videoRepository.findAllByUserId(userId);
                 List<VideoDto> videos = videoEntities.stream()
-                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getUser().getId(), v.getCategoryId()))
+                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getUser().getId()))
                         .collect(Collectors.toList());
 
                 UserDto.UserInfo userInfo = UserDto.UserInfo.builder()
@@ -96,7 +96,7 @@ public class UserService {
 
                 List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserId(userId);
                 List<VideoLikeDto.VideoLikeList> videos = videoLikeEntities.stream()
-                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), VideoMapper.mapper.videoEntityToDto(vl.getVideoId())))
+                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), VideoMapper.mapper.videoEntityToDto(vl.getVideo())))
                         .collect(Collectors.toList());
 
                 result.setDetail(videos);
@@ -108,6 +108,32 @@ public class UserService {
         }
         catch(Exception e) {
             result.setMsg("좋아요 표시한 영상 조회 실패");
+            result.setDetail(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultDto getComments(String token){
+        ResultDto result = new ResultDto();
+        try{
+            if(jwtTokenProvider.validateToken(token)) {
+                String userId = jwtTokenProvider.getSubject(token);
+
+                List<CommentEntity> commentEntities = commentRepository.findAllByUserId(userId);
+                List<CommentDto.MyComments> comments = commentEntities.stream()
+                        .map(c -> new CommentDto.MyComments(c.getCommentId(), c.getComment(), c.getCreatedAt(), c.getUpdateAt(), c.getVideo()))
+                        .collect(Collectors.toList());
+
+                result.setDetail(comments);
+                result.setSuccess(true);
+                result.setMsg("내가 쓴 댓글 조회 성공");
+            } else {
+                result.setMsg("토큰 유효기간 초과");
+            }
+        }
+        catch(Exception e) {
+            result.setMsg("내가 쓴 댓글 조회 실패");
             result.setDetail(e.getMessage());
             e.printStackTrace();
         }

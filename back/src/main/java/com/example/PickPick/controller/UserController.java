@@ -27,4 +27,9 @@ public class UserController {
         return userService.getLikeList(token);
     }
 
+    @GetMapping("/comments")
+    public ResultDto getComments(@RequestHeader("X-AUTH-Token") String token) {
+        return userService.getComments(token);
+    }
+
 }

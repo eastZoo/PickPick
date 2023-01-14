@@ -16,4 +16,6 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
     @Modifying
     @Query(value = "update comments set comment_comment = :comment where comment_id = :id", nativeQuery = true)
     int updateComment(int id, String comment);
+
+    List<CommentEntity> findAllByUserId(String userId);
 }
