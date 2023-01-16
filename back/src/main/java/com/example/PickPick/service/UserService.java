@@ -96,7 +96,7 @@ public class UserService {
 
                 List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserId(userId);
                 List<VideoLikeDto.VideoLikeList> videos = videoLikeEntities.stream()
-                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), VideoMapper.mapper.videoEntityToDto(vl.getVideo())))
+                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), vl.getVideo()))
                         .collect(Collectors.toList());
 
                 result.setDetail(videos);
