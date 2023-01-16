@@ -19,6 +19,7 @@ import {
   REMOVE_COMMENT_REQUEST,
   UNLIKE_POST_REQUEST,
 } from "../../redux/reducers/post";
+import Comment from "../Comment";
 
 const VideoDetail = () => {
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ const VideoDetail = () => {
     });
   }, []);
 
+  console.log(singlePost);
   // const { url ,videoLike, comments} = singlePost;
   const liked = singlePost?.videoLike.find((v) => v.user.id === userId);
 
@@ -116,7 +118,19 @@ const VideoDetail = () => {
 
             <div className="comment__card">
               <CommentForm videoId={videoId} />
-              <List
+              <div>{singlePost?.comments.length}개의 댓글</div>
+              <br />
+              {singlePost?.comments.map((comment, idx) => (
+                <Comment
+                  commentId={comment.commentId}
+                  avatar={comment.user.imgUrl}
+                  nickName={comment.user.nickName}
+                  description={comment.comment}
+                  videoId={videoId}
+                />
+              ))}
+
+              {/* <List
                 header={`${singlePost?.comments.length}개의 댓글`}
                 itemLayout="horizontal"
                 dataSource={singlePost?.comments}
@@ -156,6 +170,7 @@ const VideoDetail = () => {
                     ]}
                   >
                     {edit ? (
+                      // 수정버튼 눌렀을 때
                       <Skeleton
                         avatar
                         title={false}
@@ -169,6 +184,7 @@ const VideoDetail = () => {
                         <Form title={item.comment} />
                       </Skeleton>
                     ) : (
+                      // 수정버튼 안눌렀을때 기본
                       <Skeleton
                         avatar
                         title={false}
@@ -184,7 +200,7 @@ const VideoDetail = () => {
                     )}
                   </List.Item>
                 )}
-              />
+              /> */}
             </div>
           </div>
         </div>
