@@ -26,7 +26,7 @@ public class VideoEntity extends BaseTimeEntity {
     @Column(name = "video_url")
     private String url;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 }

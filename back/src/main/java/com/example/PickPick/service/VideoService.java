@@ -28,7 +28,7 @@ public class VideoService {
     public ResultDto getVideoList() {
         ResultDto result = new ResultDto();
         try{
-            result.setDetail(videoRepository.findAll());
+            result.setDetail(videoRepository.findAllJoinFetch());
             result.setMsg("전체 영상목록");
             result.setSuccess(true);
         } catch(Exception e) {
