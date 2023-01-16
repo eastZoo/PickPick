@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-28T15:38:25+0900",
+    date = "2023-01-16T13:35:21+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 public class VideoMapperImpl implements VideoMapper {
@@ -21,7 +21,6 @@ public class VideoMapperImpl implements VideoMapper {
 
         videoEntity.id( video.getId() );
         videoEntity.url( video.getUrl() );
-        videoEntity.categoryId( video.getCategoryId() );
 
         return videoEntity.build();
     }
@@ -36,7 +35,6 @@ public class VideoMapperImpl implements VideoMapper {
 
         videoDto.id( video.getId() );
         videoDto.url( video.getUrl() );
-        videoDto.categoryId( video.getCategoryId() );
 
         return videoDto.build();
     }

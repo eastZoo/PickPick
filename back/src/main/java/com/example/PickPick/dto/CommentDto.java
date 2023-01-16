@@ -1,9 +1,7 @@
 package com.example.PickPick.dto;
 
-import com.example.PickPick.domain.CommentEntity;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
-import com.example.PickPick.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

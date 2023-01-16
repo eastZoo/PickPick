@@ -20,7 +20,6 @@ public class VideoService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final VideoLikeRepository videoLikeRepository;
-    private final CommentLikeRepository commentLikeRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     /**
@@ -148,7 +147,6 @@ public class VideoService {
                 CommentEntity commentEntity = commentRepository.findById(commentId)
                         .orElseThrow(IllegalArgumentException::new);
                 commentRepository.updateComment(commentId, commentDto.getComment());
-                int like = commentLikeRepository.countByCommentId(commentId);
                 CommentDto comment = CommentDto.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
