@@ -1,5 +1,6 @@
 package com.example.PickPick.dto;
 
+import com.example.PickPick.domain.VideoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +17,6 @@ public class VideoLikeDto {
     @AllArgsConstructor
     public static class VideoLikeList {
         private int id;
-        private VideoDto video;
+        private VideoEntity video;
     }
 }
