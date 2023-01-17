@@ -4,6 +4,7 @@ import com.example.PickPick.domain.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
     List<CommentEntity> findAllByVideoId(int id);
 
     @Transactional
-    @Modifying
-    @Query(value = "update comments set comment_comment = :comment where comment_id = :id", nativeQuery = true)
-    int updateComment(int id, String comment);
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE CommentEntity c SET c.comment = :comment where c.commentId = :id")
+    int updateComment(@Param("id") int id, @Param("comment") String comment);
 
     List<CommentEntity> findAllByUserId(String userId);
 }

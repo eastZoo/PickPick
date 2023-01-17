@@ -377,7 +377,7 @@ function updateCommentAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.put(`/video/${data.videoId}/comment/${data.commentId}`, { comment: data.comment }, config); // 좋아요개수 하나 올려주는 거니까 patch
+  return axios.patch(`/video/${data.videoId}/comment/${data.commentId}`, { comment: data.comment }, config); // 좋아요개수 하나 올려주는 거니까 patch
 }
 
 function* updateComment(action) {

@@ -140,24 +140,15 @@ public class VideoService {
     /**
      * 댓글 수정
      */
-    public ResultDto modifiedComment(String token, int commentId, CommentRequestDto commentDto){
+    public ResultDto modifiedComment(String token, int commentId, CommentDto.CommentRequest commentDto){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-                CommentEntity commentEntity = commentRepository.findById(commentId)
-                        .orElseThrow(IllegalArgumentException::new);
                 commentRepository.updateComment(commentId, commentDto.getComment());
-                CommentDto comment = CommentDto.builder()
-                        .commentId(commentEntity.getCommentId())
-                        .comment(commentEntity.getComment())
-                        .createdAt(commentEntity.getCreatedAt())
-                        .updateAt(commentEntity.getUpdateAt())
-                        .user(commentEntity.getUser())
-                        .video(commentEntity.getVideo())
-                        .build();
+                result.setDetail(commentRepository.findById(commentId));
                 result.setSuccess(true);
                 result.setMsg("댓글 수정 성공");
-                result.setDetail(comment);
+
             }else{
                 result.setMsg("토큰 유효기간 만료");
             }
