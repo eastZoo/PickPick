@@ -25,6 +25,9 @@ const initialState = {
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
+  updateCommentLoading: false,
+  updateCommentDone: false,
+  updateCommentError: null,
   loadMySharedLoading: false,
   loadMySharedDone: false,
   loadMySharedError: null,
@@ -52,6 +55,10 @@ export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
+
+export const UPDATE_COMMENT_REQUEST = "UPDATE_COMMENT_REQUEST";
+export const UPDATE_COMMENT_SUCCESS = "UPDATE_COMMENT_SUCCESS";
+export const UPDATE_COMMENT_FAILURE = "UPDATE_COMMENT_FAILURE";
 
 export const REMOVE_COMMENT_REQUEST = "REMOVE_COMMENT_REQUEST";
 export const REMOVE_COMMENT_SUCCESS = "REMOVE_COMMENT_SUCCESS";
@@ -276,6 +283,21 @@ const postReducer = (state = initialState, action) => {
         loadMySharedDone: false,
         loadMySharedError: action.error,
       };
+    case UPDATE_COMMENT_REQUEST:
+      return {
+        ...state,
+        updateCommentLoading: true,
+        updateCommentDone: false,
+        updateCommentError: null,
+      }
+    case UPDATE_COMMENT_SUCCESS:
+      let comments = state.singlePost.comments;
+      state.singlePost.comments = comments.map((v) => v.commentId === action.data.commentId ? { ...v, comment: action.data.comment } : v);
+      return {
+        ...state,
+        updateCommentLoading: false,
+        updateCommentDone: true,
+      }
     default:
       return state;
   }
