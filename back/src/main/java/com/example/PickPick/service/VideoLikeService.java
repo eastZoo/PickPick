@@ -1,8 +1,6 @@
 package com.example.PickPick.service;
 
 import com.example.PickPick.config.JwtTokenProvider;
-import com.example.PickPick.domain.UserEntity;
-import com.example.PickPick.domain.VideoEntity;
 import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.ResultDto;
 import com.example.PickPick.dto.VideoLikeDto;

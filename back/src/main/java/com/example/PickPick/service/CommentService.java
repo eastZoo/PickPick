@@ -37,8 +37,6 @@ public class CommentService {
                 CommentDto.Response response = CommentDto.Response.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
-                        .createdAt(commentEntity.getCreatedAt())
-                        .updateAt(commentEntity.getUpdateAt())
                         .user(commentEntity.getUser())
                         .build();
                 result.setSuccess(true);
@@ -68,8 +66,6 @@ public class CommentService {
                 CommentDto.ModifiedResponse response = CommentDto.ModifiedResponse.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
-                        .createdAt(commentEntity.getCreatedAt())
-                        .updateAt(commentEntity.getUpdateAt())
                         .build();
                 result.setDetail(response);
                 result.setSuccess(true);

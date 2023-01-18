@@ -2,7 +2,6 @@ package com.example.PickPick.service;
 
 import com.example.PickPick.config.JwtTokenProvider;
 import com.example.PickPick.domain.CommentEntity;
-import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.domain.VideoEntity;
 import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
@@ -83,7 +82,7 @@ public class VideoService {
 
             List<CommentEntity> commentEntities = commentRepository.findAllByVideoId(videoEntity.getId());
             List<CommentDto.Response> comments = commentEntities.stream()
-                    .map(cr -> new CommentDto.Response(cr.getCommentId(), cr.getComment(), cr.getCreatedAt(), cr.getUpdateAt(), cr.getUser()))
+                    .map(cr -> new CommentDto.Response(cr.getCommentId(), cr.getComment(), cr.getUser()))
                     .collect(Collectors.toList());
 
             VideoDto.VideoDetailDto video = VideoDto.VideoDetailDto.builder()

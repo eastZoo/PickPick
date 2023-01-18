@@ -1,5 +1,6 @@
 package com.example.PickPick.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,8 +15,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseTimeEntity {
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @JsonIgnore
     private LocalDateTime updateAt;
 }

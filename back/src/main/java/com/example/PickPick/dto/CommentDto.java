@@ -25,8 +25,6 @@ public class CommentDto {
     public static class Response {
         private int commentId;
         private String comment;
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAt;
         private UserEntity user;
     }
 
@@ -40,8 +38,6 @@ public class CommentDto {
     public static class ModifiedResponse {
         private int commentId;
         private String comment;
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAt;
     }
 
     @Builder
@@ -56,8 +52,6 @@ public class CommentDto {
     public static class MyComments {
         private int id;
         private String comment;
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAt;
         private VideoEntity video;
     }
 }
