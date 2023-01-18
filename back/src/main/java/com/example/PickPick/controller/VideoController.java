@@ -26,15 +26,4 @@ public class VideoController {
     public ResultDto<VideoDto.VideoDetailDto> getVideoDetail(@PathVariable(value = "VideoId") int videoId){
         return videoService.getVideoDetail(videoId);
     }
-
-    @PostMapping("/{VideoId}/like")
-    public ResultDto addLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("VideoId") int videoId){
-        return videoService.addLikeVideo(token, videoId);
-    }
-
-    @DeleteMapping("/{VideoId}/like")
-    public ResultDto deleteLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("VideoId") int videoId){
-        return videoService.deleteLikeVideo(token, videoId);
-    }
-
 }
