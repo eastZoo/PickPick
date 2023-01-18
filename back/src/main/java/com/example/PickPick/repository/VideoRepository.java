@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface VideoRepository extends JpaRepository<VideoEntity, Integer> {
-    @Query("select v from VideoEntity v join fetch v.user")
+    @Query("SELECT v FROM VideoEntity v JOIN FETCH v.user ORDER BY v.id DESC")
     List<VideoEntity> findAllJoinFetch();
 
     List<VideoEntity> findAllByUserId(String userId);

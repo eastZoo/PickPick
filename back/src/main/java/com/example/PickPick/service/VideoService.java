@@ -52,9 +52,9 @@ public class VideoService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 int videoId = videoRepository.save(videoEntity).getId();
+                result.setDetail(videoRepository.findById(videoId));
                 result.setMsg("영상 추가");
                 result.setSuccess(true);
-                result.setDetail(videoRepository.findById(videoId));
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
