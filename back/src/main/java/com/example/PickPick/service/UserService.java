@@ -7,7 +7,6 @@ import com.example.PickPick.domain.VideoLikeEntity;
 import com.example.PickPick.dto.*;
 import com.example.PickPick.domain.UserEntity;
 import com.example.PickPick.mapper.UserMapper;
-import com.example.PickPick.mapper.VideoMapper;
 import com.example.PickPick.repository.CommentRepository;
 import com.example.PickPick.repository.UserRepository;
 import com.example.PickPick.repository.VideoLikeRepository;
