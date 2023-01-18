@@ -14,7 +14,7 @@ const Card = (props) => {
 
   // post owner data , id = videoId
   const { key, url, id, userProfile, userName } = props;
-  
+
   const [youtube, setYoutube] = useState({
     videoId: id,
     url: url,
@@ -48,7 +48,7 @@ const Card = (props) => {
     const token = localStorage.getItem("token");
     dispatch({
       type: ADD_WISH_REQUEST,
-      payload: { token: token, videoId:id , userId: userId },
+      payload: { token: token, videoId: id, userId: userId },
     });
     alert("나중에 볼 영상에 추가되었습니다!!");
   };
@@ -61,10 +61,13 @@ const Card = (props) => {
     <>
       <li className="cards_item" key={key}>
         <div className="card">
-          <Link to={{
-            pathname : `/video/${id}`,
-            state : youtube
-          }} className="card_images">
+          <Link
+            to={{
+              pathname: `/video/${id}`,
+              state: youtube,
+            }}
+            className="card_images"
+          >
             <Link to="/profile" className="card_bedge">
               <div className="image__background">
                 <img src={userProfile} alt="" />
@@ -76,9 +79,14 @@ const Card = (props) => {
             </div>
           </Link>
           <div className="card_content">
-            <h2 className="card_title">{youtube.title.length >30 ?  youtube.title.substr(0,30)+"..." : youtube.title}</h2>
+            <h2 className="card_title">
+              {youtube.title.length > 30
+                ? youtube.title.substr(0, 30) + "..."
+                : youtube.title}
+            </h2>
             <p className="card_text">
-              {youtube.author}
+              <span className="card__author">{youtube.author}</span>
+              <span className="card__like">좋아요 : {props.likeCount}</span>
               <FaCartPlus
                 style={{
                   fontSize: "30px",
@@ -99,4 +107,3 @@ const Card = (props) => {
 };
 
 export default Card;
-

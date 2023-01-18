@@ -23,14 +23,13 @@ const MainPage = () => {
     setUrl(event.target.value);
   };
 
-
   const onSubmit = () => {
     if (url.length > 10) {
       const link = url.split("=");
       const token = localStorage.getItem("token");
       dispatch({
         type: ADD_POST_REQUEST,
-        payload: { url: link[1], token: token, userId:userId },
+        payload: { url: link[1], token: token, userId: userId },
       });
     }
     setUrl("");
@@ -39,7 +38,6 @@ const MainPage = () => {
   useEffect(() => {
     dispatch({ type: LOAD_POSTS_REQUEST });
   }, []); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
-
 
   return (
     <section className="mainpage">
@@ -82,7 +80,7 @@ const MainPage = () => {
                   userId={post.user.id}
                   userProfile={post.user.imgUrl}
                   userName={post.user.nickName}
-                  like={post.like}
+                  likeCount={post.likeCount}
                 />
               ))}
             </ul>

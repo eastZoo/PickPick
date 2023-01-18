@@ -54,11 +54,16 @@ const Header = () => {
                   Favorite
                 </Link>
               </li> */}
-              <li className="item">
-                <Link to="/mypage" className="item__name">
-                  mypage
-                </Link>
-              </li>
+              {isAuthenticated ? (
+                <li className="item">
+                  <Link to="/mypage" className="item__name">
+                    mypage
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+
               <li className="item">
                 <div className="item__name">
                   Youtube
@@ -90,13 +95,14 @@ const Header = () => {
             </ul>
             {isAuthenticated ? (
               <div className="login__auth">
-
                 <div class="medal">
                   <div class="front">
                     <img src={profileUrl} alt="profileUrl" />
                   </div>
                   <div class="back">
-                    <Button className="back__medal" onClick={onLogout}>LOGOUT</Button>
+                    <Button className="back__medal" onClick={onLogout}>
+                      LOGOUT
+                    </Button>
                   </div>
                 </div>
 
