@@ -22,7 +22,7 @@ public class VideoLikeDto {
 
     @Getter
     @AllArgsConstructor
-    public static class VideoLikeList {
+    public static class MyVideoLikes {
         private int id;
         private VideoEntity video;
     }

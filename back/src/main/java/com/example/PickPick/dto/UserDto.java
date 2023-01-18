@@ -11,13 +11,4 @@ public class UserDto {
     private String id;
     private String nickName;
     private String imgUrl;
-
-    @Builder
-    @Getter
-    public static class UserInfo {
-        private String id;
-        private String nickName;
-        private String imgUrl;
-        private List<VideoDto> videos;
-    }
 }
