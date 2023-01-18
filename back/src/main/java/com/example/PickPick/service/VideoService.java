@@ -86,7 +86,7 @@ public class VideoService {
                     .videoId(videoEntity.getId())
                     .url(videoEntity.getUrl())
                     .user(user)
-                    .videoLike(videoLikeEntities)
+                    .videoLikes(videoLikeEntities)
                     .comments(commentEntities)
                     .build();
             result.setSuccess(true);
