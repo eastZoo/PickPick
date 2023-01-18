@@ -22,19 +22,19 @@ public class CommentService {
     /**
      * 댓글 추가
      */
-    public ResultDto addComment(String token, int id, CommentDto.CommentRequest input){
+    public ResultDto addComment(String token, CommentDto.CommentRequest request){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
                 CommentEntity commentEntity = CommentEntity.builder()
-                        .comment(input.getComment())
-                        .video(videoRepository.findById(id)
+                        .comment(request.getComment())
+                        .video(videoRepository.findById(request.getVideoId())
                                 .orElseThrow(IllegalArgumentException::new))
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 commentRepository.save(commentEntity);
-                CommentDto.CommentResponse comment = CommentDto.CommentResponse.builder()
+                CommentDto.CommentResponse response = CommentDto.CommentResponse.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
                         .createdAt(commentEntity.getCreatedAt())
@@ -43,7 +43,7 @@ public class CommentService {
                         .build();
                 result.setSuccess(true);
                 result.setMsg("댓글 추가 성공");
-                result.setDetail(comment);
+                result.setDetail(response);
             } else{
                 result.setMsg("토큰 유효기간 초과");
             }
@@ -58,15 +58,22 @@ public class CommentService {
     /**
      * 댓글 수정
      */
-    public ResultDto modifiedComment(String token, int commentId, CommentDto.CommentRequest commentDto){
+    public ResultDto modifiedComment(String token, int commentId, CommentDto.CommentModifiedRequest request){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-                commentRepository.updateComment(commentId, commentDto.getComment());
-                result.setDetail(commentRepository.findById(commentId));
+                commentRepository.updateComment(commentId, request.getComment());
+                CommentEntity commentEntity = commentRepository.findById(commentId)
+                        .orElseThrow(IllegalArgumentException::new);
+                CommentDto.CommentModifiedResponse response = CommentDto.CommentModifiedResponse.builder()
+                        .commentId(commentEntity.getCommentId())
+                        .comment(commentEntity.getComment())
+                        .createdAt(commentEntity.getCreatedAt())
+                        .updateAt(commentEntity.getUpdateAt())
+                        .build();
+                result.setDetail(response);
                 result.setSuccess(true);
                 result.setMsg("댓글 수정 성공");
-
             }else{
                 result.setMsg("토큰 유효기간 만료");
             }
