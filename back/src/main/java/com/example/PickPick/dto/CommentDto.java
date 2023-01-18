@@ -9,21 +9,38 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class CommentDto {
-    private int commentId;
-    private String comment;
-    private LocalDateTime createdAt;
-    private LocalDateTime updateAt;
-    private UserEntity user;
-    private VideoEntity video;
 
     @Getter
     public static class CommentRequest {
+        private int videoId;
         private String comment;
+    }
+
+    @Builder
+    @Getter
+    public static class CommentResponse {
+        private int commentId;
+        private String comment;
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAt;
+        private UserEntity user;
+    }
+
+    @Getter
+    public static class CommentModifiedRequest {
+        private String comment;
+    }
+
+    @Builder
+    @Getter
+    public static class CommentModifiedResponse {
+        private int commentId;
+        private String comment;
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAt;
     }
 
     @Getter
