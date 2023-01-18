@@ -57,30 +57,20 @@ public class UserService {
             if(jwtTokenProvider.validateToken(token)) {
                 String userId = jwtTokenProvider.getSubject(token);
 
-                UserEntity user = userRepository.findById(userId)
-                        .orElseThrow(IllegalArgumentException::new);
-
                 List<VideoEntity> videoEntities = videoRepository.findAllByUserId(userId);
                 List<VideoDto> videos = videoEntities.stream()
-                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getUser().getId()))
+                        .map(v -> new VideoDto(v.getId(), v.getUrl()))
                         .collect(Collectors.toList());
 
-                UserDto.UserInfo userInfo = UserDto.UserInfo.builder()
-                        .id(user.getId())
-                        .imgUrl(user.getImgUrl())
-                        .nickName(user.getNickName())
-                        .videos(videos)
-                        .build();
-
-                result.setDetail(userInfo);
+                result.setDetail(videos);
                 result.setSuccess(true);
-                result.setMsg("유저정보 조회 성공");
+                result.setMsg("공유한 영상정보 조회 성공");
             } else {
                 result.setMsg("토큰 유효기간 초과");
             }
         }
         catch(Exception e) {
-            result.setMsg("유저정보 조회 실패");
+            result.setMsg("공유한 영상정보 조회 실패");
             result.setDetail(e.getMessage());
             e.printStackTrace();
         }
@@ -93,9 +83,9 @@ public class UserService {
             if(jwtTokenProvider.validateToken(token)) {
                 String userId = jwtTokenProvider.getSubject(token);
 
-                List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserId(userId);
-                List<VideoLikeDto.VideoLikeList> videos = videoLikeEntities.stream()
-                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), vl.getVideo()))
+                List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserIdJoinFetch(userId);
+                List<VideoLikeDto.MyVideoLikes> videos = videoLikeEntities.stream()
+                        .map(vl -> new VideoLikeDto.MyVideoLikes(vl.getId(), vl.getVideo()))
                         .collect(Collectors.toList());
 
                 result.setDetail(videos);
@@ -119,7 +109,7 @@ public class UserService {
             if(jwtTokenProvider.validateToken(token)) {
                 String userId = jwtTokenProvider.getSubject(token);
 
-                List<CommentEntity> commentEntities = commentRepository.findAllByUserId(userId);
+                List<CommentEntity> commentEntities = commentRepository.findAllByUserIdJoinFetch(userId);
                 List<CommentDto.MyComments> comments = commentEntities.stream()
                         .map(c -> new CommentDto.MyComments(c.getCommentId(), c.getComment(), c.getCreatedAt(), c.getUpdateAt(), c.getVideo()))
                         .collect(Collectors.toList());
