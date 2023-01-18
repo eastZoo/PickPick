@@ -82,8 +82,8 @@ public class VideoService {
                     .collect(Collectors.toList());
 
             List<CommentEntity> commentEntities = commentRepository.findAllByVideoId(videoEntity.getId());
-            List<CommentDto.CommentResponse> comments = commentEntities.stream()
-                    .map(cr -> new CommentDto.CommentResponse(cr.getCommentId(), cr.getComment(), cr.getCreatedAt(), cr.getUpdateAt(), cr.getUser()))
+            List<CommentDto.Response> comments = commentEntities.stream()
+                    .map(cr -> new CommentDto.Response(cr.getCommentId(), cr.getComment(), cr.getCreatedAt(), cr.getUpdateAt(), cr.getUser()))
                     .collect(Collectors.toList());
 
             VideoDto.VideoDetailDto video = VideoDto.VideoDetailDto.builder()

@@ -25,6 +25,6 @@ public class VideoDto {
         private int videoId;
         private String url;
         private List<VideoLikeDto.VideoLikes> videoLikes;
-        private List<CommentDto.CommentResponse> comments;
+        private List<CommentDto.Response> comments;
     }
 }
