@@ -109,7 +109,7 @@ public class UserService {
             if(jwtTokenProvider.validateToken(token)) {
                 String userId = jwtTokenProvider.getSubject(token);
 
-                List<CommentEntity> commentEntities = commentRepository.findAllByUserId(userId);
+                List<CommentEntity> commentEntities = commentRepository.findAllByUserIdJoinFetch(userId);
                 List<CommentDto.MyComments> comments = commentEntities.stream()
                         .map(c -> new CommentDto.MyComments(c.getCommentId(), c.getComment(), c.getCreatedAt(), c.getUpdateAt(), c.getVideo()))
                         .collect(Collectors.toList());
