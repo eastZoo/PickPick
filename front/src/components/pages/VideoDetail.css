@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-.videodetail .videodetail__wrapper{
+.videodetail .videodetail__wrapper {
   margin: 0 auto;
   max-width: 100%;
   background-color: #faf6f1;
@@ -34,12 +34,23 @@
   margin: 10px 0;
   font-family: "LINESeedKR-Bd", sans-serif;
 }
-.videodetail .videodetail__wrapper .video__title .video__sub{
-  font-size: 15px;
+
+.videodetail .videodetail__wrapper .video__title .author-like {
+  display: flex;
+  align-items: center;
+}
+
+.videodetail .videodetail__wrapper .video__title .video__sub {
+  font-size: 18px;
   font-family: "LINESeedKR-Bd", sans-serif;
 }
 
-.videodetail .videodetail__wrapper .video__inner .comment__container .comment__icon {
-  margin-bottom: 10px;
+.videodetail
+  .videodetail__wrapper
+  .video__inner
+  .video__title
+  .author-like
+  .comment__icon {
   font-size: 30px;
+  margin-left: 20px;
 }

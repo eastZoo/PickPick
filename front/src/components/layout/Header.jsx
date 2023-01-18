@@ -63,35 +63,6 @@ const Header = () => {
               ) : (
                 ""
               )}
-
-              <li className="item">
-                <div className="item__name">
-                  Youtube
-                  <div class="material-icons">keyboard_arrow_down</div>
-                </div>
-                <ul className="item__contents">
-                  <li>
-                    <a href="https://www.youtube.com/user/woowakgood">
-                      Woowakgood
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.youtube.com/c/%EB%A6%B4%EC%B9%B4Lilka">
-                      Lilka
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A">
-                      BLACKPINK
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A">
-                      BANGTANTV
-                    </a>
-                  </li>
-                </ul>
-              </li>
             </ul>
             {isAuthenticated ? (
               <div className="login__auth">

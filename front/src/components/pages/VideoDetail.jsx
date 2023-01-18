@@ -2,11 +2,7 @@ import React, { useCallback } from "react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import { Avatar, List, Popover, Button, Skeleton, Input, Form } from "antd";
-import {
-  HeartTwoTone,
-  HeartOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import "./VideoDetail.css";
 import CommentForm from "../CommentForm";
 import { Link, useLocation } from "react-router-dom";
@@ -93,27 +89,30 @@ const VideoDetail = () => {
           />
           <div className="video__title">
             <h2>{title}</h2>
-            <div className="video__sub">{author}</div>
-          </div>
-          <div className="comment__container">
-            <div className="comment__icon">
-              {liked ? (
-                <>
-                  <HeartTwoTone
+            <div className="author-like">
+              <div className="video__sub">{author}</div>
+              <div className="comment__icon">
+                {liked ? (
+                  <FcLike
                     twoToneColor="#eb2f96"
                     key="heart"
                     onClick={onUnlike}
+                    style={{ fontSize: "25px" }}
                   />
-                  <span>{singlePost?.videoLike.length}</span>
-                </>
-              ) : (
-                <>
-                  <HeartOutlined key="heart" onClick={onLike} />
-                  <span>{singlePost?.videoLike.length}</span>
-                </>
-              )}
+                ) : (
+                  <FcLikePlaceholder
+                    key="heart"
+                    style={{ fontSize: "25px" }}
+                    onClick={onLike}
+                  />
+                )}
+                <span style={{ fontSize: "20px", marginLeft: "5px" }}>
+                  {singlePost?.videoLike.length}
+                </span>
+              </div>
             </div>
-
+          </div>
+          <div className="comment__container">
             {/* 댓글창 부분 데이터  */}
 
             <div className="comment__card">

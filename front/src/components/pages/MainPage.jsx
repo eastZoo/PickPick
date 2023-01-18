@@ -19,6 +19,14 @@ const MainPage = () => {
   const { mainPosts } = useSelector((state) => state.post);
   const { userId } = useSelector((state) => state.auth);
 
+  const [order, setOrder] = useState("");
+  const sortedItems = mainPosts.sort((a, b) => b[order] - a[order]);
+
+  const handleBestClick = (sortTag) => {
+    console.log(sortTag);
+    setOrder(sortTag);
+  };
+
   const urlHandler = (event) => {
     setUrl(event.target.value);
   };
@@ -39,6 +47,7 @@ const MainPage = () => {
     dispatch({ type: LOAD_POSTS_REQUEST });
   }, []); // 포스트 추가시 빈카드 나타나는 문제 해결, mainPosts의 변경 감지 의존값 추가
 
+  console.log(mainPosts);
   return (
     <section className="mainpage">
       <div className="mainpage__wrapper">
@@ -68,11 +77,11 @@ const MainPage = () => {
               </Button>
             </div>
             {/* 드롭다운 1 */}
-            <DropDown />
+            <DropDown handleBestClick={handleBestClick} />
           </div>
           <div className="main">
             <ul className="cards">
-              {mainPosts.map((post) => (
+              {sortedItems.map((post) => (
                 <Card
                   key={post.id}
                   url={post.url}
