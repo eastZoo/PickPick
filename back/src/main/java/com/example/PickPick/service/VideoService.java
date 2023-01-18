@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -69,26 +70,29 @@ public class VideoService {
     /**
      * 영상 상세 조회
      */
-    public ResultDto getVideoDetail(int id){
+    public ResultDto getVideoDetail(int videoId){
         ResultDto result = new ResultDto();
         try{
-            VideoEntity videoEntity = videoRepository.findById(id)
+            VideoEntity videoEntity = videoRepository.findById(videoId)
                     .orElseThrow(IllegalArgumentException::new);
 
-            UserEntity user = userRepository.findById(videoEntity.getUser().getId())
-                    .orElseThrow(IllegalArgumentException::new);
+            List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findByVideoId(videoEntity.getId());
+            List<VideoLikeDto.VideoLikes> videoLikes = videoLikeEntities.stream()
+                    .map(vl -> new VideoLikeDto.VideoLikes(vl.getId(), vl.getUser().getId()))
+                    .collect(Collectors.toList());
 
             List<CommentEntity> commentEntities = commentRepository.findAllByVideoId(videoEntity.getId());
-            //좋아요 조회
-            List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findByVideo(videoEntity);
+            List<CommentDto.CommentResponse> comments = commentEntities.stream()
+                    .map(cr -> new CommentDto.CommentResponse(cr.getCommentId(), cr.getComment(), cr.getCreatedAt(), cr.getUpdateAt(), cr.getUser()))
+                    .collect(Collectors.toList());
 
             VideoDto.VideoDetailDto video = VideoDto.VideoDetailDto.builder()
                     .videoId(videoEntity.getId())
                     .url(videoEntity.getUrl())
-                    .user(user)
-                    .videoLikes(videoLikeEntities)
-                    .comments(commentEntities)
+                    .videoLikes(videoLikes)
+                    .comments(comments)
                     .build();
+
             result.setSuccess(true);
             result.setMsg("영상 조회 성공");
             result.setDetail(video);

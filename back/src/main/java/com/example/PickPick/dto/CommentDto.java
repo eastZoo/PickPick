@@ -21,6 +21,7 @@ public class CommentDto {
 
     @Builder
     @Getter
+    @AllArgsConstructor
     public static class CommentResponse {
         private int commentId;
         private String comment;
