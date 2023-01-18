@@ -27,21 +27,6 @@ public class VideoController {
         return videoService.getVideoDetail(videoId);
     }
 
-    @PostMapping("/{VideoId}/comment")
-    public ResultDto<CommentDto> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "VideoId") int VideoId, @RequestBody CommentRequestDto comment){
-        return videoService.addComment(token, VideoId, comment);
-    }
-
-    @PatchMapping("/{VideoId}/comment/{CommentId}")
-    public ResultDto<CommentDto> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentDto.CommentRequest comment){
-        return videoService.modifiedComment(token, commentId, comment);
-    }
-
-    @DeleteMapping("/{VideoId}/comment/{CommentId}")
-    public ResultDto deleteComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId){
-        return videoService.deleteComment(token,commentId);
-    }
-
     @PostMapping("/{VideoId}/like")
     public ResultDto addLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("VideoId") int videoId){
         return videoService.addLikeVideo(token, videoId);
