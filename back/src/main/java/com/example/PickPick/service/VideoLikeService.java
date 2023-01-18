@@ -31,15 +31,14 @@ public class VideoLikeService {
                         .video(videoRepository.findById(videoId)
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
-                videoLikeRepository.save(entity);
-                VideoLikeDto videoLike = VideoLikeDto.builder()
-                        .id(entity.getId())
-                        .videoId(entity.getVideo().getId())
-                        .userId(entity.getUser().getId())
+                VideoLikeEntity saved = videoLikeRepository.save(entity);
+                VideoLikeDto.VideoLikes response = VideoLikeDto.VideoLikes.builder()
+                        .id(saved.getId())
+                        .userId(saved.getUser().getId())
                         .build();
                 result.setMsg("영상 좋아요 추가 성공");
                 result.setSuccess(true);
-                result.setDetail(videoLike);
+                result.setDetail(response);
             }else{
                 result.setMsg("토큰 만료");
             }
@@ -51,25 +50,19 @@ public class VideoLikeService {
         return result;
     }
 
-    public ResultDto deleteLikeVideo(String token, int videoId){
+    public ResultDto deleteLikeVideo(String token, int videoLikeId){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)) {
-                UserEntity user = userRepository.findById(jwtTokenProvider.getSubject(token))
+                VideoLikeEntity entity = videoLikeRepository.findById(videoLikeId)
                         .orElseThrow(IllegalArgumentException::new);
-                VideoEntity video = videoRepository.findById(videoId)
-                        .orElseThrow(IllegalArgumentException::new);
-
-                VideoLikeEntity entity = videoLikeRepository.findByUserAndVideo(user, video);
-                VideoLikeDto videoLike = VideoLikeDto.builder()
-                        .id(entity.getId())
-                        .videoId(entity.getVideo().getId())
-                        .userId(entity.getUser().getId())
-                        .build();
                 videoLikeRepository.delete(entity);
+                VideoLikeDto.DeleteResponse response = VideoLikeDto.DeleteResponse.builder()
+                        .id(entity.getId())
+                        .build();
                 result.setMsg("영상 좋아요 삭제 성공");
                 result.setSuccess(true);
-                result.setDetail(videoLike);
+                result.setDetail(response);
             }else{
                 result.setMsg("토큰 만료");
             }
