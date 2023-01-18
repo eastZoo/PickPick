@@ -14,10 +14,17 @@ public class VideoLikeDto {
     private int videoId;
 
     @Getter
+    @Builder
     @AllArgsConstructor
     public static class VideoLikes {
         private int id;
         private String userId;
+    }
+
+    @Getter
+    @Builder
+    public static class DeleteResponse {
+        private int id;
     }
 
     @Getter
