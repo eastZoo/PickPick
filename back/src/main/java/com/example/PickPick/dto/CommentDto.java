@@ -45,6 +45,7 @@ public class CommentDto {
     }
 
     @Builder
+    @Getter
     public static class DeleteResponse {
         private int commentId;
     }

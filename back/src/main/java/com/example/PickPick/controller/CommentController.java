@@ -14,17 +14,17 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResultDto<CommentDto.CommentResponse> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody CommentDto.CommentRequest request){
+    public ResultDto<CommentDto.Response> addComment(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody CommentDto.Request request){
         return commentService.addComment(token, request);
     }
 
     @PatchMapping("/{CommentId}")
-    public ResultDto<CommentDto.CommentModifiedResponse> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentDto.CommentModifiedRequest request){
+    public ResultDto<CommentDto.ModifiedResponse> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentDto.ModifiedRequest request){
         return commentService.modifiedComment(token, commentId, request);
     }
 
     @DeleteMapping("/{CommentId}")
-    public ResultDto deleteComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId){
+    public ResultDto<CommentDto.DeleteResponse> deleteComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId){
         return commentService.deleteComment(token, commentId);
     }
 }
