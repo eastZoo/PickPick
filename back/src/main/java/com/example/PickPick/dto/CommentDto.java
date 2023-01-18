@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class CommentDto {
 
     @Getter
-    public static class CommentRequest {
+    public static class Request {
         private int videoId;
         private String comment;
     }
@@ -22,7 +22,7 @@ public class CommentDto {
     @Builder
     @Getter
     @AllArgsConstructor
-    public static class CommentResponse {
+    public static class Response {
         private int commentId;
         private String comment;
         private LocalDateTime createdAt;
@@ -31,18 +31,24 @@ public class CommentDto {
     }
 
     @Getter
-    public static class CommentModifiedRequest {
+    public static class ModifiedRequest {
         private String comment;
     }
 
     @Builder
     @Getter
-    public static class CommentModifiedResponse {
+    public static class ModifiedResponse {
         private int commentId;
         private String comment;
         private LocalDateTime createdAt;
         private LocalDateTime updateAt;
     }
+
+    @Builder
+    public static class DeleteResponse {
+        private int commentId;
+    }
+
 
     @Getter
     @AllArgsConstructor

@@ -22,7 +22,7 @@ public class CommentService {
     /**
      * 댓글 추가
      */
-    public ResultDto addComment(String token, CommentDto.CommentRequest request){
+    public ResultDto addComment(String token, CommentDto.Request request){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
@@ -34,7 +34,7 @@ public class CommentService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 commentRepository.save(commentEntity);
-                CommentDto.CommentResponse response = CommentDto.CommentResponse.builder()
+                CommentDto.Response response = CommentDto.Response.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
                         .createdAt(commentEntity.getCreatedAt())
@@ -58,14 +58,14 @@ public class CommentService {
     /**
      * 댓글 수정
      */
-    public ResultDto modifiedComment(String token, int commentId, CommentDto.CommentModifiedRequest request){
+    public ResultDto modifiedComment(String token, int commentId, CommentDto.ModifiedRequest request){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
                 commentRepository.updateComment(commentId, request.getComment());
                 CommentEntity commentEntity = commentRepository.findById(commentId)
                         .orElseThrow(IllegalArgumentException::new);
-                CommentDto.CommentModifiedResponse response = CommentDto.CommentModifiedResponse.builder()
+                CommentDto.ModifiedResponse response = CommentDto.ModifiedResponse.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
                         .createdAt(commentEntity.getCreatedAt())
@@ -92,13 +92,16 @@ public class CommentService {
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)){
-                CommentEntity comment = commentRepository.findById(commentId)
+                CommentEntity commentEntity = commentRepository.findById(commentId)
                         .orElseThrow(IllegalArgumentException::new);
-                if(comment.getUser()
+                if(commentEntity.getUser()
                         .getId()
                         .equals(jwtTokenProvider.getSubject(token))){
-                    commentRepository.delete(comment);
-                    result.setDetail(commentId);
+                    commentRepository.delete(commentEntity);
+                    CommentDto.DeleteResponse response = CommentDto.DeleteResponse.builder()
+                            .commentId(commentId)
+                            .build();
+                    result.setDetail(response);
                     result.setSuccess(true);
                     result.setMsg("삭제 성공");
                 }else{
