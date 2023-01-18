@@ -26,7 +26,7 @@ public class WishEntity extends BaseTimeEntity {
     @Column(name = "user_id")
     private String userId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "video_id")
     private VideoEntity video;
 }

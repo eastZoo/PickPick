@@ -29,12 +29,12 @@ public class CommentEntity extends BaseTimeEntity {
     @Column(name = "comment_comment")
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @NotFound(action = NotFoundAction.IGNORE)
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "video_id")
     private VideoEntity video;
 }
