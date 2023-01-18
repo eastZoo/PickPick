@@ -25,8 +25,7 @@ public class VideoDto {
     public static class VideoDetailDto{
         private int videoId;
         private String url;
-        private UserEntity user;
-        private List<VideoLikeEntity> videoLikes;
-        private List<CommentEntity> comments;
+        private List<VideoLikeDto.VideoLikes> videoLikes;
+        private List<CommentDto.CommentResponse> comments;
     }
 }

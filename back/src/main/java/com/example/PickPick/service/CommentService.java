@@ -34,13 +34,12 @@ public class CommentService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 commentRepository.save(commentEntity);
-                CommentDto comment = CommentDto.builder()
+                CommentDto.CommentResponse comment = CommentDto.CommentResponse.builder()
                         .commentId(commentEntity.getCommentId())
                         .comment(commentEntity.getComment())
                         .createdAt(commentEntity.getCreatedAt())
                         .updateAt(commentEntity.getUpdateAt())
                         .user(commentEntity.getUser())
-                        .video(commentEntity.getVideo())
                         .build();
                 result.setSuccess(true);
                 result.setMsg("댓글 추가 성공");
