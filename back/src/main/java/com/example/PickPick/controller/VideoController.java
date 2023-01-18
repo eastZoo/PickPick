@@ -32,8 +32,8 @@ public class VideoController {
         return videoService.addComment(token, VideoId, comment);
     }
 
-    @PutMapping("/{VideoId}/comment/{CommentId}")
-    public ResultDto<CommentDto> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentRequestDto comment){
+    @PatchMapping("/{VideoId}/comment/{CommentId}")
+    public ResultDto<CommentDto> modifiedComment(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable("CommentId") int commentId, @RequestBody CommentDto.CommentRequest comment){
         return videoService.modifiedComment(token, commentId, comment);
     }
 

@@ -31,6 +31,9 @@ import {
   LOAD_MYCOMMENT_SUCCESS,
   LOAD_MYCOMMENT_FAILURE,
   LOAD_MYCOMMENT_REQUEST,
+  UPDATE_COMMENT_REQUEST,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAILURE,
 } from "../reducers/post";
 
 // GET posts 전체 불러오기 메인
@@ -365,6 +368,40 @@ function* watchLoadPost() {
 }
 //END
 
+// PUT 댓글 수정 업데이트
+function updateCommentAPI(data) {
+  console.log(data)
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  config.headers["X-AUTH-TOKEN"] = data.token;
+  return axios.patch(`/video/${data.videoId}/comment/${data.commentId}`, { comment: data.comment }, config); // 좋아요개수 하나 올려주는 거니까 patch
+}
+
+function* updateComment(action) {
+  try {
+    const result = yield call(updateCommentAPI, action.data);
+    console.log("result:", result);
+    yield put({
+      type: UPDATE_COMMENT_SUCCESS,
+      data: result.data.detail,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UPDATE_COMMENT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchUpdateComment() {
+  yield takeLatest(UPDATE_COMMENT_REQUEST, updateComment);
+}
+//END
+
 export default function* postSaga() {
   yield all([
     fork(watchLoadPosts),
@@ -377,5 +414,6 @@ export default function* postSaga() {
     fork(watchLoadMyComments),
     fork(watchLikePost),
     fork(watchUnlikePost),
+    fork(watchUpdateComment),
   ]);
 }

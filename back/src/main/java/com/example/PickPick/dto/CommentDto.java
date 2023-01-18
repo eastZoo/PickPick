@@ -22,6 +22,11 @@ public class CommentDto {
     private VideoEntity video;
 
     @Getter
+    public static class CommentRequest {
+        private String comment;
+    }
+
+    @Getter
     @AllArgsConstructor
     public static class MyComments {
         private int id;
