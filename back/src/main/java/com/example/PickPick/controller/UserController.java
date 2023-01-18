@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/likeList")
-    public ResultDto<List<VideoLikeDto.VideoLikeList>> getLikeList(@RequestHeader("X-AUTH-TOKEN") String token) {
+    public ResultDto<List<VideoLikeDto.MyVideoLikes>> getLikeList(@RequestHeader("X-AUTH-TOKEN") String token) {
         return userService.getLikeList(token);
     }
 

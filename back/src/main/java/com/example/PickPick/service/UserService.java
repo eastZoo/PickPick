@@ -83,9 +83,9 @@ public class UserService {
             if(jwtTokenProvider.validateToken(token)) {
                 String userId = jwtTokenProvider.getSubject(token);
 
-                List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserId(userId);
-                List<VideoLikeDto.VideoLikeList> videos = videoLikeEntities.stream()
-                        .map(vl -> new VideoLikeDto.VideoLikeList(vl.getId(), vl.getVideo()))
+                List<VideoLikeEntity> videoLikeEntities = videoLikeRepository.findAllByUserIdJoinFetch(userId);
+                List<VideoLikeDto.MyVideoLikes> videos = videoLikeEntities.stream()
+                        .map(vl -> new VideoLikeDto.MyVideoLikes(vl.getId(), vl.getVideo()))
                         .collect(Collectors.toList());
 
                 result.setDetail(videos);
