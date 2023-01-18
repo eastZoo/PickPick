@@ -1,0 +1,46 @@
+.cart__list{
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.remove__wish{
+  cursor: pointer;
+  transition: all ease 1s;
+}
+.remove__wish:hover{
+  transform: rotate( 90deg );
+}
+
+.content__wrapper{
+  display: flex;
+  text-decoration: none;
+  color: inherit; 
+}
+.content__wrapper:hover{
+  color: inherit; 
+}
+.cart__img{
+  width: 75px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.cart__title{
+  display: flex;
+  justify-content: space-between;
+  font-family: 'LINESeedKR-Bd', cursive;
+}
+.cart__shared{
+  display: flex;
+  align-items: center;
+}
+.shared-profile{
+  width: 30px;
+  border-radius: 30px;
+  transform:scale(.7);
+}
+
+.card__user{
+  font-size: 12px;
+}

@@ -1,0 +1,197 @@
+body{
+  background: #faf6f1;
+}
+
+
+/* COMMON */
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+}
+
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  width:100%;
+  border-bottom: solid 1px #ccc;
+  height: 90px;
+  background: #faf6f1;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  z-index: 30;
+  margin: 0 auto;
+}
+
+header nav {
+  margin: 0 auto;
+  max-width: 1320px;
+}
+
+header nav .container {
+  display: flex;
+  height: 90px;
+}
+
+header nav .container .left {
+  display: flex;
+}
+
+header nav .container .left .main__logo {
+  height: 75px;
+  margin-right: 35px;
+}
+header nav .container .left .main__logo img{
+  margin-top: -17px;
+}
+header nav .container .left .search {
+  margin: auto 0;
+  width: 300px;
+  
+}
+header nav .container .left .search input{
+  border: solid 1px #888;
+  background: #fff;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  padding: 4px 11px;
+  width: 250px;
+  height: 25px;
+  font-family: 'Roboto Slab', serif;
+}
+
+header nav .container .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin: 0 0 0 auto;
+}
+
+header nav .container .right .right__menu{
+  display: flex;
+}
+
+header nav .container .right .right__menu .item{
+  padding-left: 25px;
+  display: flex;
+  height: 120px;
+}
+
+/* 오른쪽 메뉴 글자 아이콘 일자정렬 */
+header nav .container .right .right__menu .item .item__name {
+  font-size: 14px;
+  color: #2F3438;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-top: 10px;
+}
+nav .container .right .right__menu .item .item__name>.material-icons{
+  color: #7d7b78;
+}
+
+header nav .container .right .right__menu .item .item__contents {
+  width: 170px;
+  background-color: #fff;
+  font-size: 14px;
+  border: solid 1px #888;
+  box-shadow: 2px 2px 30px 0px rgb(20 20 20 / 10%);
+  transition: 1s;
+  position: absolute;
+  display: none;
+  cursor: pointer;
+  background: #FAF6F1;
+}
+/* 메인메뉴에 마우스 올렸을때 display:none이 display: block이되면서 나타나는 hover*/
+header nav .container .right .right__menu .item:hover .item__contents {
+  top: 90px;
+  display: block;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li {
+  list-style: none;
+  position: relative;
+  padding: 10px 10px;
+  text-align: left;
+}
+
+/* 헤더 드롭다운 메뉴 클릭시 호버 효과 ( 수정필요) */
+header nav .container .right .right__menu .item:hover .item__contents>li:hover{
+  background-color: #0d0c22;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li:hover a{
+  color: #e4e4e6;
+}
+header nav .container .right .right__menu .item:hover .item__contents>li>a {
+  color: #606060;
+  width: 100%;
+  font-weight: normal;
+}
+
+/* HEADER BUTTON */
+header nav .container .right .login__btn{
+  margin-left: 20px;
+}
+header nav .container .right .login__auth{
+  margin-left: 20px;
+  font-family: 'LINESeedKR-Bd';
+  display: flex;
+  align-items: center;
+}
+
+.login__profile{
+  position:relative;
+  transform-style: preserve-3d; transition: all 1s;
+}
+.login__profile:hover{
+  transform: rotateY(180deg);
+}
+
+
+/* 로그인시 뱃지 */
+header nav .container .right .login__auth .medal{
+  width: 50px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: 10px;
+}
+header nav .container .right .login__auth .medal .front,
+header nav .container .right .login__auth .medal .back{
+  position: absolute;
+  transition: 1s;
+  backface-visibility: hidden;
+}
+
+header nav .container .right .login__auth .medal .front {
+  transform: rotateY(0deg);
+}
+
+header nav .container .right .login__auth .medal .front img{
+  width: 50px;
+  height: 45px;
+  border-radius: 50%;
+}
+header nav .container .right .login__auth .medal:hover .front {
+  transform: rotateY(180deg);
+}
+header nav .container .right .login__auth .medal .back {
+  transform: rotateY(-180deg);
+  margin-top: 10px;
+}
+header nav .container .right .login__auth .medal .back .back__medal{
+  font-size: 10px;
+  display :inline-block;
+}
+header nav .container .right .login__auth .medal:hover .back {
+  transform: rotateY(0deg);
+}
+
+header nav .container .right .login__btn .header__btn{
+  width: 142px;
+  height: 28px;
+}

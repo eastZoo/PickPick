@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "LINESeedKR-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.videodetail {
+  width: 100%;
+}
+
+.videodetail .videodetail__wrapper {
+  margin: 0 auto;
+  max-width: 100%;
+  background-color: #faf6f1;
+  padding-top: 105px;
+}
+
+.videodetail .videodetail__wrapper .video__inner {
+  justify-content: center;
+  position: relative;
+  width: 1320px;
+  /* box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  border: 1px solid #888; */
+  box-sizing: border-box;
+  padding: 10px;
+  margin: auto;
+  z-index: 10;
+}
+
+.videodetail .videodetail__wrapper .video__title {
+  font-size: 25px;
+  margin: 10px 0;
+  font-family: "LINESeedKR-Bd", sans-serif;
+}
+
+.videodetail .videodetail__wrapper .video__title .author-like {
+  display: flex;
+  align-items: center;
+}
+
+.videodetail .videodetail__wrapper .video__title .video__sub {
+  font-size: 18px;
+  font-family: "LINESeedKR-Bd", sans-serif;
+}
+
+.videodetail
+  .videodetail__wrapper
+  .video__inner
+  .video__title
+  .author-like
+  .comment__icon {
+  font-size: 30px;
+  margin-left: 20px;
+}

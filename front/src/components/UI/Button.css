@@ -1,0 +1,16 @@
+.button{
+  background-color: #0d0c22;
+  color: #e4e4e6;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .5s;
+  
+}
+
+.button:hover {
+  background-color: #fdfbf8;
+  color: #0d0c22;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  border: 1px solid #0d0c22;
+}

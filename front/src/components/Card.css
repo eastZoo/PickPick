@@ -1,0 +1,149 @@
+/* Font */
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,700");
+@font-face {
+  font-family: "LINESeedKR-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+/* COMMON */
+a {
+  text-decoration: none;
+}
+
+.card_image img {
+  width: 264px;
+  height: 198px;
+  margin: 25px auto;
+  transition: 0.7s;
+}
+/* 
+.btn {
+  color: #ffffff;
+  padding: 0.8rem;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-weight: 400;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+} */
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.cards_item {
+  display: flex;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 40rem) {
+  .cards_item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 56rem) {
+  .cards_item {
+    width: 25%;
+  }
+}
+
+.card {
+  background: #fdfbf8;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #888;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  width: 306px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  height: 385px;
+  justify-content: space-between;
+}
+
+/* 썸네일 카드 호버 이미지 확대 */
+.card .card_images .card_image img:hover {
+  transform: scale(1.02);
+  transition: 0.7s;
+}
+
+.card .card_bedge {
+  height: 50px;
+  height: 45px;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  color: #333;
+  z-index: 10;
+}
+.card .card_bedge .image__background {
+  background: #333;
+  border-radius: 50%;
+}
+.card .card_bedge .card__user {
+  font-family: "LINESeedKR-Bd", cursive;
+  font-size: 15px;
+}
+
+.card .card_bedge .image__background img {
+  width: 50px;
+  height: 45px;
+  border: solid 2px #333;
+  box-shadow: 6px 6px 0px 0px rgb(0 0 0 / 9%);
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+.card .card_bedge:hover .image__background img {
+  padding: 2px;
+}
+
+.card_content {
+  font-family: "LINESeedKR-Bd", serif;
+}
+
+.card_title {
+  color: #0d0c22;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  height: 45px;
+}
+
+.card_text {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #0d0c22;
+}
+
+.card_text .card__author {
+  flex-basis: 145px;
+}
+.card_text .card__like {
+  font-size: 12px;
+  color: rgb(112, 112, 112);
+  padding: 5px;
+  margin-right: 10px;
+  flex-direction: row-reverse;
+}
+.card__icon {
+  cursor: pointer;
+  transition: all ease 1s;
+}
+.card_icon .add__wish {
+}
+.add__wish:hover {
+  transform: scale(1.02);
+}
