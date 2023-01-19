@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 public class CommentDto {
@@ -45,7 +43,6 @@ public class CommentDto {
     public static class DeleteResponse {
         private int commentId;
     }
-
 
     @Getter
     @AllArgsConstructor

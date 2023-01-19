@@ -16,6 +16,7 @@ public class WishListController {
     private final WishListService wishListService;
 
     @GetMapping
+    @Transactional
     public ResultDto<VideoDto> getWishList(@RequestHeader("X-AUTH-TOKEN") String token) {
         return wishListService.getWishList(token);
     }
