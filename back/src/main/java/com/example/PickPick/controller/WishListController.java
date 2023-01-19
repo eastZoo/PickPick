@@ -9,13 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("wishlist")
+@RequestMapping("wishList")
 @RequiredArgsConstructor
 public class WishListController {
 
     private final WishListService wishListService;
 
     @GetMapping
+    @Transactional
     public ResultDto<VideoDto> getWishList(@RequestHeader("X-AUTH-TOKEN") String token) {
         return wishListService.getWishList(token);
     }
@@ -25,9 +26,9 @@ public class WishListController {
         return wishListService.addWish(token, wish);
     }
 
-    @DeleteMapping("/{WishListId}")
+    @DeleteMapping("/{wishListId}")
     @Transactional
-    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "WishListId") int wishListId) {
+    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "wishListId") int wishListId) {
         return wishListService.deleteWish(token, wishListId);
     }
 }

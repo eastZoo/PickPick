@@ -87,7 +87,6 @@ public class UserService {
                 List<VideoLikeDto.MyVideoLikes> videos = videoLikeEntities.stream()
                         .map(vl -> new VideoLikeDto.MyVideoLikes(vl.getId(), vl.getVideo()))
                         .collect(Collectors.toList());
-
                 result.setDetail(videos);
                 result.setSuccess(true);
                 result.setMsg("좋아요 표시한 영상 조회 성공");
