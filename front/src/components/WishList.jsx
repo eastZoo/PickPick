@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { FaTimes } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { REMOVE_WISH_REQUEST } from '../redux/reducers/wishList';
+import React, { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { REMOVE_WISH_REQUEST } from "../redux/reducers/wishReducer";
 import "./WishList.css";
 // 내가담은 비디오 공유한사람
 // user = {
@@ -17,7 +17,7 @@ const WishList = (props) => {
 
   // 위시리스트 들어있는 video info
   const { url, user, id } = props.wishVideo;
-  console.log(props.wish)
+  console.log(props.wish);
 
   // Card 컴포넌트 유튜브 중복로직 발생 따로 모듈 만들기
   const [youtube, setYoutube] = useState({
@@ -52,11 +52,11 @@ const WishList = (props) => {
     const token = localStorage.getItem("token");
     dispatch({
       type: REMOVE_WISH_REQUEST,
-      payload: { token: token, wishListId: props.wish.id  },
+      payload: { token: token, wishListId: props.wish.id },
     });
-  }
+  };
 
-  console.log(youtube.title.length)
+  console.log(youtube.title.length);
 
   useEffect(() => {
     getYoutubeInfo(url);
@@ -73,10 +73,13 @@ const WishList = (props) => {
         onClick={deleteWish}
         className="remove__wish"
       />
-      <Link to={{
-            pathname : `/video/${id}`,
-            state : youtube
-          }}  className="content__wrapper">
+      <Link
+        to={{
+          pathname: `/video/${id}`,
+          state: youtube,
+        }}
+        className="content__wrapper"
+      >
         <img className="cart__img" src={youtube.thumb} alt="유튜브 썸네일" />
         <div>
           <div className="cart__title">
@@ -100,6 +103,6 @@ const WishList = (props) => {
       </Link>
     </li>
   );
-}
+};
 
-export default WishList
+export default WishList;

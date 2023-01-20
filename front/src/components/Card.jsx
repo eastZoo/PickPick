@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { ADD_WISH_REQUEST } from "../redux/reducers/wishList";
+import { ADD_WISH_REQUEST } from "../redux/reducers/wishReducer";
 import "./Card.css";
 
 //key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId

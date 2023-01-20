@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { LOG_IN_REQUEST } from "../../redux/reducers/auth";
+import { LOG_IN_REQUEST } from "../redux/reducers/authReducer";
 
 const KakaoOAuth = () => {
   const dispatch = useDispatch();

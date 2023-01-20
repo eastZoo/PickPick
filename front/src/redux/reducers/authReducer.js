@@ -53,16 +53,16 @@ const authReducer = (state = initialState, action) => {
     case LOG_IN_FAILURE:
       localStorage.removeItem("token");
       localStorage.removeItem("userInfo");
+      console.log(action.error)
       return {
         ...state,
-        ...action.payload,
         token: null,
         user: null,
         userId: null,
         isAuthenticated: false,
         isLoading: false,
         userRole: null,
-        errorMsg: action.payload.data.msg, // 로그인실패시 백에서 날라오는 메세지 받는 곳
+        errorMsg: action.error, // 로그인실패시 백에서 날라오는 메세지 받는 곳
       };
     case LOG_OUT_SUCCESS:
       localStorage.removeItem("token");

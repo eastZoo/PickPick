@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import {
   REMOVE_COMMENT_REQUEST,
   UPDATE_COMMENT_REQUEST,
-} from "../redux/reducers/post";
+} from "../redux/reducers/postReducer";
 import "./Comment.css";
 import Button from "./UI/Button";
 

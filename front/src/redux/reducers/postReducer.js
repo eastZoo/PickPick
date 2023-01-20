@@ -84,6 +84,7 @@ export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
 const postReducer = (state = initialState, action) => {
   // draft(state가 이름이바뀐 상태)는 불변성 상관없이 막 바꿔도 immer가 알아서 state를 알아서 불변성 지켜서 다음 스테이트로 만들어줌
   switch (action.type) {
+    //전체게시글 불러오기
     case LOAD_POSTS_REQUEST:
       return {
         ...state,
@@ -97,9 +98,10 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadPostsLoading: false,
         loadPostsDone: true,
-        mainPosts: action.data.detail, // 뭔가
+        mainPosts: action.data.detail,
       };
     case LOAD_POSTS_FAILURE:
+      console.log(action.error)
       return {
         ...state,
         loadPostsLoading: false,

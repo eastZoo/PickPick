@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { Avatar, List, Popover, Button, Skeleton, Input, Form } from "antd";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import "./VideoDetail.css";
-import CommentForm from "../CommentForm";
+import CommentForm from "../components/CommentForm";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +14,8 @@ import {
   LOAD_POST_REQUEST,
   REMOVE_COMMENT_REQUEST,
   UNLIKE_POST_REQUEST,
-} from "../../redux/reducers/post";
-import Comment from "../Comment";
+} from "../redux/reducers/postReducer";
+import Comment from "../components/Comment";
 
 const VideoDetail = () => {
   const dispatch = useDispatch();

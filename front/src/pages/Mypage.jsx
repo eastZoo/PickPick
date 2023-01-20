@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, List, Popover, Button, Skeleton } from "antd";
 import "./Mypage.css";
-import Card from "../Card";
+import Card from "../components/Card";
 import {
   LOAD_MYCOMMENT_REQUEST,
   LOAD_MYLIKE_REQUEST,
   LOAD_MYSHARED_REQUEST,
-} from "../../redux/reducers/post";
+} from "../redux/reducers/postReducer";
 
 const Mypage = () => {
   const dispatch = useDispatch();

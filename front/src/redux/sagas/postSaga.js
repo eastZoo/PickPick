@@ -34,7 +34,7 @@ import {
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from "../reducers/post";
+} from "../reducers/postReducer";
 
 // GET posts 전체 불러오기 메인
 function loadPostsAPI() {
@@ -53,7 +53,7 @@ function* loadPosts() {
     console.error(err);
     yield put({
       type: LOAD_POSTS_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -65,15 +65,13 @@ function* watchLoadPosts() {
 
 // POST 유튜브 공유
 function addPostAPI(data) {
-  console.log(data);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  console.log(data.userId)
-  return axios.post("/video", { url: data.url, categoryId: 1, userId: data.userId }, config);
+  return axios.post("/video", { url: data.url }, config);
 }
 
 function* addPost(action) {
@@ -88,7 +86,7 @@ function* addPost(action) {
   } catch (err) {
     yield put({
       type: ADD_POST_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }

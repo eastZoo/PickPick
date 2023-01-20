@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth';
-import postReducer from './post';
-import wishReducer from './wishList';
+import authReducer from './authReducer';
+import postReducer from './postReducer';
+import wishReducer from './wishReducer';
 
 const createRootReducer = combineReducers({
   auth: authReducer,
