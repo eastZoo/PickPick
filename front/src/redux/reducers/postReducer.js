@@ -158,11 +158,9 @@ const postReducer = (state = initialState, action) => {
         addCommentError: null,
       };
     case REMOVE_COMMENT_SUCCESS:
-      console.log(state.comments);
       console.log(state.singlePost.comments)
-      console.log(action.data)
       let comment = state.singlePost.comments;
-      state.singlePost.comments = comment.filter((v) => v.commentId !== action.data);
+      state.singlePost.comments = comment.filter((v) => v.commentId !== action.data.commentId);
       return {
         ...state,
         addCommentLoading: false,
@@ -173,7 +171,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         addCommentLoading: true,
         addCommentDone: false,
-        addCommentError: null,
+        addCommentError: action.error,
       };
     case LOAD_MYCOMMENT_REQUEST:
     case LOAD_MYLIKE_REQUEST:
@@ -237,7 +235,7 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         likePostLoading: true,
-        likePostError: null,
+        likePostError: action.error,
       };
     case UNLIKE_POST_REQUEST:
       return {
@@ -250,7 +248,7 @@ const postReducer = (state = initialState, action) => {
       console.log(state.singlePost.videoLike)
       console.log(action.data.userId)
       let like = state.singlePost.videoLike;
-      state.singlePost.videoLike = like.filter((v) => v.user.id !== action.data.userId);
+      state.singlePost.videoLike = like.filter((v) => v.id !== action.data.id);
       return {
         ...state,
         loadMySharedLoading: false,
@@ -261,7 +259,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadMySharedLoading: true,
         loadMySharedDone: false,
-        loadMySharedError: null,
+        loadMySharedError: action.error,
       };
     case LOAD_POST_REQUEST:
       return {
@@ -299,6 +297,13 @@ const postReducer = (state = initialState, action) => {
         ...state,
         updateCommentLoading: false,
         updateCommentDone: true,
+      }
+    case UPDATE_COMMENT_FAILURE:
+      return {
+        ...state,
+        updateCommentLoading: false,
+        updateCommentDone: false,
+        updateCommentError: action.error
       }
     default:
       return state;

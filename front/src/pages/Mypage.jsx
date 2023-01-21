@@ -11,7 +11,7 @@ import {
 
 const Mypage = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, userName, profileUrl } = useSelector(
+  const { isAuthenticated, userId, userName, profileUrl } = useSelector(
     (state) => state.auth
   );
   const { myShared } = useSelector((state) => state.post);
@@ -99,15 +99,14 @@ const Mypage = () => {
         </div>
         <ul className="cards">
           {toogleState === 1 &&
-            myShared?.videos &&
-            myShared.videos.map((myShare) => (
+            myShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.url}
                 id={myShare.id}
-                userId={id}
-                userProfile={imgUrl}
-                userName={nickName}
+                userId={userId}
+                userProfile={profileUrl}
+                userName={userName}
               />
             ))}
           {/* 내가 누른 좋아요 목록 */}

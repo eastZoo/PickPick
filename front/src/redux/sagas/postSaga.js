@@ -105,7 +105,7 @@ function addCommentAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post(`/video/${data.videoId}/comment`, { comment: data.commentText }, config);
+  return axios.post(`/comment`, { videoId: data.videoId, comment: data.commentText }, config);
 }
 
 function* addComment(action) {
@@ -120,7 +120,7 @@ function* addComment(action) {
   } catch (err) {
     yield put({
       type: ADD_COMMENT_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -139,7 +139,7 @@ function deleteCommentAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.delete(`/video/${data.videoId}/comment/${data.commentId}`, config);
+  return axios.delete(`/comment/${data.commentId}`, config);
 }
 
 function* deleteComment(action) {
@@ -154,7 +154,7 @@ function* deleteComment(action) {
   } catch (err) {
     yield put({
       type: REMOVE_COMMENT_FAILURE,
-      error: err.response.data
+      error: err.message
     });
   }
 }
@@ -189,7 +189,7 @@ function* loadMyShared(action) {
   } catch (err) {
     yield put({
       type: LOAD_MYSHARED_FAILURE,
-      error: err.response.data
+      error: err.message
     });
   }
 }
@@ -269,13 +269,14 @@ function* watchLoadMyComments() {
 
 // POST 좋아요 추가
 function likePostAPI(data) {
+  console.log(data.videoId)
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post(`/video/${data.videoId}/like`, {}, config); // 좋아요개수 하나 올려주는 거니까 patch
+  return axios.post(`/like`, { videoId: data.videoId }, config); // 좋아요개수 하나 올려주는 거니까 patch
 }
 
 function* likePost(action) {
@@ -290,7 +291,7 @@ function* likePost(action) {
     console.error(err);
     yield put({
       type: LIKE_POST_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -308,7 +309,7 @@ function unlikePostAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.delete(`/video/${data.videoId}/like`, config);
+  return axios.delete(`/like/${data.videoLikeId}`, config);
 }
 
 function* unlikePost(action) {
@@ -323,7 +324,7 @@ function* unlikePost(action) {
     console.error(err);
     yield put({
       type: UNLIKE_POST_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -356,7 +357,7 @@ function* loadPost(action) {
     console.error(err);
     yield put({
       type: LOAD_POST_FAILURE,
-      data: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -375,22 +376,20 @@ function updateCommentAPI(data) {
     },
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.patch(`/video/${data.videoId}/comment/${data.commentId}`, { comment: data.comment }, config); // 좋아요개수 하나 올려주는 거니까 patch
+  return axios.patch(`/comment/${data.commentId}`, { comment: data.comment }, config); // 좋아요개수 하나 올려주는 거니까 patch
 }
 
 function* updateComment(action) {
   try {
     const result = yield call(updateCommentAPI, action.data);
-    console.log("result:", result);
     yield put({
       type: UPDATE_COMMENT_SUCCESS,
       data: result.data.detail,
     });
   } catch (err) {
-    console.error(err);
     yield put({
       type: UPDATE_COMMENT_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }

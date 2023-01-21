@@ -49,7 +49,7 @@ const VideoDetail = () => {
     const token = localStorage.getItem("token");
     return dispatch({
       type: UNLIKE_POST_REQUEST,
-      data: { videoId: videoId, token: token },
+      data: { videoLikeId: liked.id, token: token },
     });
   };
 
@@ -72,8 +72,7 @@ const VideoDetail = () => {
 
   console.log(singlePost);
   // const { url ,videoLike, comments} = singlePost;
-  const liked = singlePost?.videoLike.find((v) => v.user.id === userId);
-
+  const liked = singlePost?.videoLike.find((v) => v.userId === userId);
   return (
     <section className="videodetail">
       <div className="videodetail__wrapper">

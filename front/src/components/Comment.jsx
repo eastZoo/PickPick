@@ -28,7 +28,7 @@ const Comment = ({ avatar, nickName, description, commentId, videoId }) => {
     const token = localStorage.getItem("token");
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
-      data: { videoId: videoId, commentId: commentId, token: token },
+      data: { commentId: commentId, token: token },
     });
   };
 
