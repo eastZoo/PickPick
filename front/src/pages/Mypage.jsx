@@ -8,32 +8,34 @@ import {
   LOAD_MYLIKE_REQUEST,
   LOAD_MYSHARED_REQUEST,
 } from "../redux/reducers/postReducer";
+import { useLocation } from "react-router-dom";
 
 const Mypage = () => {
   const dispatch = useDispatch();
+
+  const { myShared } = useSelector((state) => state.post);
+  console.log(myShared);
+
   const { isAuthenticated, userId, userName, profileUrl } = useSelector(
     (state) => state.auth
   );
-  const { myShared } = useSelector((state) => state.post);
+
+  const token = localStorage.getItem("token");
   const [toogleState, setToggleState] = useState(1);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
-  const { id, imgUrl, nickName } = myShared;
 
   const myLikeHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYLIKE_REQUEST, data: { token: token } });
   };
 
   const mySharedHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   };
 
   const myCommentHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYCOMMENT_REQUEST, data: { token: token } });
   };
 
@@ -41,8 +43,6 @@ const Mypage = () => {
     const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   }, []);
-
-  console.log(myShared);
 
   return (
     <div className="profile__container">
@@ -97,9 +97,10 @@ const Mypage = () => {
             </li>
           </ul>
         </div>
+        {/* 카드나오는 곳 */}
         <ul className="cards">
           {toogleState === 1 &&
-            myShared.map((myShare) => (
+            myShared?.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.url}
@@ -109,10 +110,9 @@ const Mypage = () => {
                 userName={userName}
               />
             ))}
-          {/* 내가 누른 좋아요 목록 */}
           {toogleState === 2 &&
-            myShared?.detail &&
-            myShared.detail.map((myShare) => (
+            myShared &&
+            myShared?.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}
@@ -123,8 +123,8 @@ const Mypage = () => {
               />
             ))}
           {toogleState === 3 &&
-            myShared?.detail &&
-            myShared.detail.map((myShare) => (
+            myShared &&
+            myShared?.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}

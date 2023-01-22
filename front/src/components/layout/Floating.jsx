@@ -22,6 +22,7 @@ const Floating = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token);
     dispatch({
       type: LOAD_WISH_REQUEST,
       payload: { token: token },
@@ -35,7 +36,7 @@ const Floating = () => {
           <div className="floating__title">MY Cart</div>
           <ul>
             {wishList.map((wish) => (
-              <WishList wishVideo={wish.video} wish={wish} />
+              <WishList wish={wish} />
             ))}
           </ul>
         </div>

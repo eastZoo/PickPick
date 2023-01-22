@@ -217,13 +217,13 @@ function* loadMyLike(action) {
     console.log(result)
     yield put({
       type: LOAD_MYLIKE_SUCCESS,
-      data: result.data,
+      data: result.data.detail,
     });
   } catch (err) {
     console.error(err);
     yield put({
       type: LOAD_MYLIKE_FAILURE,
-      data: err.response.data,
+      error: err.message,
     });
   }
 }

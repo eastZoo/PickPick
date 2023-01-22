@@ -16,7 +16,7 @@ const WishList = (props) => {
   const dispatch = useDispatch();
 
   // 위시리스트 들어있는 video info
-  const { url, user, id } = props.wishVideo;
+  const { url, user, id } = props.wish.video;
   console.log(props.wish);
 
   // Card 컴포넌트 유튜브 중복로직 발생 따로 모듈 만들기
@@ -55,8 +55,6 @@ const WishList = (props) => {
       payload: { token: token, wishListId: props.wish.id },
     });
   };
-
-  console.log(youtube.title.length);
 
   useEffect(() => {
     getYoutubeInfo(url);

@@ -19,7 +19,6 @@ const MainPage = () => {
   const [url, setUrl] = useState("");
 
   const { mainPosts, addPostError } = useSelector((state) => state.post);
-  const { userId } = useSelector((state) => state.auth);
 
   const [order, setOrder] = useState("");
   const sortedItems = mainPosts.sort((a, b) => b[order] - a[order]);

@@ -3,7 +3,7 @@ const initialState = {
   mainPosts: [],
   singlePost: null,
   comments: [],
-  myShared: {},
+  myShared: [],
   likePostLoading: false,
   likePostDone: false,
   likePostError: null,

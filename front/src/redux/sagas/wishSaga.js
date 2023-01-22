@@ -26,7 +26,7 @@ function* loadWish(action) {
     console.error(err);
     yield put({
       type: LOAD_WISH_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -94,7 +94,7 @@ function* deleteWish(action) {
   } catch (err) {
     yield put({
       type: REMOVE_WISH_FAILURE,
-      error: err.response.data
+      error: err.message
     });
   }
 }
