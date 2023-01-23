@@ -21,7 +21,7 @@ const loginUserAPI = (code) => {
       "Content-Type": 'application/json',
     },
   };
-  return axios.post("/oauth", { code }, config); // code로 안넘어가면  { code }
+  return axios.post("/oauth", code, config); // code로 안넘어가면  { code }
 };
 
 function* loginUser(action) {

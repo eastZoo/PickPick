@@ -10,7 +10,6 @@ const Floating = () => {
   const [status, setStatus] = useState(false);
 
   const { wishList } = useSelector((state) => state.wish);
-  console.log(wishList);
 
   function handleClick() {
     setStatus((prevStats) => !prevStats);
@@ -22,7 +21,6 @@ const Floating = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
     dispatch({
       type: LOAD_WISH_REQUEST,
       payload: { token: token },

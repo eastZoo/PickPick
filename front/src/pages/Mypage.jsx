@@ -12,10 +12,8 @@ import { useLocation } from "react-router-dom";
 
 const Mypage = () => {
   const dispatch = useDispatch();
-
-  const { myShared } = useSelector((state) => state.post);
-  console.log(myShared);
-
+  const myShared = useSelector((state) => state.post.myShared);
+  const otherShared = useSelector((state) => state.post.otherShared);
   const { isAuthenticated, userId, userName, profileUrl } = useSelector(
     (state) => state.auth
   );
@@ -44,6 +42,7 @@ const Mypage = () => {
     dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   }, []);
 
+  console.log(otherShared);
   return (
     <div className="profile__container">
       <div className="profile__inner">
@@ -100,7 +99,7 @@ const Mypage = () => {
         {/* 카드나오는 곳 */}
         <ul className="cards">
           {toogleState === 1 &&
-            myShared?.map((myShare) => (
+            myShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.url}
@@ -111,8 +110,7 @@ const Mypage = () => {
               />
             ))}
           {toogleState === 2 &&
-            myShared &&
-            myShared?.map((myShare) => (
+            otherShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}
@@ -123,8 +121,7 @@ const Mypage = () => {
               />
             ))}
           {toogleState === 3 &&
-            myShared &&
-            myShared?.map((myShare) => (
+            otherShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}

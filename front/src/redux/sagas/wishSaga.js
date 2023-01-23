@@ -38,7 +38,6 @@ function* watchLoadWish() {
 
 // POST 위시리스트 추가
 function addWishAPI(data) {
-  console.log(data);
   const config = {
     headers: {
       "Content-Type": "application/json",

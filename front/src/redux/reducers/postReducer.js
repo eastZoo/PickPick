@@ -4,6 +4,7 @@ const initialState = {
   singlePost: null,
   comments: [],
   myShared: [],
+  otherShared: [],
   likePostLoading: false,
   likePostDone: false,
   likePostError: null,
@@ -183,7 +184,8 @@ const postReducer = (state = initialState, action) => {
         loadMySharedError: null,
       };
     case LOAD_MYSHARED_SUCCESS:
-      console.log(action.data.videos)
+      console.log(state.myShared)
+      console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: true,
@@ -191,12 +193,13 @@ const postReducer = (state = initialState, action) => {
         myShared: action.data
       }
     case LOAD_MYLIKE_SUCCESS:
+      console.log(state.otherShared)
       console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
-        myShared: action.data,
+        otherShared: action.data.detail
       }
     case LOAD_MYCOMMENT_SUCCESS:
       console.log(state.myShared)
@@ -205,7 +208,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
-        myShared: action.data,
+        otherShared: action.data.detail
       }
     case LOAD_MYCOMMENT_FAILURE:
     case LOAD_MYLIKE_FAILURE:

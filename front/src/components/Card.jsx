@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ADD_WISH_REQUEST } from "../redux/reducers/wishReducer";
 import "./Card.css";
 
-//key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
+//key, id, url, userProfile,userName, userId
 const Card = (props) => {
   const dispatch = useDispatch();
 
@@ -115,4 +115,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

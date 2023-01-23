@@ -217,7 +217,7 @@ function* loadMyLike(action) {
     console.log(result)
     yield put({
       type: LOAD_MYLIKE_SUCCESS,
-      data: result.data.detail,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -257,7 +257,7 @@ function* loadMyComments(action) {
     console.error(err);
     yield put({
       type: LOAD_MYCOMMENT_FAILURE,
-      data: err.response.data,
+      error: err.message,
     });
   }
 }

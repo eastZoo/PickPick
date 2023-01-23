@@ -17,7 +17,6 @@ const WishList = (props) => {
 
   // 위시리스트 들어있는 video info
   const { url, user, id } = props.wish.video;
-  console.log(props.wish);
 
   // Card 컴포넌트 유튜브 중복로직 발생 따로 모듈 만들기
   const [youtube, setYoutube] = useState({
