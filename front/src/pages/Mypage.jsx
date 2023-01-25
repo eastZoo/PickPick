@@ -107,6 +107,7 @@ const Mypage = () => {
                 userId={userId}
                 userProfile={profileUrl}
                 userName={userName}
+                likeCount={myShare.likeCount}
               />
             ))}
           {toogleState === 2 &&
@@ -117,8 +118,8 @@ const Mypage = () => {
                 id={myShare.video.id}
                 userId={myShare.video.user.id}
                 userProfile={myShare.video.user.imgUrl}
-                likeCount={myShare.video.likeCount}
                 userName={myShare.video.user.nickName}
+                likeCount={myShare.video.likeCount}
               />
             ))}
           {toogleState === 3 &&
