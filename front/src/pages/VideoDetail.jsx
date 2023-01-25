@@ -72,7 +72,7 @@ const VideoDetail = () => {
 
   console.log(singlePost);
   // const { url ,videoLike, comments} = singlePost;
-  const liked = singlePost?.videoLike.find((v) => v.userId === userId);
+  const liked = singlePost?.videoLikes.find((v) => v.userId === userId);
   return (
     <section className="videodetail">
       <div className="videodetail__wrapper">
@@ -106,7 +106,7 @@ const VideoDetail = () => {
                   />
                 )}
                 <span style={{ fontSize: "20px", marginLeft: "5px" }}>
-                  {singlePost?.videoLike.length}
+                  {singlePost?.videoLikes.length}
                 </span>
               </div>
             </div>
@@ -127,78 +127,6 @@ const VideoDetail = () => {
                   videoId={videoId}
                 />
               ))}
-
-              {/* <List
-                header={`${singlePost?.comments.length}개의 댓글`}
-                itemLayout="horizontal"
-                dataSource={singlePost?.comments}
-                renderItem={(item) => (
-                  <List.Item
-                    actions={[
-                      <Popover
-                        key="more"
-                        content={[
-                          <Button.Group>
-                            {userId && item.user.id === userId ? ( // 로그인 했고 내아이디가 게시글 작성자와 같다면
-                              // 수정 , 삭제 가능
-                              <div>
-                                <Button
-                                  onClick={() => setEdit((prev) => !prev)}
-                                >
-                                  수정
-                                </Button>
-                                <Button
-                                  type="danger"
-                                  onClick={() => onRemovePost(item.commentId)}
-                                >
-                                  삭제
-                                </Button>
-                              </div>
-                            ) : (
-                              // 다르면 신고 가능
-                              <Button>신고</Button>
-                            )}
-                          </Button.Group>,
-                        ]}
-                      >
-                        <EllipsisOutlined
-                          style={{ fontSize: "20px", cursor: "pointer" }}
-                        />
-                      </Popover>,
-                    ]}
-                  >
-                    {edit ? (
-                      // 수정버튼 눌렀을 때
-                      <Skeleton
-                        avatar
-                        title={false}
-                        loading={item.loading}
-                        active
-                      >
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.user.imgUrl} />}
-                          title={item.user.nickName} //  user nickname
-                        />
-                        <Form title={item.comment} />
-                      </Skeleton>
-                    ) : (
-                      // 수정버튼 안눌렀을때 기본
-                      <Skeleton
-                        avatar
-                        title={false}
-                        loading={item.loading}
-                        active
-                      >
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.user.imgUrl} />}
-                          title={item.user.nickName} //  user nickname
-                          description={item.comment} //  user comment
-                        />
-                      </Skeleton>
-                    )}
-                  </List.Item>
-                )}
-              /> */}
             </div>
           </div>
         </div>
