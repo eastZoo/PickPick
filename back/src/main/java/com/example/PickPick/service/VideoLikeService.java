@@ -19,14 +19,14 @@ public class VideoLikeService {
     private final VideoLikeRepository videoLikeRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public ResultDto addLikeVideo(String token, int videoId){
+    public ResultDto addLikeVideo(String token, VideoLikeDto.LikeRequest request){
         ResultDto result = new ResultDto();
         try{
             if(jwtTokenProvider.validateToken(token)) {
                 VideoLikeEntity entity = VideoLikeEntity.builder()
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
-                        .video(videoRepository.findById(videoId)
+                        .video(videoRepository.findById(request.getVideoId())
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 VideoLikeEntity saved = videoLikeRepository.save(entity);

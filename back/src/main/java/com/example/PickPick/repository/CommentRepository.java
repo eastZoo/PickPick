@@ -18,6 +18,6 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
     @Query(value = "UPDATE CommentEntity c SET c.comment = :comment WHERE c.commentId = :id")
     int updateComment(@Param("id") int id, @Param("comment") String comment);
 
-    @Query("SELECT c FROM CommentEntity c JOIN FETCH c.video WHERE c.user.id = :userId")
+    @Query("SELECT c FROM CommentEntity c JOIN FETCH c.video WHERE c.user.id = :userId ORDER BY c.id DESC")
     List<CommentEntity> findAllByUserIdJoinFetch(@Param("userId") String userId);
 }

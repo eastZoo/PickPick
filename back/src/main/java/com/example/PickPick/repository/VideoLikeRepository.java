@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface VideoLikeRepository extends JpaRepository<VideoLikeEntity, Integer> {
-    @Query("SELECT vl FROM VideoLikeEntity vl JOIN FETCH vl.video WHERE vl.user.id = :userId")
+    @Query("SELECT vl FROM VideoLikeEntity vl JOIN FETCH vl.video WHERE vl.user.id = :userId ORDER BY vl.id DESC")
     List<VideoLikeEntity> findAllByUserIdJoinFetch(@Param("userId")String userId);
 
     List<VideoLikeEntity> findByVideoId(int videoId);

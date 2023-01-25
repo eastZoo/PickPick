@@ -14,7 +14,7 @@ public class VideoLikeController {
     private final VideoLikeService videoLikeService;
 
     @PostMapping
-    public ResultDto<VideoLikeDto.VideoLikes> addLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody int videoId){
+    public ResultDto<VideoLikeDto.VideoLikes> addLikeVideo(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody VideoLikeDto.LikeRequest videoId){
         return videoLikeService.addLikeVideo(token, videoId);
     }
 

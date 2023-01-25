@@ -59,7 +59,7 @@ public class UserService {
 
                 List<VideoEntity> videoEntities = videoRepository.findAllByUserId(userId);
                 List<VideoDto> videos = videoEntities.stream()
-                        .map(v -> new VideoDto(v.getId(), v.getUrl()))
+                        .map(v -> new VideoDto(v.getId(), v.getUrl(), v.getLikeCount()))
                         .collect(Collectors.toList());
 
                 result.setDetail(videos);
