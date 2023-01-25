@@ -16,12 +16,13 @@ public class WishListController {
     private final WishListService wishListService;
 
     @GetMapping
-    @Transactional
+    @Transactional(readOnly = true)
     public ResultDto<VideoDto> getWishList(@RequestHeader("X-AUTH-TOKEN") String token) {
         return wishListService.getWishList(token);
     }
 
     @PostMapping
+    @Transactional
     public ResultDto addWish(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody WishDto wish) {
         return wishListService.addWish(token, wish);
     }
