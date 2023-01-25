@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import { ADD_WISH_REQUEST } from "../redux/reducers/wishReducer";
 import "./Card.css";
 
-//key, id, url, userProfile,userName, userId
+//key, id, url, userProfile, thumbnail, title, subtitle, broadcaster, userId
 const Card = (props) => {
   const dispatch = useDispatch();
 
   const { userId } = useSelector((state) => state.auth);
 
   // post owner data , id = videoId
-  const { key, url, id, userProfile, userName } = props;
+  const { key, url, id, userProfile, userName, comment } = props;
 
   const [youtube, setYoutube] = useState({
     videoId: id,
@@ -92,6 +92,14 @@ const Card = (props) => {
                   : youtube.title}
               </h2>
             </Link>
+            {comment ? (
+              <div>
+                내가 남긴 댓글 :{" "}
+                {comment.length > 30 ? comment.substr(0, 30) + "..." : comment}
+              </div>
+            ) : (
+              ""
+            )}
             <p className="card_text">
               <span className="card__author">{youtube.author}</span>
               <span className="card__like">좋아요 : {props.likeCount}</span>
@@ -115,4 +123,4 @@ const Card = (props) => {
   );
 };
 
-export default React.memo(Card);
+export default Card;

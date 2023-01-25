@@ -11,7 +11,7 @@ function loadWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.get("/wishlist", config);
+  return axios.get("/wishList", config);
 }
 
 function* loadWish(action) {
@@ -44,7 +44,7 @@ function addWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post("/wishlist", { userId: data.userId, videoId: data.videoId }, config);
+  return axios.post("/wishList", { userId: data.userId, videoId: data.videoId }, config);
 }
 
 function* addWish(action) {
@@ -78,7 +78,7 @@ function deleteWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.delete(`/wishlist/${data.wishListId}`, config);
+  return axios.delete(`/wishList/${data.wishListId}`, config);
 }
 
 function* deleteWish(action) {
