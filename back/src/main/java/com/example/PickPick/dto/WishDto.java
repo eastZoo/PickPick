@@ -1,6 +1,5 @@
 package com.example.PickPick.dto;
 
-import com.example.PickPick.domain.VideoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,17 +11,11 @@ public class WishDto {
     private int videoId;
 
     @Getter
+    @Builder
     @AllArgsConstructor
     public static class MyWishList {
         private int id;
         private VideoDto.VideoInfo video;
-    }
-
-    @Getter
-    @Builder
-    public static class AddWishList {
-        private int id;
-        private int videoId;
     }
 
     @Getter

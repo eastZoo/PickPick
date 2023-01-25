@@ -57,9 +57,9 @@ public class WishListService {
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
                 WishEntity saved = wishListRepository.save(wishEntity);
-                WishDto.AddWishList response = WishDto.AddWishList.builder()
+                WishDto.MyWishList response = WishDto.MyWishList.builder()
                         .id(saved.getId())
-                        .videoId(saved.getVideo().getId())
+                        .video(new VideoDto.VideoInfo(saved.getVideo()))
                         .build();
                 result.setMsg("나중에 볼 목록에 영상 추가");
                 result.setSuccess(true);
