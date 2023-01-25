@@ -11,22 +11,18 @@ const Floating = () => {
 
   const { wishList } = useSelector((state) => state.wish);
 
-  function handleClick() {
+  const handleClick = () => {
     setStatus((prevStats) => !prevStats);
-  }
-
-  function checkStatus() {
-    return status ? "appear" : "hidden";
-  }
-
-  useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch({
       type: LOAD_WISH_REQUEST,
       payload: { token: token },
     });
-  }, []);
+  };
 
+  const checkStatus = () => {
+    return status ? "appear" : "hidden";
+  };
   return (
     <div className="container">
       <div className="wrapper">

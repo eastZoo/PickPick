@@ -67,7 +67,6 @@ const MainPage = () => {
               share
             </Button>
           </Form>
-          {addPostError ? <div>잘못된 URL 입니다.</div> : ""}
         </div>
         {/* 검색 카테고리 */}
         <div className="main__content">

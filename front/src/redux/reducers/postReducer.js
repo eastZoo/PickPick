@@ -116,12 +116,12 @@ const postReducer = (state = initialState, action) => {
         addPostError: null,
       };
     case ADD_POST_SUCCESS:
-      console.log(action.data);
+      const url = state.mainPosts
+      url.unshift(action.data)
       return {
         ...state,
         addPostLoading: false,
         addPostDone: true,
-        mainPosts: [...state.mainPosts, action.data],
       };
 
     case ADD_POST_FAILURE:
@@ -139,7 +139,7 @@ const postReducer = (state = initialState, action) => {
       };
     case ADD_COMMENT_SUCCESS:
       const post = state.singlePost.comments
-      post.unshift(action.data.detail)
+      post.push(action.data.detail)
       return {
         ...state,
         addCommentLoading: false,
@@ -226,7 +226,7 @@ const postReducer = (state = initialState, action) => {
         likePostError: null,
       };
     case LIKE_POST_SUCCESS: {
-      const like = state.singlePost.videoLike;
+      const like = state.singlePost.videoLikes;
       like.push(action.data)
       return {
         ...state,
@@ -250,8 +250,8 @@ const postReducer = (state = initialState, action) => {
     case UNLIKE_POST_SUCCESS:
       console.log(state.singlePost.videoLike)
       console.log(action.data.userId)
-      let like = state.singlePost.videoLike;
-      state.singlePost.videoLike = like.filter((v) => v.id !== action.data.id);
+      let like = state.singlePost.videoLikes;
+      state.singlePost.videoLikes = like.filter((v) => v.id !== action.data.id);
       return {
         ...state,
         loadMySharedLoading: false,
