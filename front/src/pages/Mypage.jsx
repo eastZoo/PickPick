@@ -117,6 +117,7 @@ const Mypage = () => {
                 id={myShare.video.id}
                 userId={myShare.video.user.id}
                 userProfile={myShare.video.user.imgUrl}
+                likeCount={myShare.video.likeCount}
                 userName={myShare.video.user.nickName}
               />
             ))}
@@ -129,6 +130,8 @@ const Mypage = () => {
                 userId={myShare.video.user.id}
                 userProfile={myShare.video.user.imgUrl}
                 userName={myShare.video.user.nickName}
+                likeCount={myShare.video.likeCount}
+                comment={myShare.comment}
               />
             ))}
         </ul>
