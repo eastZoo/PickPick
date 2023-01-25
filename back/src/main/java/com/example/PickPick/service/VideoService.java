@@ -51,8 +51,7 @@ public class VideoService {
                         .user(userRepository.findById(jwtTokenProvider.getSubject(token))
                                 .orElseThrow(IllegalArgumentException::new))
                         .build();
-                int videoId = videoRepository.save(videoEntity).getId();
-                result.setDetail(videoRepository.findById(videoId));
+                result.setDetail(videoRepository.save(videoEntity));
                 result.setMsg("영상 추가");
                 result.setSuccess(true);
             } else{
