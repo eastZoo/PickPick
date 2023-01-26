@@ -22,7 +22,10 @@
 - 데이터베이스: PostgreSQL
 
 # DB 설계
+![erd](/assets/erd.png)
 
 # API 설계
+![api](/assets/apiDocument.png)
 
-# 화면 설계
+# 화면
+![home](/assets/home.png)
