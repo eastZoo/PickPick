@@ -3,7 +3,9 @@ const initialState = {
   mainPosts: [],
   singlePost: null,
   comments: [],
-  myShared: {},
+  myShared: [],
+  likeShared: [],
+  commentShared: [],
   likePostLoading: false,
   likePostDone: false,
   likePostError: null,
@@ -84,6 +86,7 @@ export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
 const postReducer = (state = initialState, action) => {
   // draft(state가 이름이바뀐 상태)는 불변성 상관없이 막 바꿔도 immer가 알아서 state를 알아서 불변성 지켜서 다음 스테이트로 만들어줌
   switch (action.type) {
+    //전체게시글 불러오기
     case LOAD_POSTS_REQUEST:
       return {
         ...state,
@@ -97,9 +100,10 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadPostsLoading: false,
         loadPostsDone: true,
-        mainPosts: action.data.detail, // 뭔가
+        mainPosts: action.data.detail,
       };
     case LOAD_POSTS_FAILURE:
+      console.log(action.error)
       return {
         ...state,
         loadPostsLoading: false,
@@ -113,12 +117,12 @@ const postReducer = (state = initialState, action) => {
         addPostError: null,
       };
     case ADD_POST_SUCCESS:
-      console.log(action.data);
+      const url = state.mainPosts
+      url.unshift(action.data)
       return {
         ...state,
         addPostLoading: false,
         addPostDone: true,
-        mainPosts: [...state.mainPosts, action.data],
       };
 
     case ADD_POST_FAILURE:
@@ -136,7 +140,7 @@ const postReducer = (state = initialState, action) => {
       };
     case ADD_COMMENT_SUCCESS:
       const post = state.singlePost.comments
-      post.unshift(action.data.detail)
+      post.push(action.data.detail)
       return {
         ...state,
         addCommentLoading: false,
@@ -156,11 +160,9 @@ const postReducer = (state = initialState, action) => {
         addCommentError: null,
       };
     case REMOVE_COMMENT_SUCCESS:
-      console.log(state.comments);
       console.log(state.singlePost.comments)
-      console.log(action.data)
       let comment = state.singlePost.comments;
-      state.singlePost.comments = comment.filter((v) => v.commentId !== action.data);
+      state.singlePost.comments = comment.filter((v) => v.commentId !== action.data.commentId);
       return {
         ...state,
         addCommentLoading: false,
@@ -171,7 +173,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         addCommentLoading: true,
         addCommentDone: false,
-        addCommentError: null,
+        addCommentError: action.error,
       };
     case LOAD_MYCOMMENT_REQUEST:
     case LOAD_MYLIKE_REQUEST:
@@ -183,7 +185,8 @@ const postReducer = (state = initialState, action) => {
         loadMySharedError: null,
       };
     case LOAD_MYSHARED_SUCCESS:
-      console.log(action.data.videos)
+      console.log(state.myShared)
+      console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: true,
@@ -191,21 +194,18 @@ const postReducer = (state = initialState, action) => {
         myShared: action.data
       }
     case LOAD_MYLIKE_SUCCESS:
-      console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
-        myShared: action.data,
+        likeShared: [...action.data.detail]
       }
     case LOAD_MYCOMMENT_SUCCESS:
-      console.log(state.myShared)
-      console.log(action.data)
       return {
         ...state,
         loadMySharedLoading: false,
         loadMySharedDone: true,
-        myShared: action.data,
+        commentShared: [...action.data.detail]
       }
     case LOAD_MYCOMMENT_FAILURE:
     case LOAD_MYLIKE_FAILURE:
@@ -223,7 +223,7 @@ const postReducer = (state = initialState, action) => {
         likePostError: null,
       };
     case LIKE_POST_SUCCESS: {
-      const like = state.singlePost.videoLike;
+      const like = state.singlePost.videoLikes;
       like.push(action.data)
       return {
         ...state,
@@ -235,7 +235,7 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         likePostLoading: true,
-        likePostError: null,
+        likePostError: action.error,
       };
     case UNLIKE_POST_REQUEST:
       return {
@@ -247,8 +247,8 @@ const postReducer = (state = initialState, action) => {
     case UNLIKE_POST_SUCCESS:
       console.log(state.singlePost.videoLike)
       console.log(action.data.userId)
-      let like = state.singlePost.videoLike;
-      state.singlePost.videoLike = like.filter((v) => v.user.id !== action.data.userId);
+      let like = state.singlePost.videoLikes;
+      state.singlePost.videoLikes = like.filter((v) => v.id !== action.data.id);
       return {
         ...state,
         loadMySharedLoading: false,
@@ -259,7 +259,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadMySharedLoading: true,
         loadMySharedDone: false,
-        loadMySharedError: null,
+        loadMySharedError: action.error,
       };
     case LOAD_POST_REQUEST:
       return {
@@ -297,6 +297,13 @@ const postReducer = (state = initialState, action) => {
         ...state,
         updateCommentLoading: false,
         updateCommentDone: true,
+      }
+    case UPDATE_COMMENT_FAILURE:
+      return {
+        ...state,
+        updateCommentLoading: false,
+        updateCommentDone: false,
+        updateCommentError: action.error
       }
     default:
       return state;

@@ -14,8 +14,27 @@ public class VideoLikeDto {
     private int videoId;
 
     @Getter
+    public static class LikeRequest {
+        private int videoId;
+    }
+
+    @Getter
+    @Builder
     @AllArgsConstructor
-    public static class VideoLikeList {
+    public static class VideoLikes {
+        private int id;
+        private String userId;
+    }
+
+    @Getter
+    @Builder
+    public static class DeleteResponse {
+        private int id;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class MyVideoLikes {
         private int id;
         private VideoEntity video;
     }

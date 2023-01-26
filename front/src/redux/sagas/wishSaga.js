@@ -1,6 +1,6 @@
 import axios from "axios";
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
-import { ADD_WISH_FAILURE, ADD_WISH_REQUEST, ADD_WISH_SUCCESS, LOAD_WISH_FAILURE, LOAD_WISH_REQUEST, LOAD_WISH_SUCCESS, REMOVE_WISH_FAILURE, REMOVE_WISH_REQUEST, REMOVE_WISH_SUCCESS } from "../reducers/wishList";
+import { ADD_WISH_FAILURE, ADD_WISH_REQUEST, ADD_WISH_SUCCESS, LOAD_WISH_FAILURE, LOAD_WISH_REQUEST, LOAD_WISH_SUCCESS, REMOVE_WISH_FAILURE, REMOVE_WISH_REQUEST, REMOVE_WISH_SUCCESS } from "../reducers/wishReducer";
 
 
 // GET wish 전체 불러오기 
@@ -11,7 +11,7 @@ function loadWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.get("/wishlist", config);
+  return axios.get("/wishList", config);
 }
 
 function* loadWish(action) {
@@ -26,7 +26,7 @@ function* loadWish(action) {
     console.error(err);
     yield put({
       type: LOAD_WISH_FAILURE,
-      error: err.response.data,
+      error: err.message,
     });
   }
 }
@@ -38,14 +38,13 @@ function* watchLoadWish() {
 
 // POST 위시리스트 추가
 function addWishAPI(data) {
-  console.log(data);
   const config = {
     headers: {
       "Content-Type": "application/json",
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.post("/wishlist", { userId : data.userId, videoId:data.videoId }, config);
+  return axios.post("/wishList", { userId: data.userId, videoId: data.videoId }, config);
 }
 
 function* addWish(action) {
@@ -79,7 +78,7 @@ function deleteWishAPI(data) {
     }
   };
   config.headers["X-AUTH-TOKEN"] = data.token;
-  return axios.delete(`/wishlist/${data.wishListId}`, config);
+  return axios.delete(`/wishList/${data.wishListId}`, config);
 }
 
 function* deleteWish(action) {
@@ -94,7 +93,7 @@ function* deleteWish(action) {
   } catch (err) {
     yield put({
       type: REMOVE_WISH_FAILURE,
-      error: err.response.data
+      error: err.message
     });
   }
 }

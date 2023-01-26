@@ -10,13 +10,12 @@ import {
   LOAD_MY_INFO_SUCCESS,
   LOAD_MY_INFO_FAILURE,
   LOAD_MY_INFO_REQUEST,
-} from "../reducers/auth";
+} from "../reducers/authReducer";
 import jwt_decode from "jwt-decode";
 import { customHistory } from "../../store";
 
-//Login 로그인
+//POST 로그인&&카카오 API 로그인
 const loginUserAPI = (code) => {
-  console.log("SAGAS code :", code);
   const config = {
     headers: {
       "Content-Type": 'application/json',
@@ -35,10 +34,11 @@ function* loginUser(action) {
       payload: { result, userInfo },
     });
     customHistory.replace("/");
-  } catch (e) {
+  } catch (err) {
+    console.log(err.message)
     yield put({
       type: LOG_IN_FAILURE,
-      payload: e.response,
+      error: err.message,
     });
   }
 }
@@ -47,6 +47,8 @@ function* loginUser(action) {
 function* watchLoginUser() {
   yield takeLatest(LOG_IN_REQUEST, loginUser);
 }
+// END
+
 
 //LogOut 로그아웃
 function* logout() {

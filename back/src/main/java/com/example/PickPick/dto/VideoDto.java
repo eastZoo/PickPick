@@ -1,12 +1,8 @@
 package com.example.PickPick.dto;
 
-import com.example.PickPick.domain.CommentEntity;
-import com.example.PickPick.domain.UserEntity;
-import com.example.PickPick.domain.VideoLikeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.PickPick.domain.VideoEntity;
+import com.example.PickPick.mapper.UserMapper;
+import lombok.*;
 
 import java.util.List;
 
@@ -17,7 +13,8 @@ import java.util.List;
 public class VideoDto {
     private int id;
     private String url;
-    private String userId;
+    private int likeCount;
+
 
     @Getter
     @Builder
@@ -25,8 +22,22 @@ public class VideoDto {
     public static class VideoDetailDto{
         private int videoId;
         private String url;
-        private UserEntity user;
-        private List<VideoLikeEntity> videoLike;
-        private List<CommentEntity> comments;
+        private List<VideoLikeDto.VideoLikes> videoLikes;
+        private List<CommentDto.Response> comments;
+    }
+
+    @Getter
+    public static  class VideoInfo {
+        private int id;
+        private String url;
+        private UserDto user;
+        private int likeCount;
+
+        public VideoInfo(VideoEntity video) {
+            this.id = video.getId();
+            this.url = video.getUrl();
+            this.user = UserMapper.mapper.userEntityToDto(video.getUser());
+            this.likeCount = video.getLikeCount();
+        }
     }
 }

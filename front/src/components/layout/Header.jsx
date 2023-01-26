@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   LOAD_MY_INFO_REQUEST,
   LOG_OUT_REQUEST,
-} from "../../redux/reducers/auth";
+} from "../../redux/reducers/authReducer";
 import { useEffect } from "react";
-import { LOAD_POSTS_REQUEST } from "../../redux/reducers/post";
+import { LOAD_POSTS_REQUEST } from "../../redux/reducers/postReducer";
 
 const Header = () => {
   const { isAuthenticated, userName, profileUrl } = useSelector(

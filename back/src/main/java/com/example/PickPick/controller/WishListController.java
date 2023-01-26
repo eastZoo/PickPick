@@ -9,25 +9,27 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("wishlist")
+@RequestMapping("wishList")
 @RequiredArgsConstructor
 public class WishListController {
 
     private final WishListService wishListService;
 
     @GetMapping
+    @Transactional(readOnly = true)
     public ResultDto<VideoDto> getWishList(@RequestHeader("X-AUTH-TOKEN") String token) {
         return wishListService.getWishList(token);
     }
 
     @PostMapping
+    @Transactional
     public ResultDto addWish(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody WishDto wish) {
         return wishListService.addWish(token, wish);
     }
 
-    @DeleteMapping("/{WishListId}")
+    @DeleteMapping("/{wishListId}")
     @Transactional
-    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "WishListId") int wishListId) {
+    public ResultDto deleteWish(@RequestHeader("X-AUTH-TOKEN") String token, @PathVariable(value = "wishListId") int wishListId) {
         return wishListService.deleteWish(token, wishListId);
     }
 }

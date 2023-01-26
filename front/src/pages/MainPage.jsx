@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DropDown from "../DropDown";
+
 import "./MainPage.css";
 import { useState } from "react";
-import Button from "../UI/Button";
-import SearchBar from "../UI/SearchBar";
 import { Form } from "antd";
-import Card from "../Card";
+
 import {
   ADD_POST_REQUEST,
   LOAD_POSTS_REQUEST,
-} from "../../redux/reducers/post";
+} from "../redux/reducers/postReducer";
+import DropDown from "../components/DropDown";
+import Button from "../components/UI/Button";
+import SearchBar from "../components/UI/SearchBar";
+import Card from "../components/Card";
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState("");
 
-  const { mainPosts } = useSelector((state) => state.post);
-  const { userId } = useSelector((state) => state.auth);
+  const { mainPosts, addPostError } = useSelector((state) => state.post);
 
   const [order, setOrder] = useState("");
   const sortedItems = mainPosts.sort((a, b) => b[order] - a[order]);
@@ -37,7 +38,7 @@ const MainPage = () => {
       const token = localStorage.getItem("token");
       dispatch({
         type: ADD_POST_REQUEST,
-        payload: { url: link[1], token: token, userId: userId },
+        payload: { url: link[1], token: token },
       });
     }
     setUrl("");

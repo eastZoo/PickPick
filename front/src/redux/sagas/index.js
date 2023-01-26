@@ -1,9 +1,9 @@
 import { all, fork } from 'redux-saga/effects';
 import axios from 'axios';
-import authSaga from './auth';
+import authSaga from './authSaga';
 import { backUrl } from '../../config/config';
-import postSaga from './post';
-import wishSaga from './wishList';
+import postSaga from './postSaga';
+import wishSaga from './wishSaga';
 
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true; // sagas에서 보내는 axios요청들에는 전부 공통적으로 적용된다!

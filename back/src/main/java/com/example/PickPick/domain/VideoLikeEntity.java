@@ -25,12 +25,12 @@ public class VideoLikeEntity {
     @Column(name = "video_like_id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @NotFound(action = NotFoundAction.IGNORE)
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "video_id")
     private VideoEntity video;
 }

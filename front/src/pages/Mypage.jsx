@@ -2,38 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, List, Popover, Button, Skeleton } from "antd";
 import "./Mypage.css";
-import Card from "../Card";
+import Card from "../components/Card";
 import {
   LOAD_MYCOMMENT_REQUEST,
   LOAD_MYLIKE_REQUEST,
   LOAD_MYSHARED_REQUEST,
-} from "../../redux/reducers/post";
+} from "../redux/reducers/postReducer";
+import { useLocation } from "react-router-dom";
 
 const Mypage = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, userName, profileUrl } = useSelector(
+  const { myShared, likeShared, commentShared } = useSelector(
+    (state) => state.post
+  );
+  const otherShared = useSelector((state) => state.post.otherShared);
+  const { isAuthenticated, userId, userName, profileUrl } = useSelector(
     (state) => state.auth
   );
-  const { myShared } = useSelector((state) => state.post);
+
+  const token = localStorage.getItem("token");
   const [toogleState, setToggleState] = useState(1);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
-  const { id, imgUrl, nickName } = myShared;
 
   const myLikeHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYLIKE_REQUEST, data: { token: token } });
   };
 
   const mySharedHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   };
 
   const myCommentHandler = () => {
-    const token = localStorage.getItem("token");
     dispatch({ type: LOAD_MYCOMMENT_REQUEST, data: { token: token } });
   };
 
@@ -42,8 +44,7 @@ const Mypage = () => {
     dispatch({ type: LOAD_MYSHARED_REQUEST, data: { token: token } });
   }, []);
 
-  console.log(myShared);
-
+  console.log("otherShared : ", otherShared);
   return (
     <div className="profile__container">
       <div className="profile__inner">
@@ -97,23 +98,22 @@ const Mypage = () => {
             </li>
           </ul>
         </div>
+        {/* 카드나오는 곳 */}
         <ul className="cards">
           {toogleState === 1 &&
-            myShared?.videos &&
-            myShared.videos.map((myShare) => (
+            myShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.url}
                 id={myShare.id}
-                userId={id}
-                userProfile={imgUrl}
-                userName={nickName}
+                userId={userId}
+                userProfile={profileUrl}
+                userName={userName}
+                likeCount={myShare.likeCount}
               />
             ))}
-          {/* 내가 누른 좋아요 목록 */}
           {toogleState === 2 &&
-            myShared?.detail &&
-            myShared.detail.map((myShare) => (
+            likeShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}
@@ -121,11 +121,11 @@ const Mypage = () => {
                 userId={myShare.video.user.id}
                 userProfile={myShare.video.user.imgUrl}
                 userName={myShare.video.user.nickName}
+                likeCount={myShare.video.likeCount}
               />
             ))}
           {toogleState === 3 &&
-            myShared?.detail &&
-            myShared.detail.map((myShare) => (
+            commentShared.map((myShare) => (
               <Card
                 key={myShare.id}
                 url={myShare.video.url}
@@ -133,6 +133,8 @@ const Mypage = () => {
                 userId={myShare.video.user.id}
                 userProfile={myShare.video.user.imgUrl}
                 userName={myShare.video.user.nickName}
+                likeCount={myShare.video.likeCount}
+                comment={myShare.comment}
               />
             ))}
         </ul>

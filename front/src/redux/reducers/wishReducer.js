@@ -1,6 +1,6 @@
 // store.js 에 있는 initialState 이름과 같이해줘야됨
 const initialState = {
-  wishList : [],
+  wishList: [],
   loadWishLoading: false,
   loadWishDone: false,
   loadWishError: null,
@@ -63,7 +63,7 @@ const wishReducer = (state = initialState, action) => {
         ...state,
         addWishLoading: false,
         addWishDone: true,
-        wishList: [...state.wishList ,action.data],
+        wishList: [...state.wishList, action.data],
       };
     case ADD_WISH_FAILURE:
       return {
@@ -72,27 +72,28 @@ const wishReducer = (state = initialState, action) => {
         addWishDone: false,
         addWishError: action.msg,
       };
-      case REMOVE_WISH_REQUEST:
-        return {
-          ...state,
-          removeWishLoading: true,
-          removeWishDone: false,
-          removeWishError: null,
-        };
-      case REMOVE_WISH_SUCCESS:
-        return {
-          ...state,
-          removeWishLoading: false,
-          removeWishDone: true,
-          wishList: state.wishList.filter((v) => v.id !== action.data)
-        }
-      case REMOVE_WISH_FAILURE:
-        return {
-          ...state,
-          removeWishLoading: true,
-          removeWishDone: false,
-          removeWishError: action.data.msg,
-        };
+    case REMOVE_WISH_REQUEST:
+      return {
+        ...state,
+        removeWishLoading: true,
+        removeWishDone: false,
+        removeWishError: null,
+      };
+    case REMOVE_WISH_SUCCESS:
+      console.log(action.data)
+      return {
+        ...state,
+        removeWishLoading: false,
+        removeWishDone: true,
+        wishList: state.wishList.filter((v) => v.id !== action.data.id)
+      }
+    case REMOVE_WISH_FAILURE:
+      return {
+        ...state,
+        removeWishLoading: true,
+        removeWishDone: false,
+        removeWishError: action.error,
+      };
     default:
       return state;
   }

@@ -11,12 +11,13 @@ import java.util.List;
 
 
 public interface CommentRepository extends JpaRepository<CommentEntity, Integer> {
-    List<CommentEntity> findAllByVideoId(int id);
+    List<CommentEntity> findAllByVideoId(int videoId);
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE CommentEntity c SET c.comment = :comment where c.commentId = :id")
+    @Query(value = "UPDATE CommentEntity c SET c.comment = :comment WHERE c.commentId = :id")
     int updateComment(@Param("id") int id, @Param("comment") String comment);
 
-    List<CommentEntity> findAllByUserId(String userId);
+    @Query("SELECT c FROM CommentEntity c JOIN FETCH c.video WHERE c.user.id = :userId ORDER BY c.id DESC")
+    List<CommentEntity> findAllByUserIdJoinFetch(@Param("userId") String userId);
 }
